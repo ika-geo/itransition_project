@@ -7,7 +7,6 @@ import Template from "./pages/Template.jsx";
 import User from "./pages/User.jsx";
 
 
-
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Header />}>
@@ -20,9 +19,7 @@ const router = createBrowserRouter(
     )
 );
 
-
 function App() {
-
     return (
         <RouterProvider router={router}/>
     )

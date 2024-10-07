@@ -1,6 +1,6 @@
 const Template = () => {
     return (
-        <div className="min-h-screen bg-gray-50 py-12">
+        <div className="min-h-screen py-12">
             <div className="container mx-auto">
                 <div className="bg-white shadow-lg rounded-lg p-8">
                     <h1 className="text-4xl font-bold mb-4 text-gray-800">Template Title</h1>

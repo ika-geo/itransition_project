@@ -17,7 +17,7 @@ const AdminPage = () => {
     if (!panelItems) return
 
     return (
-        <div className="min-h-screen bg-gray-100 py-10">
+        <div className="min-h-screen py-10">
             <div className="container mx-auto">
                 <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">{panelItems.header}</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

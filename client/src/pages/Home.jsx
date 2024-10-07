@@ -1,10 +1,12 @@
 const Home = () => {
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen">
             <div className="container mx-auto py-12">
                 <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">Welcome to the Form Builder</h1>
 
-                <div className="flex flex-col items-center md:flex-row md:space-x-8">
+                <div className="flex flex-col md:flex-row md:space-x-8">
+
+
                     <div className="bg-white shadow-lg rounded-lg p-6 mb-8 md:mb-0 w-full md:w-1/3 hover:shadow-2xl transition-shadow duration-300">
                         <h2 className="text-2xl font-semibold mb-4 text-gray-800">Latest Templates</h2>
                         <ul className="space-y-2">

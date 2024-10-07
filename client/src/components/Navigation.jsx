@@ -18,12 +18,12 @@ const Navigation = () => {
     };
 
     return (
-        <div>
+        <div className='flex items-center gap-x-6'>
             <nav className='flex gap-x-2'>
                 {navItems?.map((navItem) => {
                     return (
                         <Link
-                            className={pathname===navItem.url ? 'text-primary' : ''}
+                            className={'font-semibold '+(pathname === navItem.url ? 'text-primary' : '')}
                             key={navItem.label}
                             to={navItem.url}>
                             {navItem.label}
@@ -32,11 +32,22 @@ const Navigation = () => {
                 })}
             </nav>
 
-            {language.map((lng) => (
-                <button disabled={i18n.language===lng} className={'mr-2 '+(i18n.language===lng?"bg-red-600":"cursor-pointer")} key={lng} onClick={() => changeLanguage(lng)}>
-                    {t(`${lng}`)}
-                </button>
-            ))}
+
+            <select
+                className="bg-primary text-white rounded py-1 px-3 cursor-pointer"
+                onChange={e => changeLanguage(e.target.value)}
+            >
+                {language.map((lng) => (
+                    <option
+                        key={lng}
+                        value={lng}
+                    >
+                        {t(`${lng}`)}
+                    </option>
+                ))}
+            </select>
+
+
         </div>
     );
 };

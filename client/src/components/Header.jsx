@@ -5,18 +5,18 @@ import Navigation from "./Navigation.jsx";
 
 const Header = () => {
     return (
-        <div className='light-mode'>
-            <header className='flex justify-between container'>
+        <div className='bg-bgColor min-h-screen'>
+
+            <header className='flex justify-between container py-5'>
 
                 <Link to='/'>Home page</Link>
-
 
                 <Navigation/>
 
             </header>
-            <div>
-                <Outlet/>
-            </div>
+
+            <Outlet/>
+
         </div>
 
     );
