@@ -12,8 +12,6 @@ const AdminPage = () => {
         setPanelItems(t('adminDashboard', { returnObjects: true }));
     }, [t]);
 
-    console.log(panelItems)
-
     if (!panelItems) return
 
     return (

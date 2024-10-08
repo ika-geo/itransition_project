@@ -10,7 +10,7 @@ export default {
         primary: '#22a192',
         lightPrimary: 'rgba(0,255,151,0.6)',
         secondary: '#f1c40f',
-        bgColor: '#f9fafb'
+        bgColor: '#e1e1e1'
       }
     },
   },

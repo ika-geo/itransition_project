@@ -5,14 +5,11 @@ import Navigation from "./Navigation.jsx";
 
 const Header = () => {
     return (
-        <div className='bg-bgColor min-h-screen'>
+        <div>
 
             <header className='flex justify-between container py-5'>
-
                 <Link to='/'>Home page</Link>
-
                 <Navigation/>
-
             </header>
 
             <Outlet/>

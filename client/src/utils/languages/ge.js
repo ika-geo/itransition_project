@@ -1,7 +1,7 @@
 export const ge = {
     translation: {
-        'nav': [{label: "მთავარი", url: "/"}, {label: "თარგი", url: "/template"}, {label: "მომხმარებელი", url: "/user"}, {label: "ადმინი", url: "/admin"}],
-        'adminDashboard': {
+        nav: [{label: "მთავარი", url: "/"}, {label: "თარგი", url: "/template"}, {label: "მომხმარებელი", url: "/user"}, {label: "ადმინი", url: "/admin"}],
+        adminDashboard: {
             header: 'ადმინ პანელი',
             buttonTitle: 'მართვა',
             items:[
@@ -10,7 +10,33 @@ export const ge = {
                 {title: 'მომხმარებლების პასუხების მართვა', url: '/manageUsersAnswers', description: 'შეცვალეთ ან წაშალეთ ნებისმიერი მომხმარებლის პასუხი.'},
                 {title: 'თეგების მართვა', url: '/manageTags', description: 'შეცვალეთ ან წაშალეთ ნებისმიერი ტეგი, ან დაამატეთ ახალი.'}
             ]
-        }
+        },
+        loading: "დაელოდეთ...",
+        logOut: 'გამოსვლა',
+        loginRegistration:{
+            login:{
+                title: 'ავტორიზაცია',
+                loginBtn: 'შესვლა',
+                redirectToRegister:{
+                    text: 'არ გაქვთ ჯერ ანგარიში? ',
+                    linkText: 'დარეგისტრირდით'
+                }
+            },
+            registration:{
+                title: 'რეგისტრაცია',
+                registerBtn: 'რეგისტრაცია',
+                redirectToLogin:{
+                    text: 'გაქვთ უკვე ანგარიში? ',
+                    linkText: 'ავტორიზაცია'
+                },
+                name: 'სახელი',
+                namePlaceHolder: 'შეიყვანეთ სახელი',
+            },
+            email: 'მეილი',
+            emailPlaceHolder: 'შეიყვანეთ მეილი',
+            password: 'პაროლი',
+            passwordPlaceHolder: 'შეიყვანეთ პაროლი',
+        },
     }
 }
 
