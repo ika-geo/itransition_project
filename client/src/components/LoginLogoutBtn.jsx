@@ -14,8 +14,6 @@ const LoginLogoutBtn = () => {
     const navigate = useNavigate()
     const userName = useSelector(state=>state.user?.user?.name)
 
-
-
     const loginTitle = t('loginRegistration.login.title')
     const logoutTitle = t('logOut')
 
@@ -29,10 +27,10 @@ const LoginLogoutBtn = () => {
             {userName ? (
                 <div className='flex items-center'>
                     <h2 className='text-3xl font-semibold text-primary mr-2'>{userName}</h2>
-                    <button className='button px-2 py-2' onClick={handleLogOut}>{logoutTitle}</button>
+                    <button className='button px-2 py-2 bg-red-500' onClick={handleLogOut}>{logoutTitle}</button>
                 </div>
             ) : (
-                <Link className='button' to='/login'>{loginTitle}</Link>
+                <Link className='button px-2 py-2' to='/login'>{loginTitle}</Link>
             )}
         </>
     );

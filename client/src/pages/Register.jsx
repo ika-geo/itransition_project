@@ -1,5 +1,5 @@
 import {Link, useNavigate} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ChangeLanguage from "../components/ChangeLanguage.jsx";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,11 +12,17 @@ const Register = () => {
     const navigate = useNavigate()
 
     const loading = useSelector(state=>state.user.loading)
+    const userName = useSelector(state=>state.user?.user?.name)
+
+    useEffect(() => {
+        if (userName){
+            navigate('/')
+        }
+    }, [userName]);
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
 
     const handleSetName = (e) => {
         setName(e.target.value)
@@ -33,12 +39,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!name ||!email ||!password) return toast.warning('Fill all fields')
-        let response = await dispatch(register({name, email, password}))
-        if (response.meta.requestStatus==='fulfilled'){
-            setTimeout(()=>{
-                navigate('/')
-            }, 300)
-        }
+        dispatch(register({name, email, password}))
     }
 
     return (

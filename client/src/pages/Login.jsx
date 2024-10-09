@@ -1,7 +1,7 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import ChangeLanguage from "../components/ChangeLanguage.jsx";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import {login} from "../store/features/UserSlice.js";
@@ -9,11 +9,17 @@ import {login} from "../store/features/UserSlice.js";
 const Login = () => {
 
     const {t} = useTranslation()
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const loading = useSelector(state=>state.user.loading)
+
+    const userName = useSelector(state=>state.user?.user?.name)
+    useEffect(() => {
+        if (userName){
+            navigate('/')
+        }
+    }, [userName]);
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -29,12 +35,11 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!email ||!password) return toast.warning('Fill all fields')
-        let response = await dispatch(login({email, password}))
-        if (response.meta.requestStatus==='fulfilled'){
-            setTimeout(()=>{
-                navigate('/')
-            }, 300)
-        }
+        await dispatch(login({email, password}))
+
+        // if (response.meta.requestStatus==='fulfilled'){
+        //  navigate('/')
+        // }
     }
 
     return (

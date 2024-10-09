@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, Outlet} from "react-router-dom";
-import Navigation from "./Navigation.jsx";
+import NavMenu from "./NavMenu.jsx";
 
 
 const Header = () => {
@@ -9,7 +9,7 @@ const Header = () => {
 
             <header className='flex justify-between container py-5'>
                 <Link to='/'>Home page</Link>
-                <Navigation/>
+                <NavMenu/>
             </header>
 
             <Outlet/>

@@ -6,13 +6,16 @@ const {hashPassword, comparePassword} = require("../utils/bcryptPassword");
 const authController = {
     login: async(req, res) => {
         const {email, password} = req.body
+        console.log(email)
         try {
-            const user = await User.findOne({email})
-            if (!user) return res.status(404).json({message: "Invalid credentials", error:"User not found"})
+            const user = await User.findOne({ where: { email } });
+            console.log(user)
+            if (!user) return res.status(401).json({message: "Invalid credentials", error:"User not found"})
             const isMatch = await comparePassword(password, user.password)
             if (!isMatch) return res.status(401).json({message: "Invalid credentials", error: "Password mismatch"})
             res.json(userDto(user))
         } catch (e) {
+            console.log(e)
             res.status(500).json({error: e.message})
         }
     },
