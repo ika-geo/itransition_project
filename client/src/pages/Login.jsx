@@ -4,7 +4,7 @@ import ChangeLanguage from "../components/ChangeLanguage.jsx";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {toast} from "react-toastify";
-import {login} from "../store/features/UserSlice.js";
+import {login} from "../store/features/AuthSlice.js";
 
 const Login = () => {
 
@@ -12,9 +12,9 @@ const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const loading = useSelector(state=>state.user.loading)
+    const loading = useSelector(state=>state.auth.loading)
+    const userName = useSelector(state=>state.auth?.user?.name)
 
-    const userName = useSelector(state=>state.user?.user?.name)
     useEffect(() => {
         if (userName){
             navigate('/')

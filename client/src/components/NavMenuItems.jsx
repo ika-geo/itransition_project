@@ -7,8 +7,10 @@ const NavMenuItems = () => {
     const pathname = useLocation().pathname;
     const {t} = useTranslation()
 
-    let user = useSelector(state => state.user.user)
+    let user = useSelector(state => state.auth.user)
     const [navItems, setNavItems] = useState([])
+
+    console.log(user)
 
     useEffect(() => {
         setNavItems(t('nav', {returnObjects: true}));
@@ -17,12 +19,11 @@ const NavMenuItems = () => {
     return (
         <nav className='flex gap-x-2'>
             {navItems?.map((navItem) => {
-                if (user?.role !== 'admin' && (navItem.url === '/user' || navItem.url === '/admin')) return null
+                if (user?.role !== 'admin' && (navItem.url === '/users' || navItem.url === '/admin')) return null
                 return (
                     <Link
-                        key={navItem.key}
-                        className={'font-semibold ' + (pathname === navItem.url ? 'text-primary' : '')}
                         key={navItem.label}
+                        className={'font-semibold ' + (pathname === navItem.url ? 'text-primary' : '')}
                         to={navItem.url}>
                         {navItem.label}
                     </Link>

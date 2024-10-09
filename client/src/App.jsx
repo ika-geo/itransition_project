@@ -7,29 +7,36 @@ import AdminPage from "./pages/Admin.jsx";
 import Header from "./components/Header.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import Template from "./pages/Template.jsx";
-import User from "./pages/User.jsx";
+import Users from "./pages/Users.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 
 import 'react-toastify/dist/ReactToastify.css';
 
 
+const adminRoutes = (
+    <>
+        <Route path="/users" element={<Users />} />
+        <Route path="/admin" element={<AdminPage />} />
+    </>
+)
 
-const authorizedRoutes = (
+const authorizedRoutes = (userRole)=>(
     <Route path="/" element={<Header />}>
         <Route index element={<Home />} />
         <Route path="/template" element={<Template />} />
-        <Route path="/user" element={<User />} />
-        <Route path="/admin" element={<AdminPage />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        {
+            userRole==='admin' && adminRoutes
+        }
 
         <Route path="*" element={<ErrorPage />} />
     </Route>
 );
 
-const unauthorizedRoutes = (
+const unauthorizedRoutes =()=> (
     <>
         <Route path="/" element={<Header />}>
             <Route index element={<Home />} />
@@ -43,15 +50,16 @@ const unauthorizedRoutes = (
 );
 
 function App() {
-    const user = useSelector(state => state.user?.user);
+    const user = useSelector(state => state.auth.user);
 
     const router = createBrowserRouter(
-        createRoutesFromElements(user ? authorizedRoutes : unauthorizedRoutes)
+        createRoutesFromElements(user ? authorizedRoutes(user?.role) : unauthorizedRoutes())
     );
 
     return (
         <div className='bg-bgColor min-h-screen'>
-            <RouterProvider router={router} />
+            <RouterProvider
+                router={router} />
             <ToastContainer />
         </div>
     );

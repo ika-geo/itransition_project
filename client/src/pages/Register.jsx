@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import ChangeLanguage from "../components/ChangeLanguage.jsx";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
-import {register} from "../store/features/UserSlice.js";
+import {register} from "../store/features/AuthSlice.js";
 import {toast} from "react-toastify";
 
 const Register = () => {
@@ -11,8 +11,8 @@ const Register = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const loading = useSelector(state=>state.user.loading)
-    const userName = useSelector(state=>state.user?.user?.name)
+    const loading = useSelector(state=>state.auth.loading)
+    const userName = useSelector(state=>state.auth?.user?.name)
 
     useEffect(() => {
         if (userName){

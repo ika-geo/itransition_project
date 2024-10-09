@@ -14,6 +14,10 @@
     @apply px-6 py-3 text-white rounded-md bg-primary hover:opacity-70
 }
 
+.buttonSlim{
+    @apply p-2 text-white rounded-md bg-primary hover:opacity-70
+}
+
 nav{
     a:hover{
         @apply hover:text-primary

@@ -8,7 +8,7 @@ export default {
     extend: {
       colors:{
         primary: '#22a192',
-        lightPrimary: 'rgba(0,255,151,0.6)',
+        lightPrimary: 'rgba(0,255,151,0.2)',
         secondary: '#f1c40f',
         bgColor: '#e1e1e1'
       }

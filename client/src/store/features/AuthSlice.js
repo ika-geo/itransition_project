@@ -15,13 +15,18 @@ export const login = createAsyncThunk('user/login', async function (data, thunkA
     return await handleAsyncThunk(serverUrl+"/login", 'post', data, thunkApi)
 })
 
+export const getMe = createAsyncThunk('user/getMe', async function (id, thunkApi){
+    return await handleAsyncThunk(serverUrl+"/getme", 'post', id, thunkApi)
+})
+
+
 const initialState = {
     user: null,
     error: null,
     loading: false,
 }
 
-export const UserSlice = createSlice({
+export const AuthSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
@@ -37,7 +42,7 @@ export const UserSlice = createSlice({
             .addCase(register.fulfilled, (state, action) => {
                 state.loading = false
                 state.user=action.payload
-                toast.success('User registered successfully')
+                toast.success('Users registered successfully')
             })
             .addCase(register.rejected, (state, action) => {
                 handleErrorMessage(action, "Cannot register user")
@@ -55,10 +60,22 @@ export const UserSlice = createSlice({
                 handleErrorMessage(action, "Cannot login")
                 state.loading = false
             })
+
+            .addCase(getMe.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getMe.fulfilled, (state, action) => {
+                state.loading = false
+                state.user=action.payload
+            })
+            .addCase(getMe.rejected, (state, action) => {
+                handleErrorMessage(action, "Cannot refresh me")
+                state.loading = false
+            })
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { logout } = UserSlice.actions
+export const { logout } = AuthSlice.actions
 
-export default UserSlice.reducer
+export default AuthSlice.reducer

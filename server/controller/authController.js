@@ -31,6 +31,11 @@ const authController = {
         catch (e) {
             res.status(500).json({error: e.message})
         }
+    },
+    getMe: async(req, res) => {
+        const {id} = req.body
+        const user = await User.findByPk(id)
+        res.status(200).json(userDto(user))
     }
 }
 

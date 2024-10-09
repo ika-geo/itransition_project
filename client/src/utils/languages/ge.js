@@ -1,6 +1,6 @@
 export const ge = {
     translation: {
-        nav: [{label: "მთავარი", url: "/"}, {label: "თარგი", url: "/template"}, {label: "მომხმარებელი", url: "/user"}, {label: "ადმინი", url: "/admin"}],
+        nav: [{label: "მთავარი", url: "/"}, {label: "თარგი", url: "/template"}, {label: "მომხმარებლები", url: "/users"}, {label: "ადმინი", url: "/admin"}],
         adminDashboard: {
             header: 'ადმინ პანელი',
             buttonTitle: 'მართვა',
@@ -37,6 +37,18 @@ export const ge = {
             password: 'პაროლი',
             passwordPlaceHolder: 'შეიყვანეთ პაროლი',
         },
+        usersPage:{
+            title: 'მომხარებლები',
+            name: 'სახელი',
+            email: "მეილი",
+            role: "როლი",
+            admin: "ადმინისტრატორი",
+            user: "მომხმარებელი",
+            actions: "ქმედება",
+            setAdminBtn: "ადმინად დანიშვნა",
+            removeAdminBtn: "ადმინობის წაშლა",
+            me: "მე"
+        }
     }
 }
 

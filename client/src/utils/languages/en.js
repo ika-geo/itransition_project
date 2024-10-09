@@ -1,6 +1,6 @@
 export const en = {
     translation: {
-        nav: [{label: "Home", url: "/"}, {label: "Template", url: "/template"}, {label: "User", url: "/user"}, {label: "Admin", url: "/admin"}],
+        nav: [{label: "Home", url: "/"}, {label: "Template", url: "/template"}, {label: "Users", url: "/users"}, {label: "Admin", url: "/admin"}],
         adminDashboard: {
             header: 'Admin Dashboard',
             buttonTitle: 'Manage',
@@ -37,5 +37,17 @@ export const en = {
             password: 'Password',
             passwordPlaceHolder: 'Enter you password',
         },
+        usersPage:{
+            title: 'Users',
+            name: 'Name',
+            email: "Email",
+            role: "Role",
+            admin: "Admin",
+            user: "User",
+            actions: "Actions",
+            setAdminBtn: "Set admin",
+            removeAdminBtn: "Remove admin",
+            me: "me"
+        }
     }
 }
