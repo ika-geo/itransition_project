@@ -10,8 +10,6 @@ const NavMenuItems = () => {
     let user = useSelector(state => state.auth.user)
     const [navItems, setNavItems] = useState([])
 
-    console.log(user)
-
     useEffect(() => {
         setNavItems(t('nav', {returnObjects: true}));
     }, [t]);
