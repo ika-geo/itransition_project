@@ -7,7 +7,6 @@ import {useNavigate} from "react-router-dom";
 
 
 const Users = () => {
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {t} = useTranslation()
@@ -19,8 +18,10 @@ const Users = () => {
     }, [])
 
     const handleGetMe = async (id) => {
-        if (id === user.id) dispatch(getMe({id: id}))
-        navigate('/')
+        if (id === user.id){
+            navigate('/')
+            dispatch(getMe({id: id}))
+        }
     }
 
     const handleRemoveAdmin = async (id) => {
