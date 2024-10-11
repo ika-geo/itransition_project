@@ -41,11 +41,10 @@ const unauthorizedRoutes =()=> (
         <Route path="/" element={<Header />}>
             <Route index element={<Home />} />
             <Route path="/template" element={<Template />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<ErrorPage />} />
         </Route>
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="*" element={<ErrorPage />} />
     </>
 );
 

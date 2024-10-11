@@ -1,29 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import i18n from "i18next";
 import {useTranslation} from "react-i18next";
+import Select from 'react-select';
 
 const ChangeLanguage = () => {
 
-    const language =['en', 'ge']
-    const {t} = useTranslation()
-    const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
-        console.log(lng)
-    };
+    const languages = [
+        { value: 'en', label: 'en' },
+        { value: 'ge', label: 'ge' }
+    ]
+
+    const changeLanguage = (e)=>{
+        i18n.changeLanguage(e.value);
+    }
+
     return (
-        <select
-            className="bg-primary text-white rounded py-1 px-3 cursor-pointer"
-            onChange={e => changeLanguage(e.target.value)}
-        >
-            {language.map((lng) => (
-                <option
-                    key={lng}
-                    value={lng}
-                >
-                    {t(`${lng}`)}
-                </option>
-            ))}
-        </select>
+        <Select
+            defaultValue={languages[0]}
+            onChange={changeLanguage}
+            options={languages}
+        />
     );
 };
 
