@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice, isAction} from '@reduxjs/toolkit'
 import handleAsyncThunk from "../../utils/handleAsyncThunk.js";
 import handleErrorMessage from "../../utils/HandleErrorMessage.js";
 
@@ -20,6 +20,21 @@ export const addAdmin = createAsyncThunk('users/addAdmin', async function (id, t
     return await handleAsyncThunk(serverUrl + `/setAdmin/${id}`, 'put', {}, thunkApi)
 })
 
+export const blockUser = createAsyncThunk('users/blockUser', async function (id, thunkApi){
+    thunkApi.dispatch(blockUserLocally(id))
+    return await handleAsyncThunk(serverUrl + `/blockUser/${id}`, 'put', {}, thunkApi)
+})
+
+export const unblockUser = createAsyncThunk('users/unblockUser', async function (id, thunkApi){
+    thunkApi.dispatch(unblockUserLocally(id))
+    return await handleAsyncThunk(serverUrl + `/unblockUser/${id}`, 'put', {}, thunkApi)
+})
+
+export const deleteUser = createAsyncThunk('users/deleteUser', async function (id, thunkApi){
+    thunkApi.dispatch(deleteUserLocally(id))
+    return await handleAsyncThunk(serverUrl + `/deleteUser/${id}`, 'delete', {}, thunkApi)
+})
+
 const initialState = {
     users: [],
     error: null,
@@ -31,14 +46,21 @@ export const UsersSlice = createSlice({
     initialState,
     reducers: {
         removeAdminLocally: (state, action) => {
-            console.log('remove locally')
             state.users = state.users.map(user => user.id === action.payload ? {...user, role: 'user'} : user)
         },
         setAdminLocally: (state, action) => {
-            console.log('add locally')
             state.users = state.users.map(user => user.id === action.payload ? {...user, role: 'admin'} : user)
         },
         selfDeleteFromUsers: (state, action)=>{
+            state.users = state.users.filter(user => user.id!== action.payload)
+        },
+        blockUserLocally: (state, action) => {
+            state.users = state.users.map(user => user.id === action.payload? {...user, blocked: true} : user)
+        },
+        unblockUserLocally: (state, action) => {
+            state.users = state.users.map(user => user.id === action.payload? {...user, blocked: false} : user)
+        },
+        deleteUserLocally:(state, action)=>{
             state.users = state.users.filter(user => user.id!== action.payload)
         }
     },
@@ -66,10 +88,29 @@ export const UsersSlice = createSlice({
             .addCase(addAdmin.rejected, (state) => {
                 handleErrorMessage(state.error, "Cannot set as admin")
             })
+
+            .addCase(blockUser.rejected, (state) => {
+                handleErrorMessage(state.error, "Cannot block user")
+            })
+
+            .addCase(unblockUser.rejected, (state) => {
+                handleErrorMessage(state.error, "Cannot unblock admin")
+            })
+
+            .addCase(deleteUser.rejected, (state) => {
+                handleErrorMessage(state.error, "Cannot delete admin")
+            })
     }
 })
 
 
-export const {removeAdminLocally, setAdminLocally, selfDeleteFromUsers} = UsersSlice.actions
+export const {
+    removeAdminLocally,
+    setAdminLocally,
+    selfDeleteFromUsers,
+    blockUserLocally,
+    unblockUserLocally,
+    deleteUserLocally
+} = UsersSlice.actions
 
 export default UsersSlice.reducer

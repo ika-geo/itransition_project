@@ -21,9 +21,15 @@ const UserSchema = sequelize.define("Users", {
     },
     role: {
         type: DataTypes.ENUM('user', 'admin'),
+        allowNull: false,
         defaultValue: 'user',
     },
+    blocked: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+    }
 })
 
-// sequelize.sync();
+sequelize.sync();
 module.exports = UserSchema;

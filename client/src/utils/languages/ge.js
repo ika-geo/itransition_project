@@ -42,11 +42,17 @@ export const ge = {
             name: 'სახელი',
             email: "მეილი",
             role: "როლი",
+            status: "სტატუსი",
             admin: "ადმინისტრატორი",
             user: "მომხმარებელი",
             actions: "ქმედება",
             setAdminBtn: "ადმინად დანიშვნა",
             removeAdminBtn: "ადმინობის წაშლა",
+            unblockUserBtn: "განბლოვკა",
+            blockUserBtn: "დაბლოკვა",
+            deleteUserBtn: "წაშლა",
+            blocked: 'ბლოკირებული',
+            unblocked: 'აქტიური',
             me: "მე"
         }
     }

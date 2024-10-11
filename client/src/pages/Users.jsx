@@ -1,8 +1,15 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {addAdmin, getAllUsers, removeAdmin, selfDeleteFromUsers} from "../store/features/UsersSlice.js";
+import {
+    addAdmin,
+    blockUser, deleteUser,
+    getAllUsers,
+    removeAdmin,
+    selfDeleteFromUsers,
+    unblockUser
+} from "../store/features/UsersSlice.js";
 import {useTranslation} from "react-i18next";
-import {getMe} from "../store/features/AuthSlice.js";
+import {getMe, logout} from "../store/features/AuthSlice.js";
 import {useNavigate} from "react-router-dom";
 import UserItem from "../components/users/UserItem.jsx";
 import UserItemHead from "../components/users/UserItemHead.jsx";
@@ -31,6 +38,11 @@ const Users = () => {
         }
     }
 
+    const handleLogout = ()=>{
+        dispatch(logout())
+        navigate('/')
+    }
+
     const handleRemoveAdmin = async (id) => {
         await dispatch(removeAdmin(id))
         handleCheckMe(id)
@@ -39,6 +51,23 @@ const Users = () => {
 
     const handleAddAdmin = async (id) => {
         await dispatch(addAdmin(id))
+        handleGetAllUsers()
+    }
+
+    const handleBlockUser = async (id)=>{
+        await dispatch(blockUser(id))
+        if (id===user.id) return handleLogout()
+        handleGetAllUsers()
+    }
+
+    const handleUnblockUser = async (id)=>{
+        await dispatch(unblockUser(id))
+        handleGetAllUsers()
+    }
+
+    const handleDeleteUser = async (id)=>{
+        await dispatch(deleteUser(id))
+        if (id===user.id) return handleLogout()
         handleGetAllUsers()
     }
 
@@ -58,6 +87,9 @@ const Users = () => {
                                 userItem={user}
                                 handleRemoveAdmin={handleRemoveAdmin}
                                 handleAddAdmin={handleAddAdmin}
+                                handleBlockUser={handleBlockUser}
+                                handleUnblockUser={handleUnblockUser}
+                                handleDeleteUser={handleDeleteUser}
                             />
 
                             {
@@ -71,6 +103,9 @@ const Users = () => {
                                                 userItem={userItem}
                                                 handleRemoveAdmin={handleRemoveAdmin}
                                                 handleAddAdmin={handleAddAdmin}
+                                                handleBlockUser={handleBlockUser}
+                                                handleUnblockUser={handleUnblockUser}
+                                                handleDeleteUser={handleDeleteUser}
                                             />
                                         )
                                     )

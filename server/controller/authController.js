@@ -1,19 +1,17 @@
 const User = require("../schema/UserShcmea");
 const {userDto} = require("../dto/userDto");
 const {hashPassword, comparePassword} = require("../utils/bcryptPassword");
+const {handleLoginErrors} = require("../utils/handleControllers/authUtils");
 
 
 const authController = {
     login: async(req, res) => {
         const {email, password} = req.body
-        console.log(email)
         try {
             const user = await User.findOne({ where: { email } });
-            console.log(user)
-            if (!user) return res.status(401).json({message: "Invalid credentials", error:"User not found"})
-            const isMatch = await comparePassword(password, user.password)
-            if (!isMatch) return res.status(401).json({message: "Invalid credentials", error: "Password mismatch"})
-            res.json(userDto(user))
+            const loginError = await handleLoginErrors(res, user, password)
+            if(loginError) return
+            res.status(200).json(userDto(user))
         } catch (e) {
             console.log(e)
             res.status(500).json({error: e.message})

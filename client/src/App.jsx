@@ -57,7 +57,7 @@ function App() {
     );
 
     return (
-        <div className='bg-bgColor min-h-screen'>
+        <div className='bg-bgColor min-h-screen break-words'>
             <RouterProvider
                 router={router} />
             <ToastContainer />

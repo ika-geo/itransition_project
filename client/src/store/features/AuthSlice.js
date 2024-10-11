@@ -19,7 +19,6 @@ export const getMe = createAsyncThunk('user/getMe', async function (id, thunkApi
     return await handleAsyncThunk(serverUrl+"/getme", 'post', id, thunkApi)
 })
 
-
 const initialState = {
     user: null,
     error: null,
@@ -32,6 +31,8 @@ export const AuthSlice = createSlice({
     reducers: {
         logout: (state, action) => {
             state.user = null
+            state.error = null
+            state.loading = false
         },
     },
     extraReducers: (builder) => {
@@ -42,7 +43,7 @@ export const AuthSlice = createSlice({
             .addCase(register.fulfilled, (state, action) => {
                 state.loading = false
                 state.user=action.payload
-                toast.success('Users registered successfully')
+                toast.success('User registered successfully')
             })
             .addCase(register.rejected, (state, action) => {
                 handleErrorMessage(action, "Cannot register user")

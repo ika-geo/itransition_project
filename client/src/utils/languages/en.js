@@ -1,11 +1,11 @@
 export const en = {
     translation: {
-        nav: [{label: "Home", url: "/"}, {label: "Template", url: "/template"}, {label: "Users", url: "/users"}, {label: "Admin", url: "/admin"}],
+        nav: [{label: "Home", url: "/"}, {label: "Template", url: "/template"}, {label: "Admin", url: "/admin"}],
         adminDashboard: {
             header: 'Admin Dashboard',
             buttonTitle: 'Manage',
             items:[
-                {title: 'Manage Users', url: '/manageUsers', description: 'View, block, or remove users. Promote or demote users from admin role.'},
+                {title: 'Manage Users', url: '/users', description: 'View, block, or remove users. Promote or demote users from admin role.'},
                 {title: 'Manage Templates', url: '/manageTemplates', description: 'Edit or delete any user’s templates, or add new questions to them.'},
                 {title: 'Manage users answers', url: '/manageUsersAnswers', description: 'Edit or delete any user’s answers.'},
                 {title: 'Manage Tags', url: '/manageTags', description: 'Edit or delete any tags, or add new.'}
@@ -42,11 +42,17 @@ export const en = {
             name: 'Name',
             email: "Email",
             role: "Role",
+            status: "Status",
             admin: "Admin",
             user: "User",
             actions: "Actions",
             setAdminBtn: "Set admin",
             removeAdminBtn: "Remove admin",
+            unblockUserBtn: "Unblock",
+            blockUserBtn: "Block",
+            deleteUserBtn: "Delete",
+            blocked: 'Blocked',
+            unblocked: 'Active',
             me: "me"
         }
     }
