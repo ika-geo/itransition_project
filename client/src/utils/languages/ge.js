@@ -1,6 +1,6 @@
 export const ge = {
     translation: {
-        nav: [{label: "მთავარი", url: "/"}, {label: "თარგი", url: "/template"}, {label: "მომხმარებლები", url: "/users"}, {label: "ადმინი", url: "/admin"}],
+        nav: [{label: "მთავარი", url: "/"}, {label: "ადმინი", url: "/admin"}, {label: "ფორმები", url: "/forms"}],
         adminDashboard: {
             header: 'ადმინ პანელი',
             buttonTitle: 'მართვა',

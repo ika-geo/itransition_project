@@ -12,6 +12,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 
 import 'react-toastify/dist/ReactToastify.css';
+import Forms from "./pages/Forms.jsx";
 
 
 const adminRoutes = (
@@ -25,9 +26,9 @@ const authorizedRoutes = (userRole)=>(
     <Route path="/" element={<Header />}>
         <Route index element={<Home />} />
         <Route path="/template" element={<Template />} />
+        <Route path='/forms' element={<Forms/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
         {
             userRole==='admin' && adminRoutes
         }
@@ -41,6 +42,7 @@ const unauthorizedRoutes =()=> (
         <Route path="/" element={<Header />}>
             <Route index element={<Home />} />
             <Route path="/template" element={<Template />} />
+            <Route path='/forms' element={<Forms/>}/>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<ErrorPage />} />
