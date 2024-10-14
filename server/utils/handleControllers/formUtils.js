@@ -5,7 +5,6 @@ const {getFormByIdOptions} = require("../options/formOptions");
 
 module.exports.findForm = async (res, id)=>{
     const form = await FormSchema.findOne(getFormByIdOptions(id));
-    console.log(form)
     if (!form) {
         res.status(404).json({message: "Form not found"});
         return null

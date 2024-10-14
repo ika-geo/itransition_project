@@ -13,6 +13,7 @@ import Register from "./pages/Register.jsx";
 
 import 'react-toastify/dist/ReactToastify.css';
 import Forms from "./pages/Forms.jsx";
+import CreateForm from "./pages/CreateForm.jsx";
 
 
 const adminRoutes = (
@@ -29,6 +30,7 @@ const authorizedRoutes = (userRole)=>(
         <Route path='/forms' element={<Forms/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/createForm" element={<CreateForm />} />
         {
             userRole==='admin' && adminRoutes
         }

@@ -45,7 +45,6 @@ const formController = {
             await updateFormFields(formData, form)
             res.status(200).json(form);
         } catch (e) {
-            console.log(e);
             res.status(500).json({error: e.message});
         }
     },
