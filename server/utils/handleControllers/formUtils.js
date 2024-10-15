@@ -4,6 +4,13 @@ const {getFormByIdOptions} = require("../options/formOptions");
 const sequelize = require("../../database/connectToDB");
 
 const valuesForUpdate = ['name', 'position', 'type', 'options']
+const sequelizeValidationError = 'SequelizeValidationError'
+
+
+const handleSequelizeValidationErrors = (err, res) => {
+    const messages = err.errors.map(err => err.message);
+    res.status(400).json({ message: messages[0] });
+}
 
 const createUpdateFormFields = async (formData, form, transaction, res)=>{
     let formFields = []
@@ -15,7 +22,7 @@ const createUpdateFormFields = async (formData, form, transaction, res)=>{
         return true
     }
     catch (e) {
-        res.status(500).json({error: "An error occurred while creating/updating form fields: " + e.message}).end();
+        res.status(500).json({error:  e.message});
         return false
     }
 }
@@ -24,13 +31,13 @@ module.exports.findForm = async (res, id)=>{
     try{
         const form = await FormSchema.findOne(getFormByIdOptions(id));
         if (!form) {
-            res.status(404).json({message: "Form not found"}).end();
+            res.status(404).json({message: "Form not found"});
             return false
         }
         return form
     }
     catch (e){
-        res.status(500).json({error: "An error occurred while finding the form: " + e.message}).end();
+        res.status(500).json({error:  e.message});
         return false
     }
 }
@@ -42,10 +49,14 @@ module.exports.handleCreateForm = async (formData, res)=>{
         const createFormFields = await createUpdateFormFields(formData, form, transaction, res)
         if (!createFormFields) return false
         await transaction.commit();
-        return true
+        return form
     }
     catch (e){
-        res.status(500).json({error: "An error occurred while creating/updating the form: " + e.message}).end();
+        if (e.name === sequelizeValidationError) {
+            handleSequelizeValidationErrors(e, res)
+            return false
+        }
+        res.status(500).json({error:  e.message});
         return false
     }
 }
@@ -62,7 +73,7 @@ module.exports.handleUpdateForm = async (formData, res, id)=>{
         return true
     }
     catch (e){
-        res.status(500).json({error: "An error occurred while updating the form: " + e.message}).end();
+        res.status(500).json({error:  e.message});
         return false
     }
 }

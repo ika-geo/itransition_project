@@ -12,7 +12,9 @@ const UserSchema = sequelize.define("Users", {
         unique: true,
         allowNull: false,
         validate: {
-            isEmail: true,
+            isEmail: {
+                msg: 'Please enter a valid email address.'
+            },
         },
     },
     password: {

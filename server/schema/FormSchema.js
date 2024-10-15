@@ -15,10 +15,12 @@ const FormSchema = sequelize.define('Forms', {
     title: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: { notEmpty: { msg: 'Title is required' } }
     },
     description: {
         type: DataTypes.TEXT,
         allowNull: false,
+        validate: { notEmpty: { msg: 'Description is required' } }
     },
     imageUrl: {
         type: DataTypes.STRING,

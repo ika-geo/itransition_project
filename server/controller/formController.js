@@ -27,9 +27,9 @@ const formController = {
     createForm: async (req, res) => {
         const {formData} = req.body;
         try {
-            const createForm =  await handleCreateForm(formData, res)
-            if (!createForm) return
-            res.status(204).json();
+            const form =  await handleCreateForm(formData, res)
+            if (!form) return
+            res.status(204).json(form);
         } catch (e) {
             res.status(500).json({error: "An error occurred while creating the form: " + e.message});
         }
