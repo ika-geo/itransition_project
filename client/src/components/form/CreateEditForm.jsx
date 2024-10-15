@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import DynamicFormBuilder from './DynamicFormBuilder';
 import { handleEditForm, handleGetForm, handleSendForm } from '../utils/sendForm';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {createForm} from "../../store/features/FormSlice.js";
 
 const CreateEditForm = () => {
 
     const userId = useSelector(state=>state.auth.user.id)
+    const dispatch = useDispatch()
 
     const [form, setForm] = useState({
         title: '',
@@ -29,7 +31,8 @@ const CreateEditForm = () => {
     };
 
     const handleSubmit = () => {
-        form?.id ? handleEditForm(form, form.id) : handleSendForm(form, userId);
+        const formData = {...form, userId}
+        form?.id ? handleEditForm(form, form.id) : dispatch(createForm(formData));
     };
 
     return (

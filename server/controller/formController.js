@@ -1,6 +1,6 @@
 const FormSchema = require("../schema/FormSchema");
 const {getAllFormOptions} = require("../utils/options/formOptions");
-const {createFormFields, findForm, updateFormFields} = require("../utils/handleControllers/formUtils");
+const {findForm, handleCreateForm, handleUpdateForm} = require("../utils/handleControllers/formUtils");
 const FormFieldSchema = require("../schema/FormFieldSchema");
 
 
@@ -24,13 +24,12 @@ const formController = {
             res.status(500).json({error: e.message});
         }
     },
-
     createForm: async (req, res) => {
         const {formData} = req.body;
         try {
-            const form = await FormSchema.create(formData);
-            await createFormFields(formData, form)
-            res.status(201).json(form);
+            const createForm =  await handleCreateForm(formData, res)
+            if (!createForm) return
+            res.status(204).json();
         } catch (e) {
             res.status(500).json({error: "An error occurred while creating the form: " + e.message});
         }
@@ -39,11 +38,9 @@ const formController = {
         const {id} = req.params;
         const {formData} = req.body;
         try {
-            const form = await findForm(res, id);
-            if (!form) return
-            await form.update(formData);
-            await updateFormFields(formData, form)
-            res.status(200).json(form);
+            const UpdateForm = await handleUpdateForm(formData, res, id);
+            if (!UpdateForm) return
+            res.status(204).json();
         } catch (e) {
             res.status(500).json({error: e.message});
         }

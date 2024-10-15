@@ -11,10 +11,11 @@ const DynamicFormBuilder = ({ formFields, setFormFields }) => {
 
     const handleAddField = () => {
         if (!validateFieldNameValue(fieldName, formFields, editingIndex)) return;
-
         if (editingIndex !== null) {
+            // not fieldName but field
             editFieldName(formFields, editingIndex, fieldName, fieldType, selectOptions, setFormFields, setEditingIndex);
         } else {
+            // not fieldName but field
             addFieldName(fieldName, fieldType, selectOptions, setFormFields, formFields);
         }
         resetFields(setFieldName, setFieldType, setSelectOptions);
@@ -22,6 +23,7 @@ const DynamicFormBuilder = ({ formFields, setFormFields }) => {
 
     const handleCancelAddField = () => {
         resetFields(setFieldName, setFieldType, setSelectOptions);
+        //code below add to resetFields, and you dont need to use it twice (in handleAddfield also)
         setEditingIndex(null);
     };
 
