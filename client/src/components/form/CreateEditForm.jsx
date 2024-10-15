@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import ClipLoader from "react-spinners/ClipLoader";
+
 import DynamicFormBuilder from './DynamicFormBuilder';
-import { handleEditForm, handleGetForm } from '../utils/sendForm';
 import {useDispatch, useSelector} from "react-redux";
 import {createForm, updateForm} from "../../store/features/FormSlice.js";
+import Loading from "../Loading.jsx";
 
 
 const CreateEditForm = () => {
     const userId = useSelector(state=>state.auth.user.id)
     const loading = useSelector(state=>state.forms.loading)
+    const selectedForm = useSelector(state=>state.forms.selectedForm)
     const dispatch = useDispatch()
 
-    const [form, setForm] = useState({
-        title: '',
-        description: 'some lorem ipsum',
-        imageUrl: "http://example.com",
-        tags: ['123', 'ika', 'lira'],
-        formFields: []
-    });
+    const [form, setForm] = useState(null);
+
 
     useEffect(() => {
-        handleGetForm(setForm);
+        setForm(selectedForm)
     }, []);
 
     const handleChange = (e) => {
@@ -37,10 +35,16 @@ const CreateEditForm = () => {
         form?.id ? dispatch(updateForm(formData)) : dispatch(createForm(formData));
     };
 
-    if (loading) return <p className='min-h-screen'>Loading...</p>
+
+    if (!form) return
 
     return (
         <div className="p-6 min-h-screen">
+            {
+                loading&&
+                <Loading/>
+            }
+
             <p>Title</p>
             <input
                 className="mb-2"

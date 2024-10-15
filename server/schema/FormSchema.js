@@ -35,6 +35,6 @@ const FormSchema = sequelize.define('Forms', {
         defaultValue: [],
     }
 })
-
-sequelize.sync();
+//
+// sequelize.sync();
 module.exports = FormSchema;

@@ -6,7 +6,6 @@ import Home from "./pages/Home.jsx";
 import AdminPage from "./pages/Admin.jsx";
 import Header from "./components/Header.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
-import Template from "./pages/Template.jsx";
 import Users from "./pages/Users.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
@@ -14,6 +13,7 @@ import Register from "./pages/Register.jsx";
 import 'react-toastify/dist/ReactToastify.css';
 import Forms from "./pages/Forms.jsx";
 import CreateForm from "./pages/CreateForm.jsx";
+import FormPage from "./pages/FormPage.jsx";
 
 
 const adminRoutes = (
@@ -23,38 +23,34 @@ const adminRoutes = (
     </>
 )
 
-const authorizedRoutes = (userRole)=>(
-    <Route path="/" element={<Header />}>
+const commonRoutes = ()=>{
+    return <>
         <Route index element={<Home />} />
-        <Route path="/template" element={<Template />} />
         <Route path='/forms' element={<Forms/>}/>
+        <Route path='/forms/:id' element={<FormPage/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/createForm" element={<CreateForm />} />
-        {
-            userRole==='admin' && adminRoutes
-        }
+    </>
+}
 
+const authorizedRoutes = (userRole)=>(
+    <Route path="/" element={<Header />}>
+        {commonRoutes()}
+        <Route path="/createForm" element={<CreateForm />} />
+        {userRole==='admin' && adminRoutes}
         <Route path="*" element={<ErrorPage />} />
     </Route>
 );
 
 const unauthorizedRoutes =()=> (
-    <>
         <Route path="/" element={<Header />}>
-            <Route index element={<Home />} />
-            <Route path="/template" element={<Template />} />
-            <Route path='/forms' element={<Forms/>}/>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            {commonRoutes()}
             <Route path="*" element={<ErrorPage />} />
         </Route>
-    </>
 );
 
 function App() {
     const user = useSelector(state => state.auth.user);
-
     const router = createBrowserRouter(
         createRoutesFromElements(user ? authorizedRoutes(user?.role) : unauthorizedRoutes())
     );

@@ -17,7 +17,7 @@ const NavMenuItems = () => {
     return (
         <nav className='flex gap-x-2'>
             {navItems?.map((navItem) => {
-                if (user?.role !== 'admin' && (navItem.url === '/users' || navItem.url === '/admin')) return null
+                if (user?.role !== 'admin' && navItem.url === '/admin') return null
                 return (
                     <Link
                         key={navItem.label}

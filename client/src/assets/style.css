@@ -23,3 +23,8 @@ nav{
         @apply hover:text-primary
     }
 }
+
+
+img{
+    @apply block max-h-full max-w-full
+}

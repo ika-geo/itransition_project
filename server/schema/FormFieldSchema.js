@@ -36,5 +36,5 @@ const FormFieldSchema = sequelize.define('FormFields', {
     }
 })
 
-sequelize.sync();
+// sequelize.sync();
 module.exports = FormFieldSchema;
