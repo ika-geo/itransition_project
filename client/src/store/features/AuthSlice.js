@@ -12,7 +12,7 @@ export const register = createAsyncThunk('user/register', async function (data, 
 })
 
 export const login = createAsyncThunk('user/login', async function (data, thunkApi){
-    return await handleAsyncThunk(serverUrl+"/login", 'post', data, thunkApi)
+    return await handleAsyncThunk(serverUrl+"/login", 'post', data, thunkApi, data.handleNavigate)
 })
 
 export const getMe = createAsyncThunk('user/getMe', async function (id, thunkApi){

@@ -34,7 +34,6 @@ const FormPage = () => {
                         <img
                             className="rounded"
                             src={form.imageUrl} alt={form.title}/>
-
                     </div>
                 }
                 <div className="mb-10">

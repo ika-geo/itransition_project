@@ -13,13 +13,6 @@ const Login = () => {
     const navigate = useNavigate()
 
     const loading = useSelector(state=>state.auth.loading)
-    const userName = useSelector(state=>state.auth?.user?.name)
-
-    useEffect(() => {
-        if (userName){
-            navigate('/')
-        }
-    }, [userName]);
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -32,14 +25,14 @@ const Login = () => {
         setPassword(e.target.value)
     }
 
+    const handleNavigate = () => {
+        navigate('/')
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (!email ||!password) return toast.warning('Fill all fields')
-        await dispatch(login({email, password}))
-
-        // if (response.meta.requestStatus==='fulfilled'){
-        //  navigate('/')
-        // }
+        dispatch(login({email, password, handleNavigate}))
     }
 
     return (
