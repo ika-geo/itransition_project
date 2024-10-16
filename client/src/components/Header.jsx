@@ -11,7 +11,6 @@ const Header = () => {
                 <Link to='/'>Home page</Link>
                 <NavMenu/>
             </header>
-
             <Outlet/>
 
         </div>

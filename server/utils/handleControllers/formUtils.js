@@ -12,10 +12,11 @@ const handleSequelizeValidationErrors = (err, res) => {
     res.status(400).json({ message: messages[0] });
 }
 
-const createUpdateFormFields = async (formData, form, transaction, res)=>{
+const createUpdateFormFields = async (formData, formId, transaction, res)=>{
     let formFields = []
+    console.log(formData.formFields)
     formData.formFields.map(async (item, index) => {
-        formFields.push({...item, position: index+1, formId:form.id})
+        formFields.push({...item, position: index+1, formId})
     });
     try{
         await FormFieldSchema.bulkCreate(formFields, {updateOnDuplicate: valuesForUpdate, transaction})
@@ -46,7 +47,7 @@ module.exports.handleCreateForm = async (formData, res)=>{
     try{
         const transaction = await sequelize.transaction()
         const form = await FormSchema.create(formData, { transaction });
-        const createFormFields = await createUpdateFormFields(formData, form, transaction, res)
+        const createFormFields = await createUpdateFormFields(formData, form.id, transaction, res)
         if (!createFormFields) return false
         await transaction.commit();
         return form
@@ -66,11 +67,11 @@ module.exports.handleUpdateForm = async (formData, res, id)=>{
         const transaction = await sequelize.transaction()
         const form = await module.exports.findForm(res, id);
         if (!form) return false;
-        await form.update(formData, { transaction });
-        const createFormFields = await createUpdateFormFields(formData, form, transaction, res)
+        const updatedForm = await form.update(formData, { transaction });
+        const createFormFields = await createUpdateFormFields(formData, formData.id, transaction, res)
         if (!createFormFields) return false
         await transaction.commit();
-        return true
+        return updatedForm
     }
     catch (e){
         res.status(500).json({error:  e.message});

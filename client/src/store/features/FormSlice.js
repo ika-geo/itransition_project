@@ -21,19 +21,25 @@ export const getFormById = createAsyncThunk('forms/getFormById', async (id, thun
     return await handleAsyncThunk(serverUrl+`/${id}`, 'get', {}, thunkApi)
 })
 
+export const getFormsByUserId = createAsyncThunk('forms/getFormsByUserId', async (userId, thunkApi)=>{
+    return await handleAsyncThunk(serverUrl+`/user/${userId}`, 'get', {}, thunkApi)
+})
+
 export const refreshForm = createAsyncThunk('forms/refreshForm', async (id, thunkApi)=>{
     return await handleAsyncThunk(serverUrl`/${id}`, 'get', {}, thunkApi)
 })
 
-export const createForm = createAsyncThunk('forms/createForm', async (formData, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+"/", 'post', {formData}, thunkApi)
+export const createForm = createAsyncThunk('forms/createForm', async (data, thunkApi)=>{
+    return await handleAsyncThunk(serverUrl+"/", 'post', {formData:data.formData}, thunkApi, data.handleRedirect)
 })
 
 export const updateForm = createAsyncThunk('forms/updateForm', async (formData, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+"/"+formData.id, 'put', {formData}, thunkApi)
+    return await handleAsyncThunk(serverUrl+`/${formData.id}`, 'put', {formData: formData.formData}, thunkApi, formData.handleRedirect)
 })
 
-
+export const deleteForm = createAsyncThunk('forms/deleteForm', async (data, thunkApi)=>{
+    return await handleAsyncThunk(serverUrl+`/${data.id}`, 'delete', {}, thunkApi, data.handleGetFormsByUserId)
+})
 
 
 const initialState = {
@@ -51,7 +57,11 @@ export const FormSlice = createSlice({
         setSelectedForm: (state, action) => {
             state.selectedForm = action.payload
         },
+        resetForm:(state) => {
+            state.selectedForm=selectedForm
+        }
     },
+
     extraReducers: (builder) => {
         builder
 
@@ -77,6 +87,18 @@ export const FormSlice = createSlice({
             .addCase(getFormById.rejected, (state, action) => {
                 state.loading = false
                 handleErrorMessage(action, "Can't get form")
+            })
+
+            .addCase(getFormsByUserId.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getFormsByUserId.fulfilled, (state, action) => {
+                state.loading = false
+                state.forms = action.payload
+            })
+            .addCase(getFormsByUserId.rejected, (state, action) => {
+                state.loading = false
+                handleErrorMessage(action, "Can't get forms")
             })
 
             .addCase(refreshForm.fulfilled, (state, action) => {
@@ -111,10 +133,25 @@ export const FormSlice = createSlice({
                 state.loading = false
                 handleErrorMessage(action, "Can't edit form")
             })
+
+            .addCase(deleteForm.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(deleteForm.fulfilled, (state, ) => {
+                state.loading = false
+                toast.success('Form has been deleted')
+            })
+            .addCase(deleteForm.rejected, (state, action) => {
+                state.loading = false
+                handleErrorMessage(action, "Can't delete form")
+            })
     }
 })
 
 // Action creators are generated for each case reducer function
-export const {  } = FormSlice.actions
+export const {
+    setSelectedForm,
+    resetForm
+} = FormSlice.actions
 
 export default FormSlice.reducer

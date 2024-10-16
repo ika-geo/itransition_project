@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Loading from "../components/Loading.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
@@ -18,35 +18,46 @@ const FormPage = () => {
         dispatch(getFormById(id))
     }, [])
 
+    console.log(form)
 
     if (loading) return <Loading/>
     if (!form) return
     return (
         <main className="container">
             <div className="bg-white p-6 rounded shadow-sm">
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">{form.title}</h1>
-                <p className="font-semibold text-gray-800 mb-2">Author {form.user.name}</p>
 
-                <p className="text-gray-600 mb-4">{form.description}</p>
-                {
-                    form.imageUrl &&
-                    <div className="mb-4 h-80 overflow-hidden">
-                        <img
-                            className="rounded"
-                            src={form.imageUrl} alt={form.title}/>
+                <div className='flex mb-4 gap-4'>
+                    <div className={form.imageUrl ? "w-1/2" : "w-full"}>
+                        <h1 className="text-3xl font-bold text-gray-800 mb-2">{form.title}</h1>
+                        <p className="font-semibold text-gray-800 mb-2">Author {form.user?.name}</p>
+
+                        <p className="text-gray-600 mb-4">{form.description}</p>
+                        <div className="mb-10">
+                            <h2 className="text-lg font-semibold text-gray-700 mb-2">Tags:</h2>
+                            <div className="flex space-x-2">
+                                {
+                                    form.tags.map(tag => (
+                                        <span key={tag}
+                                              className="bg-lightPrimary text-primary py-1 px-3 rounded">{tag}</span>
+                                    ))
+                                }
+                            </div>
+                        </div>
                     </div>
-                }
-                <div className="mb-10">
-                    <h2 className="text-lg font-semibold text-gray-700 mb-2">Tags:</h2>
-                    <div className="flex space-x-2">
-                        {
-                            form.tags.map(tag => (
-                                <span key={tag}
-                                      className="bg-lightPrimary text-primary py-1 px-3 rounded">{tag}</span>
-                            ))
-                        }
-                    </div>
+
+
+                    {form.imageUrl &&
+                        <div className='w-1/2'>
+                            <div className="mb-4 h-80 overflow-hidden">
+                                <img
+                                    className="rounded"
+                                    src={form.imageUrl} alt={form.title}/>
+                            </div>
+                        </div>
+                    }
+
                 </div>
+
 
                 <div className="mb-20">
                     <h2 className="text-2xl font-semibold mb-4 text-gray-700">Questions</h2>

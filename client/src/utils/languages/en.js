@@ -1,6 +1,6 @@
 export const en = {
     translation: {
-        nav: [{label: "Home", url: "/"}, {label: "Admin", url: "/admin"}, {label: "Forms", url: "/forms"}],
+        nav: [{label: "Home", url: "/"}, {label: "Admin", url: "/admin"}, {label: "Forms", url: "/forms"}, {label: "my page", url: "/myPage"}],
         adminDashboard: {
             header: 'Admin Dashboard',
             buttonTitle: 'Manage',

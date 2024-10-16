@@ -4,7 +4,8 @@ import axios from "axios";
 const handleAsyncThunk = async (url, method, data, thunkApi, functionIfSuccess=()=>{}, functionIfReject=()=>{})=>{
     try {
         const response = await axios[method](url, data)
-        functionIfSuccess()
+        console.log(response)
+        functionIfSuccess(response)
         return response.data
     }
     catch (e) {

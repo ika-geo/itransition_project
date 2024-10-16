@@ -1,13 +1,12 @@
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import ChangeLanguage from "../components/ChangeLanguage.jsx";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import {login} from "../store/features/AuthSlice.js";
+import Loading from "../components/Loading.jsx";
 
 const Login = () => {
-
     const {t} = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -35,6 +34,7 @@ const Login = () => {
         dispatch(login({email, password, handleNavigate}))
     }
 
+    if (loading) return <Loading/>
     return (
         <div className="flex mt-40 items-center justify-center">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -70,12 +70,11 @@ const Login = () => {
 
                     <div className="flex items-center justify-between">
                         <button
-                            disabled={loading}
                             onClick={handleSubmit}
                             type="submit"
                             className="button font-semibold w-full"
                         >
-                            {loading? t('loading') : t('loginRegistration.login.loginBtn')}
+                            {t('loginRegistration.login.loginBtn')}
                         </button>
                     </div>
                 </form>

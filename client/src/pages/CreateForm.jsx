@@ -3,7 +3,7 @@ import CreateEditForm from "../components/form/CreateEditForm.jsx";
 
 const CreateForm = () => {
     return (
-        <div className='bg-white p-10'>
+        <div className='container bg-white'>
             <CreateEditForm/>
         </div>
     );

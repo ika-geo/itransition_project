@@ -14,6 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Forms from "./pages/Forms.jsx";
 import CreateForm from "./pages/CreateForm.jsx";
 import FormPage from "./pages/FormPage.jsx";
+import UserPage from "./pages/UserPage.jsx";
+import FormTemplates from "./pages/FormTemplates.jsx";
+import EditForm from "./pages/EditForm.jsx";
 
 
 const adminRoutes = (
@@ -35,9 +38,12 @@ const commonRoutes = ()=>{
 
 const authorizedRoutes = (userRole)=>(
     <Route path="/" element={<Header />}>
-        {commonRoutes()}
+        <Route path="/myPage" element={<UserPage/>}/>
         <Route path="/createForm" element={<CreateForm />} />
+        <Route path="/editForm/:id" element={<EditForm/>}/>
+        <Route path="/formTemplates" element={<FormTemplates />} />
         {userRole==='admin' && adminRoutes}
+        {commonRoutes()}
         <Route path="*" element={<ErrorPage />} />
     </Route>
 );

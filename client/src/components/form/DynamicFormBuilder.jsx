@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SelectOptionsEditor from './SelectOptionsEditor';
-import DragableItems from './DragableItems.jsx';
+import FormFieldItems from './FormFieldItems.jsx';
 import { addFieldName, editFieldName, resetFields, validateFieldNameValue } from '../utils/drag';
 
 const DynamicFormBuilder = ({ formFields, setFormFields }) => {
@@ -73,13 +73,14 @@ const DynamicFormBuilder = ({ formFields, setFormFields }) => {
                 </div>
 
                 <div className="col-span-4">
-                    <DragableItems
+                    <FormFieldItems
                         formFields={formFields}
                         setFormFields={setFormFields}
                         setFieldName={setFieldName}
                         setFieldType={setFieldType}
                         setEditingIndex={setEditingIndex}
                         setSelectOptions={setSelectOptions}
+                        editingIndex={editingIndex}
                     />
                 </div>
             </div>

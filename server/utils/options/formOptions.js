@@ -11,10 +11,19 @@ const userOptions = {
 const formFieldOptions = {
     model: FormFieldSchema,
     as: 'formFields',
-    separate: true,
     order: [['position', 'ASC']],
     attributes: {
         exclude: ['formId']
+    }
+}
+
+module.exports.getFormByUserIdOptions = (userId) => {
+    return {
+        where: {userId},
+        order: [['createdAt', 'desc']],
+        include: [
+            formFieldOptions
+        ],
     }
 }
 

@@ -3,8 +3,10 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { DragEndFields } from '../utils/drag';
 
-const DragableItems = ({ formFields, setFormFields, setFieldName, setFieldType, setEditingIndex, setSelectOptions }) => {
+const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType, setEditingIndex, setSelectOptions, editingIndex }) => {
+
     const handleDragEnd = (result) => {
+        if (editingIndex) return
         DragEndFields(result, formFields, setFormFields);
     };
 
@@ -31,7 +33,11 @@ const DragableItems = ({ formFields, setFormFields, setFieldName, setFieldType, 
                 {(provided) => (
                     <ul {...provided.droppableProps} ref={provided.innerRef} className="mt-2">
                         {formFields.map((field, index) => (
-                            <Draggable key={field.name} draggableId={field.name} index={index}>
+                            <Draggable
+                                isDragDisabled={editingIndex !== null}
+                                key={field.name}
+                                draggableId={field.name}
+                                index={index}>
                                 {(provided) => (
                                     <li
                                         ref={provided.innerRef}
@@ -64,4 +70,4 @@ const DragableItems = ({ formFields, setFormFields, setFieldName, setFieldType, 
     );
 };
 
-export default DragableItems;
+export default FormFieldItems;

@@ -5,20 +5,22 @@ import DynamicFormBuilder from './DynamicFormBuilder';
 import {useDispatch, useSelector} from "react-redux";
 import {createForm, updateForm} from "../../store/features/FormSlice.js";
 import Loading from "../Loading.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 const CreateEditForm = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const userId = useSelector(state=>state.auth.user.id)
     const loading = useSelector(state=>state.forms.loading)
     const selectedForm = useSelector(state=>state.forms.selectedForm)
-    const dispatch = useDispatch()
 
     const [form, setForm] = useState(null);
 
-
     useEffect(() => {
         setForm(selectedForm)
-    }, []);
+    }, [selectedForm]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,10 +31,13 @@ const CreateEditForm = () => {
         setForm((prevForm) => ({ ...prevForm, formFields }));
     };
 
+    const handleRedirect = (response)=>{
+        navigate(`/forms/${response.data.id}`)
+    }
 
     const handleSubmit = () => {
         const formData = {...form, userId}
-        form?.id ? dispatch(updateForm(formData)) : dispatch(createForm(formData));
+        form?.id ? dispatch(updateForm({id: formData.id, formData, handleRedirect})) : dispatch(createForm({formData, handleRedirect}));
     };
 
 

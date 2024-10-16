@@ -47,6 +47,7 @@ const SelectOptionsEditor = ({ selectOptions, setSelectOptions }) => {
                 setSelectOptions={setSelectOptions}
                 setOptionValue={setOptionValue}
                 setEditingOptionIndex={setEditingOptionIndex}
+                editingOptionIndex={editingOptionIndex}
             />
         </div>
     );

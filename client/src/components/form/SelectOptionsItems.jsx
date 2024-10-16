@@ -3,8 +3,10 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { DragEndFields } from '../utils/drag';
 
-const SelectOptionsItems = ({ selectOptions, setSelectOptions, setOptionValue, setEditingOptionIndex }) => {
+const SelectOptionsItems = ({ selectOptions, setSelectOptions, setOptionValue, setEditingOptionIndex, editingOptionIndex }) => {
+
     const handleDragEnd = (result) => {
+        if (editingOptionIndex) return
         DragEndFields(result, selectOptions, setSelectOptions);
     };
 
@@ -25,7 +27,11 @@ const SelectOptionsItems = ({ selectOptions, setSelectOptions, setOptionValue, s
                 {(provided) => (
                     <ul {...provided.droppableProps} ref={provided.innerRef} className="mt-2">
                         {selectOptions.map((option, index) => (
-                            <Draggable key={option} draggableId={option} index={index}>
+                            <Draggable
+                                isDragDisabled={editingOptionIndex !== null}
+                                key={option}
+                                draggableId={option}
+                                index={index}>
                                 {(provided) => (
                                     <li
                                         ref={provided.innerRef}
