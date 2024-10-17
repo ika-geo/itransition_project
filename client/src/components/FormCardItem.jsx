@@ -1,18 +1,19 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import parse from "html-react-parser";
 
 const FormCardItem = ({form, editable, handleEdit, handleDelete}) => {
     return (
         <div
             key={form.id}
             className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
-            <Link to={`/forms/${form.id}`} className="text-xl font-semibold text-gray-700 mb-2">{form.title}</Link>
+            <Link to={`/forms/${form.id}`} className="block mb-2 text-xl font-semibold text-gray-700">{form.title}</Link>
 
             {!editable ?
                 <p className="text-sm text-gray-500 mb-4">Author: {form.user?.name}</p> : null
             }
 
-            <p className="text-gray-600 mb-4">{form.description}</p>
+            <p className="text-gray-600 line-clamp-3 mb-4">{parse(form.description)}</p>
             <div className="flex mb-2 gap-2">
                 {
                     form.tags.map(tag => {

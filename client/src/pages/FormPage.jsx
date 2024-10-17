@@ -3,7 +3,7 @@ import Loading from "../components/Loading.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {getFormById} from "../store/features/FormSlice.js";
-
+import parse from 'html-react-parser';
 
 const FormPage = () => {
 
@@ -30,8 +30,7 @@ const FormPage = () => {
                     <div className={form.imageUrl ? "w-1/2" : "w-full"}>
                         <h1 className="text-3xl font-bold text-gray-800 mb-2">{form.title}</h1>
                         <p className="font-semibold text-gray-800 mb-2">Author {form.user?.name}</p>
-
-                        <p className="text-gray-600 mb-4">{form.description}</p>
+                        <p className="text-gray-600 mb-4">{parse(form.description)}</p>
                         <div className="mb-10">
                             <h2 className="text-lg font-semibold text-gray-700 mb-2">Tags:</h2>
                             <div className="flex space-x-2">

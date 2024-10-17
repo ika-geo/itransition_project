@@ -34,9 +34,9 @@ const formController = {
         }
     },
     createForm: async (req, res) => {
-        const {formData} = req.body;
+        const formData = JSON.parse(req.body.formData);
         try {
-            const form =  await handleCreateForm(formData, res)
+            const form =  await handleCreateForm(req, formData, res)
             if (!form) return
             res.status(201).json(form);
         } catch (e) {
@@ -45,9 +45,9 @@ const formController = {
     },
     updateForm: async (req, res) => {
         const {id} = req.params;
-        const {formData} = req.body;
+        const formData = JSON.parse(req.body.formData);
         try {
-            const UpdateForm = await handleUpdateForm(formData, res, id);
+            const UpdateForm = await handleUpdateForm(req, formData, res, id);
             if (!UpdateForm) return
             res.status(200).json(UpdateForm);
         } catch (e) {

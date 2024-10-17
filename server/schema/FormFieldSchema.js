@@ -25,13 +25,6 @@ const FormFieldSchema = sequelize.define('FormFields', {
     },
     options: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        validate: {
-            isSelectField() {
-                if (this.type === 'select' && (!this.options || this.options.length <2)) {
-                    throw new Error({message:'For select you need to choose at least 2 option'});
-                }
-            },
-        },
         defaultValue: null,
     }
 })

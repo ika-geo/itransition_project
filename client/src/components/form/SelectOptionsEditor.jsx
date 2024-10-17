@@ -24,20 +24,20 @@ const SelectOptionsEditor = ({ selectOptions, setSelectOptions }) => {
 
     return (
         <div className="mb-4 ml-12">
-            <p className="block mb-2 text-gray-700">Select Options:</p>
+            <p className="label">Select Options:</p>
             <div className="flex space-x-2">
                 <input
                     type="text"
                     value={optionValue}
                     onChange={(e) => setOptionValue(e.target.value)}
-                    className="p-2 border border-gray-300 rounded w-full"
+                    className="input"
                 />
                 {editingOptionIndex !== null && (
-                    <button type="button" onClick={handleCancelAddOption} className="button bg-red-500 text-white">
+                    <button type="button" onClick={handleCancelAddOption} className="button bg-red-500">
                         Cancel
                     </button>
                 )}
-                <button type="button" onClick={handleAddOption} className="bg-green-500 text-white px-4 py-2 rounded">
+                <button type="button" onClick={handleAddOption} className="button bg-green-500">
                     {editingOptionIndex !== null ? 'Save Option' : 'Add Option'}
                 </button>
             </div>

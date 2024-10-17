@@ -31,10 +31,12 @@ const FormSchema = sequelize.define('Forms', {
         defaultValue: null,
     },
     tags: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue: [],
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        // references: {
+        //     model: 'Tags',
+        //     key: 'id',
+        // },
     }
 })
-//
-// sequelize.sync();
+sequelize.sync();
 module.exports = FormSchema;

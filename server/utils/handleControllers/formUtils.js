@@ -14,7 +14,6 @@ const handleSequelizeValidationErrors = (err, res) => {
 
 const createUpdateFormFields = async (formData, formId, transaction, res)=>{
     let formFields = []
-    console.log(formData.formFields)
     formData.formFields.map(async (item, index) => {
         formFields.push({...item, position: index+1, formId})
     });
@@ -38,13 +37,14 @@ module.exports.findForm = async (res, id)=>{
         return form
     }
     catch (e){
-        res.status(500).json({error:  e.message});
+        res.status(500).json({error: e.message});
         return false
     }
 }
 
-module.exports.handleCreateForm = async (formData, res)=>{
+module.exports.handleCreateForm = async (req, formData, res)=>{
     try{
+        if (req.body.imageUrl) formData.imageUrl = req.body.imageUrl;
         const transaction = await sequelize.transaction()
         const form = await FormSchema.create(formData, { transaction });
         const createFormFields = await createUpdateFormFields(formData, form.id, transaction, res)
@@ -62,8 +62,9 @@ module.exports.handleCreateForm = async (formData, res)=>{
     }
 }
 
-module.exports.handleUpdateForm = async (formData, res, id)=>{
+module.exports.handleUpdateForm = async (req, formData, res, id)=>{
     try{
+        if (req.body.imageUrl) formData.imageUrl = req.body.imageUrl;
         const transaction = await sequelize.transaction()
         const form = await module.exports.findForm(res, id);
         if (!form) return false;
@@ -74,6 +75,7 @@ module.exports.handleUpdateForm = async (formData, res, id)=>{
         return updatedForm
     }
     catch (e){
+        console.log(e)
         res.status(500).json({error:  e.message});
         return false
     }

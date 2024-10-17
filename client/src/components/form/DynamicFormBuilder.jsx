@@ -33,21 +33,21 @@ const DynamicFormBuilder = ({ formFields, setFormFields }) => {
             <div className="grid grid-cols-12 align-top gap-6 border border-gray-300 mb-4 rounded p-4">
                 <div className="col-span-8">
                     <div className="mb-4">
-                        <p className="block mb-2 text-gray-700">Field Name:</p>
+                        <p className="label">Field Name:</p>
                         <input
                             type="text"
                             value={fieldName}
                             onChange={(e) => setFieldName(e.target.value)}
-                            className="p-2 border border-gray-300 rounded w-full"
+                            className="input"
                         />
                     </div>
 
                     <div className="mb-4">
-                        <p className="block mb-2 text-gray-700">Field Type:</p>
+                        <p className="label">Field Type:</p>
                         <select
                             value={fieldType}
                             onChange={(e) => setFieldType(e.target.value)}
-                            className="p-2 border border-gray-300 rounded w-full"
+                            className="input"
                         >
                             <option value="text">Text</option>
                             <option value="textarea">Textarea</option>

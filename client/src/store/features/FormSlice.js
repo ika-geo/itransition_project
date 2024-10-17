@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import handleAsyncThunk from "../../utils/handleAsyncThunk.js";
+import handleAsyncThunk, {handleCreateEditAsyncThunk} from "../../utils/handleAsyncThunk.js";
 import {toast} from "react-toastify";
 import handleErrorMessage from "../../utils/HandleErrorMessage.js";
 
@@ -29,13 +29,15 @@ export const refreshForm = createAsyncThunk('forms/refreshForm', async (id, thun
     return await handleAsyncThunk(serverUrl`/${id}`, 'get', {}, thunkApi)
 })
 
+
 export const createForm = createAsyncThunk('forms/createForm', async (data, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+"/", 'post', {formData:data.formData}, thunkApi, data.handleRedirect)
+    return await handleCreateEditAsyncThunk(serverUrl+"/", 'post', data.formData, thunkApi, data.handleRedirect)
 })
 
-export const updateForm = createAsyncThunk('forms/updateForm', async (formData, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+`/${formData.id}`, 'put', {formData: formData.formData}, thunkApi, formData.handleRedirect)
+export const updateForm = createAsyncThunk('forms/updateForm', async (data, thunkApi)=>{
+    return await handleCreateEditAsyncThunk(serverUrl+`/${data.id}`, 'put', data.formData, thunkApi, data.handleRedirect)
 })
+
 
 export const deleteForm = createAsyncThunk('forms/deleteForm', async (data, thunkApi)=>{
     return await handleAsyncThunk(serverUrl+`/${data.id}`, 'delete', {}, thunkApi, data.handleGetFormsByUserId)

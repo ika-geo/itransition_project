@@ -27,3 +27,11 @@ nav{
 img{
     @apply block max-h-full max-w-full
 }
+
+.label{
+    @apply mb-2 text-gray-700
+}
+
+.input{
+    @apply p-2 border border-gray-300 rounded w-full
+}
