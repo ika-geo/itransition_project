@@ -44,7 +44,7 @@ const CreateEditForm = () => {
     if (!form) return
 
     return (
-        <div className="p-6 min-h-screen">
+        <div className="p-6">
             {
                 loading&&
                 <Loading/>

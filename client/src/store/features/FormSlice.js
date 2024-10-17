@@ -17,8 +17,8 @@ export const getAllForms = createAsyncThunk('forms/getAllForms', async (formData
     return await handleAsyncThunk(serverUrl, 'get', formData, thunkApi)
 })
 
-export const getFormById = createAsyncThunk('forms/getFormById', async (id, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+`/${id}`, 'get', {}, thunkApi)
+export const getFormById = createAsyncThunk('forms/getFormById', async (data, thunkApi)=>{
+    return await handleAsyncThunk(serverUrl+`/${data.id}`, 'get', {}, thunkApi, data?.handleNavigate)
 })
 
 export const getFormsByUserId = createAsyncThunk('forms/getFormsByUserId', async (userId, thunkApi)=>{

@@ -15,7 +15,7 @@ const FormPage = () => {
     const loading = useSelector(state => state.forms.loading)
 
     useEffect(() => {
-        dispatch(getFormById(id))
+        dispatch(getFormById({id}))
     }, [])
 
     console.log(form)

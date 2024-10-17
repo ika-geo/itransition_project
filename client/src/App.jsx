@@ -40,7 +40,7 @@ const authorizedRoutes = (userRole)=>(
     <Route path="/" element={<Header />}>
         <Route path="/myPage" element={<UserPage/>}/>
         <Route path="/createForm" element={<CreateForm />} />
-        <Route path="/editForm/:id" element={<EditForm/>}/>
+        <Route path="/editForm" element={<EditForm/>}/>
         <Route path="/formTemplates" element={<FormTemplates />} />
         {userRole==='admin' && adminRoutes}
         {commonRoutes()}

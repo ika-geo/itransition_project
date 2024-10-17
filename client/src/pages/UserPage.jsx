@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Loading from "../components/Loading.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteForm, getFormsByUserId} from "../store/features/FormSlice.js";
+import {deleteForm, getFormById, getFormsByUserId} from "../store/features/FormSlice.js";
 import FormCardItem from "../components/FormCardItem.jsx";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
@@ -24,8 +24,12 @@ const UserPage = () => {
         dispatch(getFormsByUserId(userId))
     }
 
-    const handleEdit = (id) => {
-        navigate(`/editForm/${id}`)
+    const handleNavigate = ()=>{
+        navigate(`/editForm`)
+    }
+
+    const handleEdit = async (id) => {
+        await dispatch(getFormById({id, handleNavigate}))
     }
 
     const handleDelete = (id) => {
