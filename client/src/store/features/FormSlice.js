@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import handleAsyncThunk, {handleCreateEditAsyncThunk} from "../../utils/handleAsyncThunk.js";
 import {toast} from "react-toastify";
 import handleErrorMessage from "../../utils/HandleErrorMessage.js";
+import {transformTags} from "../../utils/tagsAndTopics.js";
 
 
 const serverUrl = import.meta.env.VITE_SERVER_URL + "/forms"
@@ -9,8 +10,8 @@ const selectedForm = {
     title: '',
     description: 'some lorem ipsum',
     imageUrl: "http://example.com",
-    tags: ['123', 'ika', 'lira'],
-    formFields: []
+    tags: [],
+    formFields: [],
 }
 
 export const getAllForms = createAsyncThunk('forms/getAllForms', async (formData, thunkApi)=>{
@@ -29,7 +30,6 @@ export const refreshForm = createAsyncThunk('forms/refreshForm', async (id, thun
     return await handleAsyncThunk(serverUrl`/${id}`, 'get', {}, thunkApi)
 })
 
-
 export const createForm = createAsyncThunk('forms/createForm', async (data, thunkApi)=>{
     return await handleCreateEditAsyncThunk(serverUrl+"/", 'post', data.formData, thunkApi, data.handleRedirect)
 })
@@ -38,11 +38,19 @@ export const updateForm = createAsyncThunk('forms/updateForm', async (data, thun
     return await handleCreateEditAsyncThunk(serverUrl+`/${data.id}`, 'put', data.formData, thunkApi, data.handleRedirect)
 })
 
-
 export const deleteForm = createAsyncThunk('forms/deleteForm', async (data, thunkApi)=>{
     return await handleAsyncThunk(serverUrl+`/${data.id}`, 'delete', {}, thunkApi, data.handleGetFormsByUserId)
 })
-
+// tags
+export const getTags = createAsyncThunk('forms/getTags', async (_, thunkApi)=>{
+    const tagUrl = serverUrl.replace("forms", "tags")
+    return await handleAsyncThunk(tagUrl, 'get', {}, thunkApi)
+})
+// topics
+export const getTopics = createAsyncThunk('forms/getTopics', async (_, thunkApi)=>{
+    const topicUrl = serverUrl.replace("forms", "topics")
+    return await handleAsyncThunk(topicUrl, 'get', {}, thunkApi)
+})
 
 const initialState = {
     forms: [],
@@ -50,6 +58,8 @@ const initialState = {
     selectedFormIndex: null,
     error: null,
     loading: false,
+    tags: [],
+    topics:[]
 }
 
 export const FormSlice = createSlice({
@@ -146,6 +156,14 @@ export const FormSlice = createSlice({
             .addCase(deleteForm.rejected, (state, action) => {
                 state.loading = false
                 handleErrorMessage(action, "Can't delete form")
+            })
+
+            .addCase(getTags.fulfilled, (state, action) => {
+                state.tags = action.payload
+            })
+
+            .addCase(getTopics.fulfilled, (state, action) => {
+                state.topics = action.payload
             })
     }
 })

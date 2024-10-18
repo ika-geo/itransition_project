@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { ToastContainer } from 'react-toastify';
 
 import Home from "./pages/Home.jsx";
@@ -17,6 +17,8 @@ import FormPage from "./pages/FormPage.jsx";
 import UserPage from "./pages/UserPage.jsx";
 import FormTemplates from "./pages/FormTemplates.jsx";
 import EditForm from "./pages/EditForm.jsx";
+import {useEffect} from "react";
+import {getTagsAndTopics} from "./utils/tagsAndTopics.js";
 
 
 const adminRoutes = (
@@ -60,6 +62,11 @@ function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(user ? authorizedRoutes(user?.role) : unauthorizedRoutes())
     );
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+        getTagsAndTopics(dispatch)
+    }, []);
 
     return (
         <div className='bg-bgColor min-h-screen break-words'>

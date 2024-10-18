@@ -3,8 +3,12 @@ import AddImage from "./AddImage.jsx";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import TagAutocomplete from "./TagField.jsx";
+import {useSelector} from "react-redux";
+import {getTopicValueById} from "../../utils/tagsAndTopics.js";
 
 const FormMainFields = ({form, setForm, image, setImage}) => {
+
+    const topics = useSelector(state=>state.forms.topics)
 
     const handleTitleChange = (e) => {
         setForm({...form, title: e.target.value});
@@ -21,6 +25,8 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
     const handleDeleteImage = ()=>{
         setForm({...form, imageUrl: null})
     }
+
+    console.log(topics)
 
     if (!form) return
 
@@ -46,14 +52,16 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
             <div className='mb-4'>
                 <p className='label'>Topic</p>
                 <select
-                    value={form.topic}
+                    value={form.topic.label}
                     className='input'
                     onChange={handleChangeTopic}>
-                    {/*in map*/}
-                    <option value="Education">Education</option>
-                    <option value="Quiz">Quiz</option>
-                    {/*outside map*/}
-                    <option value="Other">Other</option>
+                    {
+                        topics.map(topic => (
+                            <option key={topic.id} value={topic.id}>
+                                {getTopicValueById(topics, topic.id)}
+                            </option>
+                        ))
+                    }
                 </select>
             </div>
 

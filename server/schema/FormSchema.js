@@ -32,10 +32,13 @@ const FormSchema = sequelize.define('Forms', {
     },
     tags: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
-        // references: {
-        //     model: 'Tags',
-        //     key: 'id',
-        // },
+    },
+    topicId:{
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'Topics',
+            key: 'id',
+        }
     }
 })
 sequelize.sync();

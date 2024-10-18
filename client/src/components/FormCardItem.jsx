@@ -1,12 +1,16 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import parse from "html-react-parser";
+import {useSelector} from "react-redux";
+import {getTagLabelByValue} from "../utils/tagsAndTopics.js";
 
 const FormCardItem = ({form, editable, handleEdit, handleDelete}) => {
+    const tags = useSelector(state=>state.forms.tags)
+
     return (
         <div
             key={form.id}
-            className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+            className="flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
             <Link to={`/forms/${form.id}`} className="block mb-2 text-xl font-semibold text-gray-700">{form.title}</Link>
 
             {!editable ?
@@ -21,14 +25,14 @@ const FormCardItem = ({form, editable, handleEdit, handleDelete}) => {
                             <span
                                 key={tag}
                                 className="bg-lightPrimary text-primary py-1 px-3 rounded">
-                                            {tag}
+                                            {getTagLabelByValue(tags, tag)}
                                         </span>
                         )
                     })
                 }
             </div>
             {
-                editable ? <p className="text-sm text-gray-500">
+                editable ? <p className="text-sm text-gray-500 mb-4">
                         Created on: {new Date(form.createdAt).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: '2-digit',
@@ -39,7 +43,7 @@ const FormCardItem = ({form, editable, handleEdit, handleDelete}) => {
             }
             {
                 editable ?
-                    <div className='flex justify-between mt-4'>
+                    <div className='mt-auto flex justify-between'>
                         <button
                             onClick={() => handleEdit(form.id)}
                             className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
@@ -56,7 +60,6 @@ const FormCardItem = ({form, editable, handleEdit, handleDelete}) => {
                     :
                     null
             }
-
         </div>
     );
 };

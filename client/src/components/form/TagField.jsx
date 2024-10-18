@@ -1,31 +1,35 @@
 import React, {useEffect, useState} from 'react'
 import {ReactTags} from 'react-tag-autocomplete'
 import '../../styles/tagAUtocompleete.css'
+import {useSelector} from "react-redux";
+import {getTagLabelByValue, transformTags} from "../../utils/tagsAndTopics.js";
 
-const suggestions = [
-    {value: 1, label: 'Quiz'},
-    {value: 2, label: 'Person'},
-    {value: 3, label: 'Other'}
-]
 
-const TagAutocomplete = ({form, setForm}) => {
 
-    const [selected, setSelected] = useState([])
+const TagAutocomplete = ({ form, setForm }) => {
+    const tags = useSelector(state => state.forms.tags)
+    const suggestions = transformTags(tags)
+    const [selected, setSelected] = useState([]);
+    useEffect(() => {
+        const newSelected = form.tags.map(tag => ({
+            value: parseInt(tag),
+            label: getTagLabelByValue(tags, tag)
+        }));
+        setSelected(newSelected);
+    }, []);
 
     useEffect(() => {
-        setForm({...form, tags: selected.map(tag => tag.value)})
+        let tags = selected.map(tag => tag.value)
+        setForm({ ...form, tags });
     }, [selected]);
-
-    // useEffect(() => {
-    //     setSelected(form.tags.map(tag => tag.value))
-    // }, []);
 
     const onAdd =(newTag) => {
         setSelected([...selected, newTag])
     }
+
     const onDelete = (tagIndex) => {
-        setSelected(selected.filter((_, i) => i !== tagIndex))
-    }
+        setSelected(selected.filter((_, i) => i !== tagIndex));
+    };
 
     return (
         <div className="">
@@ -36,7 +40,9 @@ const TagAutocomplete = ({form, setForm}) => {
                 onDelete={onDelete}
             />
         </div>
-    )
-}
+    );
+};
+
+
 
 export default TagAutocomplete

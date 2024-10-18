@@ -1,5 +1,6 @@
 const UserSchema = require("../../schema/UserShcmea");
 const FormFieldSchema = require("../../schema/FormFieldSchema");
+const TopicSchema = require("../../schema/TopicSchema");
 
 
 const userOptions = {
@@ -15,6 +16,12 @@ const formFieldOptions = {
     attributes: {
         exclude: ['formId']
     }
+}
+
+const topicsOptions = {
+    model: TopicSchema,
+    as: 'topic',
+    attributes: ['id', 'label']
 }
 
 module.exports.getFormByUserIdOptions = (userId) => {
@@ -42,7 +49,8 @@ module.exports.getFormByIdOptions = (id) => {
         where: {id},
         include: [
             formFieldOptions,
-            userOptions
+            userOptions,
+            topicsOptions
         ],
         attributes: {
             exclude: ['userId']

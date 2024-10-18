@@ -1,12 +1,12 @@
 const FormSchema = require('./FormSchema')
 const FormFieldSchema = require('./FormFieldSchema')
 const UserSchema = require("./UserShcmea");
-const TagSchema = require("./TagSchema")
+const TopicSchema = require("./TopicSchema");
 
 
 
-// TagSchema.hasMany(FormSchema, { foreignKey: 'Tag'});
-// FormSchema.hasMany(TagSchema, { foreignKey: 'Tag', as: 'tag' });
+FormSchema.belongsTo(TopicSchema, { foreignKey: 'topicId', as: 'topic' });
+TopicSchema.hasMany(FormSchema, { foreignKey: 'topicId', as: 'forms' });
 
 UserSchema.hasMany(FormSchema, { foreignKey: 'userId'});
 FormSchema.belongsTo(UserSchema, { foreignKey: 'userId', as: 'user' });

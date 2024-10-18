@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {getFormById} from "../store/features/FormSlice.js";
 import parse from 'html-react-parser';
+import {getTagLabelByValue, getTopicValueById} from "../utils/tagsAndTopics.js";
 
 const FormPage = () => {
 
@@ -13,6 +14,8 @@ const FormPage = () => {
 
     const form = useSelector(state => state.forms.selectedForm)
     const loading = useSelector(state => state.forms.loading)
+    const tags = useSelector(state => state.forms.tags)
+    const topics = useSelector(state => state.forms.topics)
 
     useEffect(() => {
         dispatch(getFormById({id}))
@@ -37,11 +40,12 @@ const FormPage = () => {
                                 {
                                     form.tags.map(tag => (
                                         <span key={tag}
-                                              className="bg-lightPrimary text-primary py-1 px-3 rounded">{tag}</span>
+                                              className="bg-lightPrimary text-primary py-1 px-3 rounded">{getTagLabelByValue(tags, tag)}</span>
                                     ))
                                 }
                             </div>
                         </div>
+                        <p className="text-gray-600 mb-4">Topic: {getTopicValueById(topics, form?.topicId)}</p>
                     </div>
 
 
