@@ -26,8 +26,6 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
         setForm({...form, imageUrl: null})
     }
 
-    console.log(topics)
-
     if (!form) return
 
     return (
@@ -52,7 +50,7 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
             <div className='mb-4'>
                 <p className='label'>Topic</p>
                 <select
-                    value={form.topic.label}
+                    value={form.topic?.label}
                     className='input'
                     onChange={handleChangeTopic}>
                     {

@@ -10,6 +10,7 @@ const TagAutocomplete = ({ form, setForm }) => {
     const tags = useSelector(state => state.forms.tags)
     const suggestions = transformTags(tags)
     const [selected, setSelected] = useState([]);
+
     useEffect(() => {
         const newSelected = form.tags.map(tag => ({
             value: parseInt(tag),

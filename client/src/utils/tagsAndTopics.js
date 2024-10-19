@@ -7,7 +7,6 @@ export function getTagsAndTopics(dispatch){
 }
 
 export function transformTags (tags){
-    console.log(tags)
     return tags.map(tag => ({
         value: tag.id,
         label: tag.label,
@@ -28,7 +27,6 @@ export function getTopicValueById (topics, id){
         const topic = topics.find(topic => {
             return topic.id === id
         })
-        console.log(topic)
         return topic?.label || 'undefined'
     }
 }

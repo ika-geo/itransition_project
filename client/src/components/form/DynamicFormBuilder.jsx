@@ -1,30 +1,58 @@
 import React, { useState } from 'react';
 import SelectOptionsEditor from './SelectOptionsEditor';
 import FormFieldItems from './FormFieldItems.jsx';
-import { addFieldName, editFieldName, resetFields, validateFieldNameValue } from '../utils/drag';
+import {addField, validateName, editField} from '../../utils/formFunctions.js';
 
-const DynamicFormBuilder = ({ formFields, setFormFields }) => {
-    const [fieldName, setFieldName] = useState('');
-    const [fieldType, setFieldType] = useState('text');
-    const [selectOptions, setSelectOptions] = useState([]);
+const fieldItemTemplate = {
+    name: '',
+    type: 'text',
+    selectOptions: null,
+    hidden: false
+}
+
+const DynamicFormBuilder = ({ formFields, setFormFields, setForm }) => {
     const [editingIndex, setEditingIndex] = useState(null);
+    const [fieldItem, setFieldItem] = useState(fieldItemTemplate)
+
+    const resetFieldItem = ()=>{
+        setEditingIndex(null);
+        setFieldItem(fieldItemTemplate)
+    }
+
+    const handleSetFieldItem = (changeValue) => {
+        setFieldItem(prevState => ({
+            ...prevState,
+            ...changeValue
+        }));
+    }
+
+    const setFieldName = (name)=>{
+        handleSetFieldItem({name});
+    }
+
+    const setFieldType = (type)=>{
+        handleSetFieldItem({type});
+        if (type === 'select') {
+            setSelectOptions([]);
+        }
+    }
+
+    const setSelectOptions = (options) => {
+        handleSetFieldItem({options: options });
+    }
+
+    const setFieldHidden = (value)=>{
+        handleSetFieldItem({hidden: value });
+    }
 
     const handleAddField = () => {
-        if (!validateFieldNameValue(fieldName, formFields, editingIndex)) return;
-        if (editingIndex !== null) {
-            // not fieldName but field
-            editFieldName(formFields, editingIndex, fieldName, fieldType, selectOptions, setFormFields, setEditingIndex);
-        } else {
-            // not fieldName but field
-            addFieldName(fieldName, fieldType, selectOptions, setFormFields, formFields);
-        }
-        resetFields(setFieldName, setFieldType, setSelectOptions);
+        if (!validateName(fieldItem.name, formFields, editingIndex, true)) return;
+        if (editingIndex !== null) editField(formFields, editingIndex, fieldItem, setFormFields, resetFieldItem)
+        else addField(fieldItem, setFormFields, formFields, resetFieldItem)
     };
 
     const handleCancelAddField = () => {
-        resetFields(setFieldName, setFieldType, setSelectOptions);
-        //code below add to resetFields, and you dont need to use it twice (in handleAddfield also)
-        setEditingIndex(null);
+        resetFieldItem()
     };
 
     return (
@@ -36,7 +64,7 @@ const DynamicFormBuilder = ({ formFields, setFormFields }) => {
                         <p className="label">Field Name:</p>
                         <input
                             type="text"
-                            value={fieldName}
+                            value={fieldItem.name}
                             onChange={(e) => setFieldName(e.target.value)}
                             className="input"
                         />
@@ -45,7 +73,7 @@ const DynamicFormBuilder = ({ formFields, setFormFields }) => {
                     <div className="mb-4">
                         <p className="label">Field Type:</p>
                         <select
-                            value={fieldType}
+                            value={fieldItem.type}
                             onChange={(e) => setFieldType(e.target.value)}
                             className="input"
                         >
@@ -56,9 +84,21 @@ const DynamicFormBuilder = ({ formFields, setFormFields }) => {
                         </select>
                     </div>
 
-                    {fieldType === 'select' && (
-                        <SelectOptionsEditor selectOptions={selectOptions} setSelectOptions={setSelectOptions} />
+                    {fieldItem.type === 'select' && (
+                        <SelectOptionsEditor selectOptions={fieldItem.options}
+                                             setSelectOptions={setSelectOptions}/>
                     )}
+
+                    <div className="mb-4">
+                        <label className="label">Hidden qustion:
+                        <input
+                            className='ml-4'
+                            type="checkbox"
+                            checked={fieldItem.hidden}
+                            onChange={(e) => setFieldHidden(e.target.checked)}
+                        />
+                        </label>
+                    </div>
 
                     <div className="flex mb-4">
                         {editingIndex !== null && (
@@ -80,7 +120,9 @@ const DynamicFormBuilder = ({ formFields, setFormFields }) => {
                         setFieldType={setFieldType}
                         setEditingIndex={setEditingIndex}
                         setSelectOptions={setSelectOptions}
+                        setFieldHidden={setFieldHidden}
                         editingIndex={editingIndex}
+                        setForm={setForm}
                     />
                 </div>
             </div>

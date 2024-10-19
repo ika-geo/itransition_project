@@ -1,9 +1,9 @@
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { MdDelete, MdEdit } from 'react-icons/md';
-import { DragEndFields } from '../utils/drag';
+import { DragEndFields } from '../../utils/formFunctions.js';
 
-const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType, setEditingIndex, setSelectOptions, editingIndex }) => {
+const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType, setEditingIndex, setSelectOptions, setFieldHidden, editingIndex, setForm }) => {
 
     const handleDragEnd = (result) => {
         if (editingIndex) return
@@ -14,6 +14,7 @@ const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType,
         const fieldToEdit = formFields[index];
         setFieldName(fieldToEdit.name);
         setFieldType(fieldToEdit.type);
+        setFieldHidden(fieldToEdit.hidden);
         setEditingIndex(index);
 
         if (fieldToEdit.type === 'select') {
@@ -21,7 +22,16 @@ const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType,
         }
     };
 
+    const handleDeleteFieldInDB = (index) => {
+        setForm(prevState => ({
+            ...prevState,
+            deletedFields: [...(prevState.deletedFields || []), formFields[index].id]
+        }));
+    };
+
     const handleRemoveField = (index) => {
+        if (editingIndex!==null) return
+        if (formFields[index].id) handleDeleteFieldInDB(index)
         const updatedFields = [...formFields];
         updatedFields.splice(index, 1);
         setFormFields(updatedFields);

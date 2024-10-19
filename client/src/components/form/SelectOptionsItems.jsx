@@ -1,7 +1,7 @@
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { MdDelete, MdEdit } from 'react-icons/md';
-import { DragEndFields } from '../utils/drag';
+import { DragEndFields } from '../../utils/formFunctions.js';
 
 const SelectOptionsItems = ({ selectOptions, setSelectOptions, setOptionValue, setEditingOptionIndex, editingOptionIndex }) => {
 
@@ -26,7 +26,7 @@ const SelectOptionsItems = ({ selectOptions, setSelectOptions, setOptionValue, s
             <Droppable droppableId="options">
                 {(provided) => (
                     <ul {...provided.droppableProps} ref={provided.innerRef} className="mt-2">
-                        {selectOptions.map((option, index) => (
+                        {selectOptions && selectOptions.map((option, index) => (
                             <Draggable
                                 isDragDisabled={editingOptionIndex !== null}
                                 key={option}

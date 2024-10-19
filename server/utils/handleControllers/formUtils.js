@@ -12,6 +12,14 @@ const handleSequelizeValidationErrors = (err, res) => {
     res.status(400).json({ message: messages[0] });
 }
 
+const deleteArrayOfFormFields = async (formData)=>{
+        await FormFieldSchema.destroy({
+            where: {
+                id: formData.deletedFields
+            }
+        });
+}
+
 const createUpdateFormFields = async (formData, formId, transaction, res)=>{
     let formFields = []
     formData.formFields.map(async (item, index) => {
@@ -65,6 +73,7 @@ module.exports.handleCreateForm = async (req, formData, res)=>{
 module.exports.handleUpdateForm = async (req, formData, res, id)=>{
     try{
         if (req.body.imageUrl) formData.imageUrl = req.body.imageUrl;
+        if(formData.deletedFields) await deleteArrayOfFormFields(formData)
         const transaction = await sequelize.transaction()
         const form = await module.exports.findForm(res, id);
         if (!form) return false;

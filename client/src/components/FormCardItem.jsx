@@ -17,7 +17,7 @@ const FormCardItem = ({form, editable, handleEdit, handleDelete}) => {
                 <p className="text-sm text-gray-500 mb-4">Author: {form.user?.name}</p> : null
             }
 
-            <p className="text-gray-600 line-clamp-3 mb-4">{parse(form.description)}</p>
+            <div className="text-gray-600 line-clamp-3 mb-4">{parse(form.description)}</div>
             <div className="flex mb-2 gap-2">
                 {
                     form.tags.map(tag => {

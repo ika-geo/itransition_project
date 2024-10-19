@@ -4,8 +4,8 @@ export const templates = [
         "description": "Simple person questionnaire",
         "imageUrl": "https://centrechurch.org/wp-content/uploads/2022/03/img-person-placeholder.jpeg",
         "tags": [
-            "Person",
-            "questionnaire",
+            6,
+            7,
         ],
         "formFields": [
             {
@@ -28,8 +28,8 @@ export const templates = [
         "description": "Simple questionnaire",
         "imageUrl": "https://media.istockphoto.com/id/1186386668/vector/quiz-in-comic-pop-art-style-quiz-brainy-game-word-vector-illustration-design.jpg?s=612x612&w=0&k=20&c=mBQMqQ6kZuC9ZyuV5_uCm80QspqSJ7vRm0MfwL3KLZY=",
         "tags": [
-            "quiz",
-            "qustions",
+            7,
+            15
         ],
         "formFields": [
             {

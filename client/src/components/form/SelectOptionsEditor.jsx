@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import SelectOptionsItems from './SelectOptionsItems';
-import { addOptionValue, editOptionValue, validateOptionValue } from '../utils/drag';
+import { addOptionValue, editOptionValue, validateName } from '../../utils/formFunctions.js';
 
 const SelectOptionsEditor = ({ selectOptions, setSelectOptions }) => {
     const [optionValue, setOptionValue] = useState('');
     const [editingOptionIndex, setEditingOptionIndex] = useState(null);
 
     const handleAddOption = () => {
-        if (!validateOptionValue(optionValue, selectOptions, editingOptionIndex)) return;
+        if (!validateName(optionValue, selectOptions, editingOptionIndex)) return;
 
         if (editingOptionIndex !== null) {
-            editOptionValue(selectOptions, editingOptionIndex, optionValue, setSelectOptions, setEditingOptionIndex);
+            editOptionValue(selectOptions, editingOptionIndex, optionValue, setSelectOptions);
         } else {
             addOptionValue(setSelectOptions, selectOptions, optionValue);
         }
-        setOptionValue('');
+        handleResetOption()
     };
 
-    const handleCancelAddOption = () => {
+    const handleResetOption = ()=>{
         setEditingOptionIndex(null);
         setOptionValue('');
+    }
+
+    const handleCancelAddOption = () => {
+        handleResetOption()
     };
 
     return (

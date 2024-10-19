@@ -63,7 +63,7 @@ const CreateEditForm = () => {
                 image={image}
                 setImage={setImage}
             />
-            <DynamicFormBuilder formFields={form.formFields} setFormFields={handleFormFieldsChange}/>
+            <DynamicFormBuilder formFields={form.formFields} setFormFields={handleFormFieldsChange} setForm={setForm}/>
             <button className="button" onClick={handleSubmit}>
                 {form?.id ? 'Edit' : 'Create'}
             </button>

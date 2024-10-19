@@ -26,6 +26,10 @@ const FormFieldSchema = sequelize.define('FormFields', {
     options: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         defaultValue: null,
+    },
+    hidden:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
 })
 
