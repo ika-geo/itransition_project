@@ -9,9 +9,10 @@ const serverUrl = import.meta.env.VITE_SERVER_URL + "/forms"
 const selectedForm = {
     title: '',
     description: 'some lorem ipsum',
-    imageUrl: "http://example.com",
+    imageUrl: null,
     tags: [],
     formFields: [],
+    topicId: 1,
 }
 
 export const getAllForms = createAsyncThunk('forms/getAllForms', async (formData, thunkApi)=>{
