@@ -5,10 +5,10 @@ export const en = {
             header: 'Admin Dashboard',
             buttonTitle: 'Manage',
             items:[
-                {title: 'Manage Users', url: '/users', description: 'View, block, or remove users. Promote or demote users from admin role.'},
-                {title: 'Manage Templates', url: '/manageTemplates', description: 'Edit or delete any user’s templates, or add new questions to them.'},
-                {title: 'Manage users answers', url: '/manageUsersAnswers', description: 'Edit or delete any user’s answers.'},
-                {title: 'Manage Tags', url: '/manageTags', description: 'Edit or delete any tags, or add new.'}
+                {title: 'Manage Users', url: '/admin/users', description: 'View, block, or remove users. Promote or demote users from admin role.'},
+                {title: 'Manage Forms', url: '/admin/manageForms', description: 'Edit or delete any user’s forms, or add new questions to them.'},
+                {title: 'Manage users answers', url: '/admin/manageUsersAnswers', description: 'Edit or delete any user’s answers.'},
+                {title: 'Manage Tags', url: '/admin/manageTags', description: 'Edit or delete any tags, or add new.'}
             ]
         },
         loading: "loading...",

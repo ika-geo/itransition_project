@@ -32,19 +32,20 @@ const CreateEditForm = () => {
     }
 
     const handleEdit=()=>{
-        const formData = handlePrepareForm()
+        const formData = handlePrepareForm(form)
+        console.log(formData)
         dispatch(updateForm({id: form.id, formData, handleRedirect}))
     }
 
     const handleCreateNewForm = ()=>{
-        const formData = handlePrepareForm()
+        const formData = handlePrepareForm({...form, userId})
         dispatch(createForm({formData, handleRedirect}))
     }
 
-    const handlePrepareForm = () => {
+    const handlePrepareForm = (form) => {
         const formData = new FormData();
         if (image?.length) formData.append('file', image[0].file);
-        formData.append('formData', JSON.stringify({...form, userId}))
+        formData.append('formData', JSON.stringify(form))
         return formData;
     }
 

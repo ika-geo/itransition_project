@@ -6,7 +6,7 @@ import Home from "./pages/Home.jsx";
 import AdminPage from "./pages/Admin.jsx";
 import Header from "./components/Header.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
-import Users from "./pages/Users.jsx";
+import HandleUsersAdmin from "./pages/HandleUsersAdmin.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 
@@ -19,12 +19,14 @@ import FormTemplates from "./pages/FormTemplates.jsx";
 import EditForm from "./pages/EditForm.jsx";
 import {useEffect} from "react";
 import {getTagsAndTopics} from "./utils/tagsAndTopics.js";
+import HandleFormsAdmin from "./pages/HandleFormsAdmin.jsx";
 
 
 const adminRoutes = (
     <>
-        <Route path="/users" element={<Users />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="admin/users" element={<HandleUsersAdmin />} />
+        <Route path="/admin/manageForms" element={<HandleFormsAdmin/>} />
     </>
 )
 

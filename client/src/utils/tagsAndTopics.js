@@ -16,7 +16,7 @@ export function transformTags (tags){
 export function getTagLabelByValue (tags, value){
     if (tags.length){
         const tag = tags.find(tag => {
-            return tag.id === parseInt(value)
+            return parseInt(tag.id) === parseInt(value)
         })
         return tag?.label || 'undefined'
     }
@@ -25,7 +25,7 @@ export function getTagLabelByValue (tags, value){
 export function getTopicValueById (topics, id){
     if (topics.length){
         const topic = topics.find(topic => {
-            return topic.id === id
+            return parseInt(topic.id) === parseInt(id)
         })
         return topic?.label || 'undefined'
     }

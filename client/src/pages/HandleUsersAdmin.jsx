@@ -14,7 +14,7 @@ import {useNavigate} from "react-router-dom";
 import UserItem from "../components/users/UserItem.jsx";
 import UserItemHead from "../components/users/UserItemHead.jsx";
 
-const Users = () => {
+const HandleUsersAdmin = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {t} = useTranslation()
@@ -119,4 +119,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default HandleUsersAdmin;

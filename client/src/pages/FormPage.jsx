@@ -33,19 +33,31 @@ const FormPage = () => {
                     <div className={form.imageUrl ? "w-1/2" : "w-full"}>
                         <h1 className="text-3xl font-bold text-gray-800 mb-2">{form.title}</h1>
                         <p className="font-semibold text-gray-800 mb-2">Author {form.user?.name}</p>
-                        <p className="text-gray-600 mb-4">{parse(form.description)}</p>
-                        <div className="mb-10">
-                            <h2 className="text-lg font-semibold text-gray-700 mb-2">Tags:</h2>
-                            <div className="flex space-x-2">
-                                {
-                                    form.tags.map(tag => (
-                                        <span key={tag}
-                                              className="bg-lightPrimary text-primary py-1 px-3 rounded">{getTagLabelByValue(tags, tag)}</span>
-                                    ))
-                                }
-                            </div>
+
+                        <div className='"mb-10"'>
+                            <h2 className="text-lg font-semibold text-gray-700 mb-2">Description:</h2>
+                            <div className="text-gray-600 mb-4">{parse(form.description)}</div>
                         </div>
-                        <p className="text-gray-600 mb-4">Topic: {getTopicValueById(topics, form?.topicId)}</p>
+
+                        {form.tags && form.tags.length ?
+                            <div className="mb-10">
+                                <h2 className="text-lg font-semibold text-gray-700 mb-2">Tags:</h2>
+                                <div className="flex space-x-2">
+                                    {
+                                        form.tags.map(tag => (
+                                            <span key={tag}
+                                                  className="bg-lightPrimary text-primary py-1 px-3 rounded">{getTagLabelByValue(tags, tag)}</span>
+                                        ))
+                                    }
+                                </div>
+                            </div> : null
+                        }
+
+                        <div className='"mb-10"'>
+                            <h2 className="text-lg font-semibold text-gray-700 mb-2">Topic:</h2>
+                            <p className="text-gray-600 mb-4">Topic: {getTopicValueById(topics, form?.topicId)}</p>
+                        </div>
+
                     </div>
 
 

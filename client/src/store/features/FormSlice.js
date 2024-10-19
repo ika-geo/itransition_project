@@ -40,7 +40,7 @@ export const updateForm = createAsyncThunk('forms/updateForm', async (data, thun
 })
 
 export const deleteForm = createAsyncThunk('forms/deleteForm', async (data, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+`/${data.id}`, 'delete', {}, thunkApi, data.handleGetFormsByUserId)
+    return await handleAsyncThunk(serverUrl+`/${data.id}`, 'delete', {}, thunkApi, data.handleAfterSucess)
 })
 // tags
 export const getTags = createAsyncThunk('forms/getTags', async (_, thunkApi)=>{

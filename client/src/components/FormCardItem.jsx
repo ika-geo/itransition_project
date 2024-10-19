@@ -4,7 +4,7 @@ import parse from "html-react-parser";
 import {useSelector} from "react-redux";
 import {getTagLabelByValue} from "../utils/tagsAndTopics.js";
 
-const FormCardItem = ({form, editable, handleEdit, handleDelete}) => {
+const FormCardItem = ({form, editable, handleEdit, handleDelete, adminRole=false}) => {
     const tags = useSelector(state=>state.forms.tags)
 
     return (
@@ -13,7 +13,7 @@ const FormCardItem = ({form, editable, handleEdit, handleDelete}) => {
             className="flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
             <Link to={`/forms/${form.id}`} className="block mb-2 text-xl font-semibold text-gray-700">{form.title}</Link>
 
-            {!editable ?
+            {!editable || adminRole ?
                 <p className="text-sm text-gray-500 mb-4">Author: {form.user?.name}</p> : null
             }
 
