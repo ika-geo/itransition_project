@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Loading from "../components/Loading.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {getFormById} from "../store/features/FormSlice.js";
 import parse from 'html-react-parser';
 import {getTagLabelByValue, getTopicValueById} from "../utils/tagsAndTopics.js";
@@ -15,6 +15,7 @@ const FormPage = () => {
     const loading = useSelector(state => state.forms.loading)
     const tags = useSelector(state => state.forms.tags)
     const topics = useSelector(state => state.forms.topics)
+    const user = useSelector(state => state.auth.user)
 
     useEffect(() => {
         dispatch(getFormById({id}))
@@ -71,7 +72,7 @@ const FormPage = () => {
                 </div>
 
 
-                <div className="mb-20">
+                <div className="mb-10">
                     <h2 className="text-2xl font-semibold mb-4 text-gray-700">Questions</h2>
                     <ul className="space-y-4">
 
@@ -89,6 +90,12 @@ const FormPage = () => {
                         }
                     </ul>
                 </div>
+
+                { user ?
+                    <div className='mb-8'>
+                        <Link to={`/fillForm/${id}`} className='button text-center block w-full'>Fill form</Link>
+                    </div>:null
+                }
 
 
                 <div className="mb-8">

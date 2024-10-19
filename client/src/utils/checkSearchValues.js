@@ -2,8 +2,6 @@ const checkSearchValues = (form, searchInputs)=>{
     if(searchInputs.title && !form.title.toLowerCase().includes(searchInputs.title.toLowerCase())){
         return false
     }
-    console.log(searchInputs)
-    console.log(form)
     if(searchInputs.tag!=="All" && !form.tags.includes(searchInputs.tag)){
         return false
     }

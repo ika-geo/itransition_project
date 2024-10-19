@@ -20,6 +20,7 @@ import EditForm from "./pages/EditForm.jsx";
 import {useEffect} from "react";
 import {getTagsAndTopics} from "./utils/tagsAndTopics.js";
 import HandleFormsAdmin from "./pages/HandleFormsAdmin.jsx";
+import FillForm from "./pages/FillForm.jsx";
 
 
 const adminRoutes = (
@@ -46,6 +47,8 @@ const authorizedRoutes = (userRole)=>(
         <Route path="/createForm" element={<CreateForm />} />
         <Route path="/editForm" element={<EditForm/>}/>
         <Route path="/formTemplates" element={<FormTemplates />} />
+        <Route path="/fillForm/:id" element={<FillForm />} />
+
         {userRole==='admin' && adminRoutes}
         {commonRoutes()}
         <Route path="*" element={<ErrorPage />} />
