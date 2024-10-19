@@ -8,7 +8,6 @@ import {getTagLabelByValue, getTopicValueById} from "../utils/tagsAndTopics.js";
 
 const FormPage = () => {
 
-
     const dispatch = useDispatch()
     const {id} = useParams()
 
@@ -20,8 +19,6 @@ const FormPage = () => {
     useEffect(() => {
         dispatch(getFormById({id}))
     }, [])
-
-    console.log(form)
 
     if (loading) return <Loading/>
     if (!form) return
