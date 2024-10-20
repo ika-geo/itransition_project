@@ -2,7 +2,6 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import handleAsyncThunk, {handleCreateEditAsyncThunk} from "../../utils/handleAsyncThunk.js";
 import {toast} from "react-toastify";
 import handleErrorMessage from "../../utils/HandleErrorMessage.js";
-import {transformTags} from "../../utils/tagsAndTopics.js";
 
 
 const serverUrl = import.meta.env.VITE_SERVER_URL + "/forms"

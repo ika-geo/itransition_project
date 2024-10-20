@@ -1,4 +1,4 @@
-const User = require("../../schema/UserShcmea");
+const User = require("../../schema/UserSchema");
 
 
 const findUserById = async (req, res)=>{

@@ -1,4 +1,4 @@
-const UserSchema = require("../../schema/UserShcmea");
+const UserSchema = require("../../schema/UserSchema");
 const FormFieldSchema = require("../../schema/FormFieldSchema");
 const TopicSchema = require("../../schema/TopicSchema");
 

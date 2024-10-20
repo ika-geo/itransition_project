@@ -6,7 +6,6 @@ const sequelize = require("../../database/connectToDB");
 const valuesForUpdate = ['name', 'position', 'type', 'options', 'hidden']
 const sequelizeValidationError = 'SequelizeValidationError'
 
-
 const handleSequelizeValidationErrors = (err, res) => {
     const messages = err.errors.map(err => err.message);
     res.status(400).json({ message: messages[0] });

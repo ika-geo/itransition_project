@@ -8,5 +8,5 @@ const TagSchema = sequelize.define('Tags', {
     }
 });
 
-sequelize.sync();
+// sequelize.sync();
 module.exports = TagSchema;
