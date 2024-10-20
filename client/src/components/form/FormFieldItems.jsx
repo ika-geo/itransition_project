@@ -16,7 +16,6 @@ const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType,
         setFieldType(fieldToEdit.type);
         setFieldHidden(fieldToEdit.hidden);
         setEditingIndex(index);
-
         if (fieldToEdit.type === 'select') {
             setSelectOptions(fieldToEdit.options || []);
         }
@@ -30,6 +29,8 @@ const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType,
     };
 
     const handleRemoveField = (index) => {
+        console.log('start deleting')
+        console.log(editingIndex)
         if (editingIndex!==null) return
         if (formFields[index].id) handleDeleteFieldInDB(index)
         const updatedFields = [...formFields];

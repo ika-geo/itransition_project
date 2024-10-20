@@ -62,7 +62,7 @@ export const editField = (formFields, editingIndex, fieldItem, setFormFields, re
     const updatedFields = [...formFields];
     const checkedFieldItem = checkForOptions(fieldItem)
     if (!checkedFieldItem) return
-    updatedFields[editingIndex] = checkedFieldItem
+    updatedFields[editingIndex] = {...checkedFieldItem, id:formFields[editingIndex].id}
     setFormFields(updatedFields);
     resetFieldItem()
 }

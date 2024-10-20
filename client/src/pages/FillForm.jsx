@@ -15,7 +15,6 @@ const FillForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm();
 
 
