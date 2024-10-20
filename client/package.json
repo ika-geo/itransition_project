@@ -13,6 +13,7 @@
     "@rbnd/react-dark-mode": "^2.0.1",
     "@reduxjs/toolkit": "^2.2.8",
     "axios": "^1.7.7",
+    "crypto-js": "^4.2.0",
     "html-react-parser": "^5.1.18",
     "i18next": "^23.15.2",
     "react": "^18.3.1",

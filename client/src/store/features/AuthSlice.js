@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import handleAsyncThunk from "../../utils/handleAsyncThunk.js";
 import handleErrorMessage from "../../utils/HandleErrorMessage.js";
 import {toast} from "react-toastify";
+import {deleteLocallySavedUser, saveUserLocally} from "../../utils/localAuth.js";
 
 
 const serverUrl = import.meta.env.VITE_SERVER_URL + "/auth"
@@ -29,10 +30,14 @@ export const AuthSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        logout: (state, action) => {
+        logout: (state) => {
             state.user = null
             state.error = null
             state.loading = false
+            deleteLocallySavedUser()
+        },
+        setUser: (state, action) => {
+            state.user = action.payload
         },
     },
     extraReducers: (builder) => {
@@ -43,6 +48,7 @@ export const AuthSlice = createSlice({
             .addCase(register.fulfilled, (state, action) => {
                 state.loading = false
                 state.user=action.payload
+                saveUserLocally(action.payload)
                 toast.success('User registered successfully')
             })
             .addCase(register.rejected, (state, action) => {
@@ -56,6 +62,7 @@ export const AuthSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.loading = false
                 state.user=action.payload
+                saveUserLocally(action.payload)
             })
             .addCase(login.rejected, (state, action) => {
                 handleErrorMessage(action, "Cannot login")
@@ -76,7 +83,6 @@ export const AuthSlice = createSlice({
     }
 })
 
-// Action creators are generated for each case reducer function
-export const { logout } = AuthSlice.actions
+export const { logout, setUser } = AuthSlice.actions
 
 export default AuthSlice.reducer

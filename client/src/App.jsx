@@ -21,6 +21,7 @@ import {useEffect} from "react";
 import {getTagsAndTopics} from "./utils/tagsAndTopics.js";
 import HandleFormsAdmin from "./pages/HandleFormsAdmin.jsx";
 import FillForm from "./pages/FillForm.jsx";
+import {setLocallySavedUser} from "./utils/localAuth.js";
 
 
 const adminRoutes = (
@@ -69,8 +70,10 @@ function App() {
     );
 
     const dispatch = useDispatch()
+
     useEffect(() => {
         getTagsAndTopics(dispatch)
+        setLocallySavedUser(dispatch)
     }, []);
 
     return (

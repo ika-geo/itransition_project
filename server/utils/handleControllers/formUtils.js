@@ -3,7 +3,7 @@ const FormSchema = require("../../schema/FormSchema");
 const {getFormByIdOptions} = require("../options/formOptions");
 const sequelize = require("../../database/connectToDB");
 
-const valuesForUpdate = ['name', 'position', 'type', 'options']
+const valuesForUpdate = ['name', 'position', 'type', 'options', 'hidden']
 const sequelizeValidationError = 'SequelizeValidationError'
 
 
@@ -12,11 +12,12 @@ const handleSequelizeValidationErrors = (err, res) => {
     res.status(400).json({ message: messages[0] });
 }
 
-const deleteArrayOfFormFields = async (formData)=>{
+const deleteArrayOfFormFields = async (formData, transaction)=>{
         await FormFieldSchema.destroy({
             where: {
                 id: formData.deletedFields
-            }
+            },
+            transaction
         });
 }
 
@@ -73,8 +74,8 @@ module.exports.handleCreateForm = async (req, formData, res)=>{
 module.exports.handleUpdateForm = async (req, formData, res, id)=>{
     try{
         if (req.body.imageUrl) formData.imageUrl = req.body.imageUrl;
-        if(formData.deletedFields) await deleteArrayOfFormFields(formData)
         const transaction = await sequelize.transaction()
+        if(formData.deletedFields) await deleteArrayOfFormFields(formData, transaction)
         const form = await module.exports.findForm(res, id);
         if (!form) return false;
         const updatedForm = await form.update(formData, { transaction });
