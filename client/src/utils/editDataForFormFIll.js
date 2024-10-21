@@ -4,10 +4,26 @@ export const editFromObjectToArray = (object)=>{
     return arr;
 }
 
+
 export const editFromArrayToObject = (arr)=>{
-    const obj = {};
-    arr.forEach(item => {
-        obj[item.qustion] = item.value;
-    });
-    return obj;
+    const formObject = arr.reduce((acc, item) => {
+        acc[item.question] = item.answer;
+        return acc;
+    }, {});
+    console.log(formObject);
+    return formObject;
 }
+
+
+export const arrayToObjectWithId = (formObject, answers)=>{
+    const result = Object.keys(formObject).map(key => {
+        const originalItem = answers.find(item => item.question === key);
+        return {
+            id: originalItem.id,
+            question: key,
+            answer: formObject[key]
+        };
+    });
+    return result
+}
+

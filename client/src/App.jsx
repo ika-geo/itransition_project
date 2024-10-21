@@ -22,6 +22,7 @@ import {getTagsAndTopics} from "./utils/tagsAndTopics.js";
 import HandleFormsAdmin from "./pages/HandleFormsAdmin.jsx";
 import FillForm from "./pages/FillForm.jsx";
 import {setLocallySavedUser} from "./utils/localAuth.js";
+import EditFillForm from "./pages/EditFillForm.jsx";
 
 
 const adminRoutes = (
@@ -49,7 +50,7 @@ const authorizedRoutes = (userRole)=>(
         <Route path="/editForm" element={<EditForm/>}/>
         <Route path="/formTemplates" element={<FormTemplates />} />
         <Route path="/fillForm/:id" element={<FillForm />} />
-
+        <Route path="/editFilledForm" element={<EditFillForm />} />
         {userRole==='admin' && adminRoutes}
         {commonRoutes()}
         <Route path="*" element={<ErrorPage />} />

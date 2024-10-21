@@ -7,7 +7,7 @@ import handleErrorMessage from "../../utils/HandleErrorMessage.js";
 const serverUrl = import.meta.env.VITE_SERVER_URL + "/forms"
 const selectedForm = {
     title: '',
-    description: 'some lorem ipsum',
+    description: '',
     imageUrl: null,
     tags: [],
     formFields: [],

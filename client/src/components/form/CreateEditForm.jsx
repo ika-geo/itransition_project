@@ -6,6 +6,7 @@ import {createForm, updateForm} from "../../store/features/FormSlice.js";
 import Loading from "../Loading.jsx";
 import {useNavigate} from "react-router-dom";
 import FormMainFields from "./FormMainFields.jsx";
+import {toast} from "react-toastify";
 
 
 const CreateEditForm = () => {
@@ -50,6 +51,7 @@ const CreateEditForm = () => {
     }
 
     const handleSubmit = () => {
+        if (!form.formFields.length) return toast.warning('at least on question is required')
         form?.id ? handleEdit() : handleCreateNewForm();
     };
 

@@ -5,8 +5,8 @@ const FilledFormCardItem = ({form, handleEdit, handleDelete}) => {
     return (
         <div
             className="flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
-            <h1 className="block mb-2 text-xl font-semibold text-gray-700">{form?.form.title}</h1>
-            <p className="text-sm text-gray-500 mb-4">Filled by: {form.userItem.name}</p>
+            <h1 className="block mb-2 text-xl font-semibold text-gray-700">{form.form.title}</h1>
+            <p className="text-sm text-gray-500 mb-4">Filled by: {form.user.name}</p>
             <p className="text-sm text-gray-500 mb-4">
                 Filled on: {new Date(form.createdAt).toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -17,7 +17,7 @@ const FilledFormCardItem = ({form, handleEdit, handleDelete}) => {
 
             <div className='mt-auto flex justify-between'>
                 <button
-                    onClick={() => handleEdit(form.id)}
+                    onClick={() => handleEdit(form)}
                     className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
                 >
                     Edit

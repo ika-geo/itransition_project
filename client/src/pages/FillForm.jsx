@@ -1,47 +1,58 @@
-import React, {useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
 import {getFormById} from "../store/features/FormSlice.js";
 import QuestionItem from "../components/QuestionItem.jsx";
-import {editFromObjectToArray} from "../utils/editDataForFormFIll.js";
-import {createFilledForm} from "../store/features/FilledFormSlice.js";
+import {arrayToObjectWithId, editFromArrayToObject, editFromObjectToArray} from "../utils/editDataForFormFIll.js";
+import {createFilledForm, editFilledForm} from "../store/features/FilledFormSlice.js";
+import Loading from "../components/Loading.jsx";
 
 
-const FillForm = ({editMode=false, filledFormId=null}) => {
+const FillForm = ({editMode=false}) => {
     const {id} = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const form = useSelector(state=>state.forms.selectedForm)
+    const loading = useSelector(state=>state.forms.loading)
+    const answers = useSelector(state=>state.filledForms.answers)
     const user = useSelector(state=>state.auth.user)
 
     const {
         register,
         handleSubmit,
+        reset
     } = useForm();
 
     const handleGetForm = ()=>{
-        dispatch(getFormById({id}))
+        if (!editMode) dispatch(getFormById({id}))
     }
-    //
-    // if (filledFormId){
-    //     dispatch()
-    // }
+
+    const handleNavigate = ()=>{
+        navigate(`/forms`)
+    }
+
+    const handleSetDefaultAnswers =()=>{
+        if (editMode){
+           reset(editFromArrayToObject(answers.items))
+        }
+    }
+
+    useEffect(() => {
+        handleSetDefaultAnswers()
+        handleGetForm()
+    }, []);
 
     const handleSave=(data)=>{
         let items = editFromObjectToArray(data)
         let formData = {formId: id, userId: user.id, items}
-        dispatch(createFilledForm(formData))
+        dispatch(createFilledForm({data:formData, handleIfSuccess:handleNavigate}))
     }
-
     const handleEdit=(data)=>{
-        console.log('edit', data)
+        dispatch(editFilledForm({data:arrayToObjectWithId(data, answers.items), handleIfSuccess:handleNavigate}))
     }
 
-    useEffect(() => {
-        handleGetForm()
-    }, []);
-
-
+    if (loading) return <Loading/>
     if(!form) return null
 
     return (

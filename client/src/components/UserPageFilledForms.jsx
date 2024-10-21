@@ -1,12 +1,12 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {deleteForm, getFormById} from "../store/features/FormSlice.js";
 import Loading from "./Loading.jsx";
-import FormCardItem from "./FormCardItem.jsx";
 import FilledFormCardItem from "./FilledFormCardItem.jsx";
+import {deleteFilledForm, getAnswers} from "../store/features/FilledFormSlice.js";
+import {getFormById} from "../store/features/FormSlice.js";
 
-const UserPageFilledForms = ({handleGetFormsByUserId}) => {
+const UserPageFilledForms = ({handleGetFilledFormsByUserId}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -14,17 +14,16 @@ const UserPageFilledForms = ({handleGetFormsByUserId}) => {
     const loading = useSelector(state => state.filledForms.loading)
 
     const handleNavigate = ()=>{
-        // navigate(`/editForm`)
+        navigate(`/editFilledForm`)
     }
 
-    const handleEdit = async (id) => {
-        alert(id)
-        // await dispatch(getFormById({id, handleNavigate}))
+    const handleEdit = async (form) => {
+        dispatch(getFormById({id:form.form.id}))
+        dispatch(getAnswers({id:form.id, handleNavigate}))
     }
 
     const handleDelete = (id) => {
-        alert(`delete ${id}`)
-        // dispatch(deleteForm({id, handleAfterSucess:handleGetFormsByUserId}))
+        dispatch(deleteFilledForm({id, handleIfSuccess:handleGetFilledFormsByUserId}))
     }
 
     if (loading) return <Loading/>
@@ -32,7 +31,7 @@ const UserPageFilledForms = ({handleGetFormsByUserId}) => {
 
     return (
         <div>
-            <h1 className='text-3xl font-bold mb-8'>User Forms</h1>
+            <h1 className='text-3xl font-bold mb-8'>Filled my forms</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
                 {
                     !filledForms.length ?

@@ -13,7 +13,6 @@ const authController = {
             if(loginError) return
             res.status(200).json(userDto(user))
         } catch (e) {
-            console.log(e)
             res.status(500).json({error: e.message})
         }
     },

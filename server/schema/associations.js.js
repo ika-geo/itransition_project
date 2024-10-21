@@ -7,7 +7,7 @@ const FilledFormItemSchema = require("./FilledFormItemsSchema");
 
 
 FilledFormSchema.hasMany(FilledFormItemSchema, { foreignKey: 'filledFormId', as: 'filledForm_filledFormItem'});
-FilledFormItemSchema.belongsTo(FilledFormSchema, { foreignKey: 'filledFormId', as: 'filledForm_filledForm'});
+FilledFormItemSchema.belongsTo(FilledFormSchema, { foreignKey: 'filledFormId', as: 'filledFormItem_filledForm'});
 
 UserSchema.hasMany(FilledFormSchema, { foreignKey: 'userId', as: 'user_filledForm'});
 FilledFormSchema.belongsTo(UserSchema, { foreignKey: 'userId', as: 'filledForm_user'});

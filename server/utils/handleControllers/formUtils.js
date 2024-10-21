@@ -43,7 +43,7 @@ module.exports.findForm = async (res, id)=>{
             res.status(404).json({message: "Form not found"});
             return false
         }
-        return renameKeys(form, ['form_formField', 'form_user', 'form_topic'], ['formFields', 'user', 'topic'])
+        return form
     }
     catch (e){
         res.status(500).json({error: e.message});
@@ -76,8 +76,9 @@ module.exports.handleUpdateForm = async (req, formData, res, id)=>{
         if (req.body.imageUrl) formData.imageUrl = req.body.imageUrl;
         const transaction = await sequelize.transaction()
         if(formData.deletedFields) await deleteArrayOfFormFields(formData, transaction)
-        const form = await module.exports.findForm(res, id);
+        const form = await FormSchema.findByPk(id);
         if (!form) return false;
+        console.log(form)
         const updatedForm = await form.update(formData, { transaction });
         const createFormFields = await createUpdateFormFields(formData, formData.id, transaction, res)
         if (!createFormFields) return false

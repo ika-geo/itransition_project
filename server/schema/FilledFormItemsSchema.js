@@ -20,5 +20,5 @@ const FilledFormItemSchema = sequelize.define('FilledFormItems', {
     }
 })
 
-sequelize.sync();
+// sequelize.sync();
 module.exports = FilledFormItemSchema;

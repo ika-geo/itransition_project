@@ -18,7 +18,7 @@ export const templates = [
                 "type": "text",
             },
             {
-                "name": "description1",
+                "name": "description",
                 "type": "select",
                 "options": ["option1", "option2", "option3"]
             }
