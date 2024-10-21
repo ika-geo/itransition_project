@@ -33,5 +33,5 @@ const UserSchema = sequelize.define("Users", {
     }
 })
 
-// sequelize.sync();
+sequelize.sync();
 module.exports = UserSchema;

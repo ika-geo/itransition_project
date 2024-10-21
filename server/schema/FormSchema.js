@@ -41,5 +41,6 @@ const FormSchema = sequelize.define('Forms', {
         }
     }
 })
-// sequelize.sync();
+
+sequelize.sync();
 module.exports = FormSchema;

@@ -1,6 +1,6 @@
 const User = require("../schema/UserSchema");
 const {userDto} = require("../dto/userDto");
-const {hashPassword, comparePassword} = require("../utils/bcryptPassword");
+const {hashPassword} = require("../utils/bcryptPassword");
 const {handleLoginErrors} = require("../utils/handleControllers/authUtils");
 
 

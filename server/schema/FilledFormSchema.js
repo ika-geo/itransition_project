@@ -9,6 +9,7 @@ const FilledFormSchema = sequelize.define('FilledForms', {
             key: 'id'
         },
         allowNull: false,
+        onDelete: 'CASCADE'
     },
     userId: {
         type: DataTypes.INTEGER,
@@ -21,5 +22,5 @@ const FilledFormSchema = sequelize.define('FilledForms', {
     }
 })
 
-// sequelize.sync();
+sequelize.sync();
 module.exports = FilledFormSchema;

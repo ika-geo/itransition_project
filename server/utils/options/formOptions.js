@@ -5,13 +5,13 @@ const TopicSchema = require("../../schema/TopicSchema");
 
 const userOptions = {
     model: UserSchema,
-    as: 'user',
+    as: 'form_user',
     attributes: ['id', 'name']
 }
 
 const formFieldOptions = {
     model: FormFieldSchema,
-    as: 'formFields',
+    as: 'form_formField',
     order: [['position', 'ASC']],
     attributes: {
         exclude: ['formId']
@@ -20,7 +20,7 @@ const formFieldOptions = {
 
 const topicsOptions = {
     model: TopicSchema,
-    as: 'topic',
+    as: 'form_topic',
     attributes: ['id', 'label']
 }
 
@@ -42,7 +42,6 @@ module.exports.getAllFormOptions = () => {
         }
     };
 }
-
 
 module.exports.getFormByIdOptions = (id) => {
     return {

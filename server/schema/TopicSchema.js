@@ -8,5 +8,5 @@ const TopicSchema = sequelize.define('Topics', {
     }
 });
 
-// sequelize.sync();
+sequelize.sync();
 module.exports = TopicSchema;

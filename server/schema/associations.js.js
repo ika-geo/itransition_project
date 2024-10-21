@@ -6,19 +6,20 @@ const FilledFormSchema = require("./FilledFormSchema");
 const FilledFormItemSchema = require("./FilledFormItemsSchema");
 
 
+FilledFormSchema.hasMany(FilledFormItemSchema, { foreignKey: 'filledFormId', as: 'filledForm_filledFormItem'});
+FilledFormItemSchema.belongsTo(FilledFormSchema, { foreignKey: 'filledFormId', as: 'filledForm_filledForm'});
 
-FilledFormItemSchema.belongsTo(FilledFormSchema, { foreignKey: 'filledFormId'});
-FilledFormSchema.hasMany(FilledFormItemSchema, { foreignKey: 'filledFormId'});
+UserSchema.hasMany(FilledFormSchema, { foreignKey: 'userId', as: 'user_filledForm'});
+FilledFormSchema.belongsTo(UserSchema, { foreignKey: 'userId', as: 'filledForm_user'});
 
-FilledFormSchema.belongsTo(FormSchema, { foreignKey: 'formId'});
-FormSchema.hasMany(FilledFormSchema, { foreignKey: 'formId'});
+FormSchema.hasMany(FilledFormSchema, { foreignKey: 'formId', as:'form_filledForm'});
+FilledFormSchema.belongsTo(FormSchema, { foreignKey: 'formId', as:"filledForm_form"});
 
-FormSchema.belongsTo(TopicSchema, { foreignKey: 'topicId', as: 'topic' });
-TopicSchema.hasMany(FormSchema, { foreignKey: 'topicId', as: 'forms' });
+TopicSchema.hasMany(FormSchema, { foreignKey: 'topicId', as: 'topic_form' });
+FormSchema.belongsTo(TopicSchema, { foreignKey: 'topicId', as: 'form_topic' });
 
-UserSchema.hasMany(FormSchema, { foreignKey: 'userId'});
-FormSchema.belongsTo(UserSchema, { foreignKey: 'userId', as: 'user' });
+UserSchema.hasMany(FormSchema, { foreignKey: 'userId', as: 'user_form'});
+FormSchema.belongsTo(UserSchema, { foreignKey: 'userId', as: 'form_user' });
 
-FormSchema.hasMany(FormFieldSchema, { foreignKey: 'formId', as: 'formFields' });
-FormFieldSchema.belongsTo(FormSchema, { foreignKey: 'formId'});
-
+FormSchema.hasMany(FormFieldSchema, { foreignKey: 'formId', as: 'form_formField' });
+FormFieldSchema.belongsTo(FormSchema, { foreignKey: 'formId', as: 'formField_form'});

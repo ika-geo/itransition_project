@@ -9,7 +9,6 @@ const FormCardItem = ({form, editable, handleEdit, handleDelete, adminRole=false
 
     return (
         <div
-            key={form.id}
             className="flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
             <Link to={`/forms/${form.id}`} className="block mb-2 text-xl font-semibold text-gray-700">{form.title}</Link>
 

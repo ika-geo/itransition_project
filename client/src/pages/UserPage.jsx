@@ -1,56 +1,59 @@
-import React, {useEffect} from 'react';
-import Loading from "../components/Loading.jsx";
+import React, {useEffect, useState} from 'react';
+import UserPageForms from "../components/UserPageForms.jsx";
+import UserPageFilledForms from "../components/UserPageFilledForms.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteForm, getFormById, getFormsByUserId} from "../store/features/FormSlice.js";
-import FormCardItem from "../components/FormCardItem.jsx";
-import {useNavigate} from "react-router-dom";
+import {getFormsByUserId} from "../store/features/FormSlice.js";
+import {getFilledFormsByUserId} from "../store/features/FilledFormSlice.js";
 
 
 const UserPage = () => {
+
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-
-    const forms = useSelector(state => state.forms.forms)
-    const loading = useSelector(state => state.forms.loading)
     const userId = useSelector(state => state.auth.user.id)
-
-    useEffect(() => {
-        handleGetFormsByUserId()
-    }, []);
 
     const handleGetFormsByUserId = ()=>{
         dispatch(getFormsByUserId(userId))
     }
-
-    const handleNavigate = ()=>{
-        navigate(`/editForm`)
+    const handleGetFilledFormsByUserId = ()=>{
+        dispatch(getFilledFormsByUserId(userId))
     }
 
-    const handleEdit = async (id) => {
-        await dispatch(getFormById({id, handleNavigate}))
+    useEffect(() => {
+        handleGetFormsByUserId()
+        handleGetFilledFormsByUserId()
+    }, []);
+
+    const [chosenTab, setChosenTab] = useState('forms')
+
+    const handleChooseForms = ()=>{
+        setChosenTab('forms')
     }
 
-    const handleDelete = (id) => {
-        dispatch(deleteForm({id, handleAfterSucess:handleGetFormsByUserId}))
+    const handleChooseFilled = ()=>{
+        setChosenTab('filled')
     }
-
-    if (loading) return <Loading/>
-    if (!forms) return
 
     return (
         <div className='container mt-20'>
-            <h1 className='text-3xl font-bold mb-8'>User Forms</h1>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
-                {forms.map((form) => (
-                    <FormCardItem
-                        key={form.id}
-                        form={form}
-                        editable={true}
-                        handleEdit={handleEdit}
-                        handleDelete={handleDelete}
-                    />
-                ))}
+            <div className='mb-8'>
+                <button
+                    onClick={handleChooseForms}
+                    className={'buttonSlim rounded-xl mr-4 ' + (chosenTab === "forms" ? "bg-primary" : "bg-gray-400")}>Forms
+                </button>
+                <button
+                    onClick={handleChooseFilled}
+                    className={'buttonSlim rounded-xl ' + (chosenTab === "filled" ? "bg-primary" : "bg-gray-400")}>Filled Forms
+                </button>
             </div>
+
+            {
+                chosenTab === 'forms' ?
+                    <UserPageForms handleGetFormsByUserId={handleGetFormsByUserId}/>
+                    :
+                    <UserPageFilledForms handleGetFilledFormsByUserId={handleGetFilledFormsByUserId}/>
+            }
+
+
         </div>
     );
 };

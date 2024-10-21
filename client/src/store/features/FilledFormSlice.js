@@ -26,13 +26,16 @@ export const getFilledFormsByFormId = createAsyncThunk('filledForm/getFilledForm
     return await handleAsyncThunk(serverUrl+`${id}`, 'get', data, thunkApi)
 })
 
-export const getFilledFormsByUserId = createAsyncThunk('forms/getFilledFormsByUserId', async (data, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+`/${data.userId}`, 'post', data.data, thunkApi)
+export const getFilledFormsByUserId = createAsyncThunk('forms/getFilledFormsByUserId', async (userId, thunkApi)=>{
+    return await handleAsyncThunk(serverUrl+`/user/${userId}`, 'get', {}, thunkApi)
 })
 
 export const createFilledForm = createAsyncThunk('filledForm/createFilledForm', async (data, thunkApi)=>{
-    console.log(data)
     return await handleAsyncThunk(serverUrl, 'post', {data}, thunkApi)
+})
+
+export const deleteFilledForm = createAsyncThunk('filledForm/deleteFilledForm', async (data, thunkApi)=>{
+    return await handleAsyncThunk(serverUrl+`/${data.id}`, 'delete', {}, thunkApi, data.handleAfterSucess)
 })
 
 export const FilledFormSlice = createSlice({
@@ -53,12 +56,10 @@ export const FilledFormSlice = createSlice({
                 handleErrorMessage(action, "Can't get forms")
             })
 
-
-
             .addCase(createFilledForm.pending, (state) => {
                 state.loading = true
             })
-            .addCase(createFilledForm.fulfilled, (state, action) => {
+            .addCase(createFilledForm.fulfilled, (state) => {
                 state.loading = false
                 toast.success('Form has been submitted successfully')
             })
@@ -66,6 +67,33 @@ export const FilledFormSlice = createSlice({
                 state.loading = false
                 handleErrorMessage(action, "Can't fill form")
             })
+
+            .addCase(getFilledFormsByUserId.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getFilledFormsByUserId.fulfilled, (state, action) => {
+                state.loading = false
+                state.filledForms = action.payload
+            })
+            .addCase(getFilledFormsByUserId.rejected, (state, action) => {
+                state.loading = false
+                handleErrorMessage(action, "Can't get filled forms")
+            })
+
+            .addCase(deleteFilledForm.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(deleteFilledForm.fulfilled, (state) => {
+                state.loading = false
+                toast.success('Filled form has been deleted successfully')
+            })
+            .addCase(deleteFilledForm.rejected, (state, action) => {
+                state.loading = false
+                handleErrorMessage(action, "Can't delete filled forms")
+            })
+
+
+
     }
 })
 

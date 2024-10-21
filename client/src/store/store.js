@@ -9,6 +9,6 @@ export const store = configureStore({
         auth: AuthSlice,
         users: UsersSlice,
         forms: FormSlice,
-        filledForm: FilledFormSlice
+        filledForms: FilledFormSlice
     },
 })

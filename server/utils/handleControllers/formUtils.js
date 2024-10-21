@@ -2,6 +2,7 @@ const FormFieldSchema = require("../../schema/FormFieldSchema");
 const FormSchema = require("../../schema/FormSchema");
 const {getFormByIdOptions} = require("../options/formOptions");
 const sequelize = require("../../database/connectToDB");
+const renameKeys = require("../createDto");
 
 const valuesForUpdate = ['name', 'position', 'type', 'options', 'hidden']
 const sequelizeValidationError = 'SequelizeValidationError'
@@ -42,7 +43,7 @@ module.exports.findForm = async (res, id)=>{
             res.status(404).json({message: "Form not found"});
             return false
         }
-        return form
+        return renameKeys(form, ['form_formField', 'form_user', 'form_topic'], ['formFields', 'user', 'topic'])
     }
     catch (e){
         res.status(500).json({error: e.message});

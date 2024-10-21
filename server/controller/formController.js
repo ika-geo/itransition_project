@@ -2,12 +2,14 @@ const FormSchema = require("../schema/FormSchema");
 const {getAllFormOptions, getFormByUserIdOptions} = require("../utils/options/formOptions");
 const {findForm, handleCreateForm, handleUpdateForm} = require("../utils/handleControllers/formUtils");
 const FormFieldSchema = require("../schema/FormFieldSchema");
+const renameKeys = require("../utils/createDto");
 
 const formController = {
     getAllForm: async (req, res) => {
         try {
             const form = await FormSchema.findAll(getAllFormOptions());
-            res.status(200).json(form);
+            const renamedForm = form.map(form=>renameKeys(form, ['form_user'], ['user']))
+            res.status(200).json(renamedForm);
         } catch (e) {
             res.status(500).json({error: e.message});
         }
@@ -17,7 +19,8 @@ const formController = {
         const {userId} = req.params;
         try {
             const form = await FormSchema.findAll(getFormByUserIdOptions(userId));
-            res.status(200).json(form);
+            const renamedForm = form.map(item=>renameKeys(item, ['form_formField'], ['formFields']))
+            res.status(200).json(renamedForm);
         } catch (e) {
             res.status(500).json({error: e.message});
         }
@@ -28,7 +31,8 @@ const formController = {
         try {
             const form = await findForm(res, id);
             if (!form) return
-            res.status(200).json(form);
+            let renamedForm = renameKeys(form, ['form_formField', 'form_user', 'form_topic'], ['formFields', 'user', 'topic'])
+            res.status(200).json(renamedForm);
         } catch (e) {
             res.status(500).json({error: e.message});
         }
@@ -62,6 +66,7 @@ const formController = {
             await form.destroy();
             res.status(204).json();
         } catch (e) {
+            console.log(e)
             res.status(500).json({error: e.message})
         }
     },
