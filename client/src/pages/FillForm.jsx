@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
 import {getFormById} from "../store/features/FormSlice.js";
 import QuestionItem from "../components/QuestionItem.jsx";
-import {arrayToObjectWithId, editFromArrayToObject, editFromObjectToArray} from "../utils/editDataForFormFIll.js";
-import {createFilledForm, editFilledForm} from "../store/features/FilledFormSlice.js";
+import {arrayToObjectWithId, editFromArrayToObject, editFromObjectToArray} from "../utils/editDataForFormFill.js";
+import {createFilledForm, editFilledForm, getFilledFormById} from "../store/features/FilledFormSlice.js";
 import Loading from "../components/Loading.jsx";
 
 
@@ -28,12 +28,16 @@ const FillForm = ({editMode=false}) => {
         if (!editMode) dispatch(getFormById({id}))
     }
 
-    const handleNavigate = ()=>{
-        navigate(`/forms`)
+    const handleNavigate = async()=>{
+        if (editMode){
+            dispatch(getFilledFormById({id:answers.id, handleNavigate: ()=>navigate(`/filledFormPage`)}))
+        }
+        else navigate(`/forms`)
     }
 
+
     const handleSetDefaultAnswers =()=>{
-        if (editMode){
+        if (editMode&&answers?.items){
            reset(editFromArrayToObject(answers.items))
         }
     }

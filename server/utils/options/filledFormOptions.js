@@ -33,10 +33,7 @@ module.exports.filledFormOptions = (formId) => {
 module.exports.getFilledFormByIdOptions = (id) =>{
     return {
         where: {id},
-        include: [formOptions, filledFormItems],
-        attributes: {
-            exclude: ['userId']
-        }
+        include: [userOptions, formOptions, filledFormItems],
     }
 }
 

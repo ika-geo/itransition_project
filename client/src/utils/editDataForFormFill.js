@@ -10,7 +10,6 @@ export const editFromArrayToObject = (arr)=>{
         acc[item.question] = item.answer;
         return acc;
     }, {});
-    console.log(formObject);
     return formObject;
 }
 

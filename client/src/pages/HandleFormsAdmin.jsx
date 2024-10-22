@@ -28,11 +28,14 @@ const HandleFormsAdmin = () => {
     }, []);
 
     useEffect(() => {
-        let authors = forms.map(form => form.user);
-        const uniqueAuthors = Array.from(
-            new Map(authors.map(author => [author.id, author])).values()
-        );
-        setAuthors(uniqueAuthors);
+        if (forms){
+            let authors = forms.map(form => form.user);
+            if (!authors.length) return
+            const uniqueAuthors = Array.from(
+                new Map(authors.map(author => [author.id, author])).values()
+            );
+            setAuthors(uniqueAuthors);
+        }
     }, [forms]);
 
     const handleGetForms = () => {

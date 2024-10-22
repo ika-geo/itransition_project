@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import Loading from "./Loading.jsx";
 import FilledFormCardItem from "./FilledFormCardItem.jsx";
-import {deleteFilledForm, getAnswers} from "../store/features/FilledFormSlice.js";
+import {deleteFilledForm, getFilledFormById} from "../store/features/FilledFormSlice.js";
 import {getFormById} from "../store/features/FormSlice.js";
 
 const EditFilledFormsBlock = ({handleGetFilledForms}) => {
@@ -19,7 +19,7 @@ const EditFilledFormsBlock = ({handleGetFilledForms}) => {
 
     const handleEdit = async (form) => {
         dispatch(getFormById({id:form.form.id}))
-        dispatch(getAnswers({id:form.id, handleNavigate}))
+        dispatch(getFilledFormById({id:form.id, handleNavigate}))
     }
 
     const handleDelete = (id) => {
@@ -31,21 +31,23 @@ const EditFilledFormsBlock = ({handleGetFilledForms}) => {
 
     return (
         <div>
-            <h1 className='text-3xl font-bold mb-8'>Filled my forms</h1>
+            <h1 className='text-3xl font-bold mb-8'>Users answers</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
                 {
                     !filledForms.length ?
                         <h2 className='text-2xl'>No filled forms</h2>
                         :
-                    filledForms.map((item) => (
-                    <FilledFormCardItem
-                        key={item.id}
-                        form={item}
-                        editable={true}
-                        handleEdit={handleEdit}
-                        handleDelete={handleDelete}
-                    />
-                ))}
+                    filledForms.map((item) => {
+                        return (
+                            <FilledFormCardItem
+                                key={item.id}
+                                form={item}
+                                editable={true}
+                                handleEdit={handleEdit}
+                                handleDelete={handleDelete}
+                            />
+                        )
+                    })}
             </div>
         </div>
     );

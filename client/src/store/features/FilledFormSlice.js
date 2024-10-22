@@ -9,7 +9,6 @@ const initialState = {
     filledForms: [],
     selectedIndex: null,
     selectedFilledForm: null,
-    answers: null,
     error: null,
     loading: false,
 }
@@ -18,16 +17,8 @@ export const getAllFilledForms = createAsyncThunk('filledForm/getFilledForm', as
     return await handleAsyncThunk(serverUrl, 'get', {}, thunkApi)
 })
 
-export const getFilledFormById = createAsyncThunk('filledForm/getFilledFormById', async (data, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+`/${id}`, 'get', {}, thunkApi)
-})
-
-export const getAnswers = createAsyncThunk('filledForm/getAnswers', async (data, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+`/${data.id}`, 'get', {}, thunkApi, data.handleNavigate)
-})
-
-export const getFilledFormsByFormId = createAsyncThunk('filledForm/getFilledFormById', async (data, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl+`${id}`, 'get', data, thunkApi)
+export const getFilledFormById = createAsyncThunk('forms/getFilledFormById', async (data, thunkApi)=>{
+    return await handleAsyncThunk(serverUrl+`/${data.id}`, 'get', {}, thunkApi, data?.handleNavigate)
 })
 
 export const getFilledFormsByUserId = createAsyncThunk('forms/getFilledFormsByUserId', async (userId, thunkApi)=>{
@@ -100,14 +91,14 @@ export const FilledFormSlice = createSlice({
                 handleErrorMessage(action, "Can't delete filled forms")
             })
 
-            .addCase(getAnswers.pending, (state) => {
+            .addCase(getFilledFormById.pending, (state) => {
                 state.loading = true
             })
-            .addCase(getAnswers.fulfilled, (state, action) => {
+            .addCase(getFilledFormById.fulfilled, (state, action) => {
                 state.loading = false
                 state.answers = action.payload
             })
-            .addCase(getAnswers.rejected, (state, action) => {
+            .addCase(getFilledFormById.rejected, (state, action) => {
                 state.loading = false
                 handleErrorMessage(action, "Can't get filled form")
             })

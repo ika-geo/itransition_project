@@ -24,6 +24,7 @@ import FillForm from "./pages/FillForm.jsx";
 import {setLocallySavedUser} from "./utils/localAuth.js";
 import EditFillForm from "./pages/EditFillForm.jsx";
 import HandleFilledFormsAdmin from "./pages/HandleFilledFormsAdmin.jsx";
+import FilledFormPage from "./pages/FilledFormPage.jsx";
 
 
 const adminRoutes = (
@@ -53,7 +54,7 @@ const authorizedRoutes = (userRole)=>(
         <Route path="/formTemplates" element={<FormTemplates />} />
         <Route path="/fillForm/:id" element={<FillForm />} />
         <Route path="/editFilledForm" element={<EditFillForm />} />
-
+        <Route path="/filledFormPage" element={<FilledFormPage/>} />
         {userRole==='admin' && adminRoutes}
         {commonRoutes()}
         <Route path="*" element={<ErrorPage />} />

@@ -7,12 +7,23 @@ const FilledFormItemSchema = require("../schema/FilledFormItemsSchema");
 
 
 const filledFormController = {
-
     getAllFiledForms: async (req, res)=>{
         try {
             const filledForms = await FilledFormSchema.findAll(getAllFilledForms());
             let renamedFilledForms = filledForms.map(item => renameKeys(item, ['filledForm_user', 'filledForm_form'], ['user', 'form']))
             res.status(200).json(renamedFilledForms);
+        } catch (e) {
+            res.status(500).json({error: e.message});
+        }
+    },
+
+    getFilledFormById: async (req, res) => {
+        const {id} = req.params;
+        try {
+            const filledForm = await FilledFormSchema.findOne(getFilledFormByIdOptions(id));
+            let renamedFilledForm = renameKeys(filledForm, ['filledForm_form', 'filledForm_filledFormItem', "filledForm_user"], ['form', 'items', "user"])
+            if (!filledForm) return res.status(404).json({error: "Filled Form not found"});
+            res.status(200).json(renamedFilledForm);
         } catch (e) {
             res.status(500).json({error: e.message});
         }
@@ -39,17 +50,6 @@ const filledFormController = {
             res.status(500).json({error: e.message});
         }
     },
-    getFilledFormById: async (req, res) => {
-        const {id} = req.params;
-        try {
-            const filledForm = await FilledFormSchema.findOne(getFilledFormByIdOptions(id));
-            if (!filledForm) return res.status(404).json({error: "Filled Form not found"});
-            let renamedFilledForm = renameKeys(filledForm, ['filledForm_form', 'filledForm_filledFormItem'], ['form', 'items'])
-            res.status(200).json(renamedFilledForm);
-        } catch (e) {
-            res.status(500).json({error: e.message});
-        }
-    },
     deleteFilledForm: async (req, res) => {
         const {id} = req.params;
         try {
@@ -63,7 +63,6 @@ const filledFormController = {
     },
     editFilledFormItems: async (req, res) => {
         try {
-            console.log(req.body.data)
             await Promise.all(
                 req.body.data.map(async (item) => {
                     await FilledFormItemSchema.update(

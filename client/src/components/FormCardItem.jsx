@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import parse from "html-react-parser";
 import {useSelector} from "react-redux";
 import {getTagLabelByValue} from "../utils/tagsAndTopics.js";
+import getDate from "../utils/getDate.js";
 
 const FormCardItem = ({form, editable, handleEdit, handleDelete, adminRole=false}) => {
     const tags = useSelector(state=>state.forms.tags)
@@ -32,11 +33,7 @@ const FormCardItem = ({form, editable, handleEdit, handleDelete, adminRole=false
             </div>
             {
                 editable ? <p className="text-sm text-gray-500 mb-4">
-                        Created on: {new Date(form.createdAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: 'numeric',
-                    })}
+                        Created on: {getDate(form.createdAt)}
                     </p>
                     : null
             }

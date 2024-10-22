@@ -17,7 +17,6 @@ const HandleFilledFormsAdmin = () => {
 
     return (
         <div className='container mt-20'>
-            <h1 className='text-3xl font-bold mb-8'>Manage user answers</h1>
             <EditFilledFormsBlock handleGetFilledForms={handleGetFilledForms}/>
         </div>
     );

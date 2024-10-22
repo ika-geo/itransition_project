@@ -1,18 +1,26 @@
 import React from 'react';
+import getDate from "../utils/getDate.js";
+import {useDispatch} from "react-redux";
+import {getFilledFormById} from "../store/features/FilledFormSlice.js";
+import {useNavigate} from "react-router-dom";
 
 
 const FilledFormCardItem = ({form, handleEdit, handleDelete}) => {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleNavigate = ()=>{
+        dispatch(getFilledFormById({id:form.id, handleNavigate:()=>navigate('/filledFormPage')}))
+    }
+
     return (
         <div
             className="flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
-            <h1 className="block mb-2 text-xl font-semibold text-gray-700">{form.form.title}</h1>
+            <button onClick={handleNavigate} className="block mb-2 text-xl font-semibold text-gray-700">{form.form.title}</button>
             <p className="text-sm text-gray-500 mb-4">Filled by: {form.user.name}</p>
             <p className="text-sm text-gray-500 mb-4">
-                Filled on: {new Date(form.createdAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: '2-digit',
-                day: 'numeric',
-            })}
+                Filled on: {getDate(form.createdAt)}
             </p>
 
             <div className='mt-auto flex justify-between'>
