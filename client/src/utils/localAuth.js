@@ -23,7 +23,12 @@ export const setLocallySavedUser =(dispatch)=>{
     }
 }
 
-export const deleteLocallySavedUser = ()=>{
+const deleteLocallySavedUser = ()=>{
     localStorage.removeItem('user')
+}
+
+export const handleLogout = ()=>{
+    deleteLocallySavedUser()
+    window.location.reload()
 }
 

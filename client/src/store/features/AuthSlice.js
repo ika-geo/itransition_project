@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import handleAsyncThunk from "../../utils/handleAsyncThunk.js";
 import handleErrorMessage from "../../utils/HandleErrorMessage.js";
 import {toast} from "react-toastify";
-import {deleteLocallySavedUser, saveUserLocally} from "../../utils/localAuth.js";
+import {handleLogout, saveUserLocally} from "../../utils/localAuth.js";
 
 
 const serverUrl = import.meta.env.VITE_SERVER_URL + "/auth"
@@ -31,10 +31,7 @@ export const AuthSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            state.user = null
-            state.error = null
-            state.loading = false
-            deleteLocallySavedUser()
+            handleLogout()
         },
         setUser: (state, action) => {
             state.user = action.payload
