@@ -80,18 +80,22 @@ const FormPage = () => {
                             form.formFields.map((formField, index) => (
                                 <li key={formField.id} className="bg-gray-100 p-4 rounded-lg shadow-md">
                                     <div>
-                                        <span className="text-gray-800 font-semibold">Question {index + 1}: </span>
-                                        <span className='font-bold text-primary'>{formField.name}</span>
+                                        <div>
+                                            <span className="text-gray-800 font-semibold">Question {index + 1}: </span>
+                                            <span className='font-bold text-primary'>{formField.name}</span>
+                                        </div>
+                                        <div>
+                                            <span className="text-gray-800">Question Type: </span>
+                                            <span className='font-bold text-primary capitalize'>{formField.type}</span>
+                                        </div>
                                     </div>
-                                    <p className="text-gray-500">Description: Enter your full name. or do someghitng, we
-                                        need to impliment this field, because we haven't descripion yet</p>
                                 </li>
                             ))
                         }
                     </ul>
                 </div>
 
-                { user ?
+                {user ?
                     <div className='mb-8'>
                         <Link to={`/fillForm/${id}`} className='button text-center block w-full'>Fill form</Link>
                     </div>:null

@@ -5,7 +5,7 @@ const router = express.Router()
 
 
 
-
+router.get('/', filledFormController.getAllFiledForms)
 router.get('/user/:userId', filledFormController.getFilledFormsByUserId)
 router.get('/:id', filledFormController.getFilledFormById)
 

@@ -1,12 +1,23 @@
 const {createFilledForm} = require("../utils/handleControllers/filledFormUtils");
 const FormSchema = require("../schema/FormSchema");
 const FilledFormSchema = require("../schema/FilledFormSchema");
-const {filledFormOptions, getFilledFormByIdOptions} = require("../utils/options/filledFormOptions");
+const {filledFormOptions, getFilledFormByIdOptions, getAllFilledForms} = require("../utils/options/filledFormOptions");
 const renameKeys = require("../utils/createDto");
 const FilledFormItemSchema = require("../schema/FilledFormItemsSchema");
 
 
 const filledFormController = {
+
+    getAllFiledForms: async (req, res)=>{
+        try {
+            const filledForms = await FilledFormSchema.findAll(getAllFilledForms());
+            let renamedFilledForms = filledForms.map(item => renameKeys(item, ['filledForm_user', 'filledForm_form'], ['user', 'form']))
+            res.status(200).json(renamedFilledForms);
+        } catch (e) {
+            res.status(500).json({error: e.message});
+        }
+    },
+
     createFilledForm: async (req, res) => {
         try {
             const form = await createFilledForm(req, res)

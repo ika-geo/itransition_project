@@ -15,7 +15,7 @@ const initialState = {
 }
 
 export const getAllFilledForms = createAsyncThunk('filledForm/getFilledForm', async (data, thunkApi)=>{
-    return await handleAsyncThunk(serverUrl, 'get', data, thunkApi)
+    return await handleAsyncThunk(serverUrl, 'get', {}, thunkApi)
 })
 
 export const getFilledFormById = createAsyncThunk('filledForm/getFilledFormById', async (data, thunkApi)=>{

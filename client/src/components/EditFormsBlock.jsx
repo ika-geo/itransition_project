@@ -6,7 +6,7 @@ import FormCardItem from "../components/FormCardItem.jsx";
 import {useNavigate} from "react-router-dom";
 
 
-const UserPageForms = ({handleGetFormsByUserId}) => {
+const EditFormsBlock = ({handleGetFormsByUserId}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const forms = useSelector(state => state.forms.forms)
@@ -51,4 +51,4 @@ const UserPageForms = ({handleGetFormsByUserId}) => {
     );
 };
 
-export default UserPageForms;
+export default EditFormsBlock;

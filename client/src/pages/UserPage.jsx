@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import UserPageForms from "../components/UserPageForms.jsx";
-import UserPageFilledForms from "../components/UserPageFilledForms.jsx";
+import EditFormsBlock from "../components/EditFormsBlock.jsx";
+import EditFilledFormsBlock from "../components/EditFilledFormsBlock.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {getFormsByUserId} from "../store/features/FormSlice.js";
 import {getFilledFormsByUserId} from "../store/features/FilledFormSlice.js";
@@ -48,9 +48,9 @@ const UserPage = () => {
 
             {
                 chosenTab === 'forms' ?
-                    <UserPageForms handleGetFormsByUserId={handleGetFormsByUserId}/>
+                    <EditFormsBlock handleGetFormsByUserId={handleGetFormsByUserId}/>
                     :
-                    <UserPageFilledForms handleGetFilledFormsByUserId={handleGetFilledFormsByUserId}/>
+                    <EditFilledFormsBlock handleGetFilledForms={handleGetFilledFormsByUserId}/>
             }
 
 

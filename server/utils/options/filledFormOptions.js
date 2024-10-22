@@ -39,3 +39,12 @@ module.exports.getFilledFormByIdOptions = (id) =>{
         }
     }
 }
+
+module.exports.getAllFilledForms = () =>{
+    return {
+        attributes:{
+            exclude: ['userId', 'formId', 'updatedAt']
+        },
+        include: [userOptions, formOptions]
+    }
+}

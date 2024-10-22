@@ -7,7 +7,7 @@ export const en = {
             items:[
                 {title: 'Manage Users', url: '/admin/users', description: 'View, block, or remove users. Promote or demote users from admin role.'},
                 {title: 'Manage Forms', url: '/admin/manageForms', description: 'Edit or delete any user’s forms, or add new questions to them.'},
-                {title: 'Manage users answers', url: '/admin/manageUsersAnswers', description: 'Edit or delete any user’s answers.'},
+                {title: 'Manage users answers', url: '/admin/manageFilledForms', description: 'Edit or delete any user’s answers.'},
                 {title: 'Manage Tags', url: '/admin/manageTags', description: 'Edit or delete any tags, or add new.'}
             ]
         },

@@ -6,7 +6,7 @@ import FilledFormCardItem from "./FilledFormCardItem.jsx";
 import {deleteFilledForm, getAnswers} from "../store/features/FilledFormSlice.js";
 import {getFormById} from "../store/features/FormSlice.js";
 
-const UserPageFilledForms = ({handleGetFilledFormsByUserId}) => {
+const EditFilledFormsBlock = ({handleGetFilledForms}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -23,7 +23,7 @@ const UserPageFilledForms = ({handleGetFilledFormsByUserId}) => {
     }
 
     const handleDelete = (id) => {
-        dispatch(deleteFilledForm({id, handleIfSuccess:handleGetFilledFormsByUserId}))
+        dispatch(deleteFilledForm({id, handleIfSuccess:handleGetFilledForms}))
     }
 
     if (loading) return <Loading/>
@@ -51,4 +51,4 @@ const UserPageFilledForms = ({handleGetFilledFormsByUserId}) => {
     );
 };
 
-export default UserPageFilledForms;
+export default EditFilledFormsBlock;
