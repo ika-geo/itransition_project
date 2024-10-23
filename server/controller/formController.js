@@ -3,11 +3,24 @@ const {getAllFormOptions, getFormByUserIdOptions} = require("../utils/options/fo
 const {findForm, handleCreateForm, handleUpdateForm} = require("../utils/handleControllers/formUtils");
 const FormFieldSchema = require("../schema/FormFieldSchema");
 const renameKeys = require("../utils/createDto");
+const getFormBySearchWord = require("../utils/handleControllers/getFormBySearchWord");
 
 const formController = {
     getAllForm: async (req, res) => {
         try {
             const form = await FormSchema.findAll(getAllFormOptions());
+            const renamedForm = form.map(form=>renameKeys(form, ['form_user'], ['user']))
+            res.status(200).json(renamedForm);
+        } catch (e) {
+            res.status(500).json({error: e.message});
+        }
+    },
+
+    getFormsBySearchWord: async(req, res)=>{
+        const {searchWord} = req.query
+        try {
+            const form = await getFormBySearchWord(req, res, searchWord);
+            if (form===false) return
             const renamedForm = form.map(form=>renameKeys(form, ['form_user'], ['user']))
             res.status(200).json(renamedForm);
         } catch (e) {

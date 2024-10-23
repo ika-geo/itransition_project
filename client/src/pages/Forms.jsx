@@ -34,7 +34,6 @@ const Forms = () => {
                     <FormCardItem
                         key={form.id}
                         form={form}
-                        editable={false}
                     />
                 ))}
             </div>

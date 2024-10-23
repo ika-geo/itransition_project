@@ -18,6 +18,10 @@ export const getAllForms = createAsyncThunk('forms/getAllForms', async (formData
     return await handleAsyncThunk(serverUrl, 'get', formData, thunkApi)
 })
 
+export const getAllFormsBySearchWord = createAsyncThunk('forms/getAllFormsBySearchWord', async (searchWord, thunkApi)=>{
+    return await handleAsyncThunk(serverUrl+`/bySearchWord?searchWord=${searchWord}`, 'get', {}, thunkApi)
+})
+
 export const getFormById = createAsyncThunk('forms/getFormById', async (data, thunkApi)=>{
     return await handleAsyncThunk(serverUrl+`/${data.id}`, 'get', {}, thunkApi, data?.handleNavigate)
 })
@@ -85,6 +89,18 @@ export const FormSlice = createSlice({
                 state.forms = action.payload
             })
             .addCase(getAllForms.rejected, (state, action) => {
+                state.loading = false
+                handleErrorMessage(action, "Can't get forms")
+            })
+
+            .addCase(getAllFormsBySearchWord.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getAllFormsBySearchWord.fulfilled, (state, action) => {
+                state.loading = false
+                state.forms = action.payload
+            })
+            .addCase(getAllFormsBySearchWord.rejected, (state, action) => {
                 state.loading = false
                 handleErrorMessage(action, "Can't get forms")
             })

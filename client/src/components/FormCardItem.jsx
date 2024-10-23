@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {getTagLabelByValue} from "../utils/tagsAndTopics.js";
 import getDate from "../utils/getDate.js";
 
-const FormCardItem = ({form, editable, handleEdit, handleDelete, adminRole=false}) => {
+const FormCardItem = ({form, editable=false, handleEdit, handleDelete, adminRole=false}) => {
     const tags = useSelector(state=>state.forms.tags)
 
     return (

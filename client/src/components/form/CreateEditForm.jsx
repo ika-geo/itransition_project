@@ -58,6 +58,8 @@ const CreateEditForm = () => {
     if (loading) return <Loading/>
     if (!form) return
 
+    console.log(form)
+
     return (
         <div className="p-6">
             <FormMainFields

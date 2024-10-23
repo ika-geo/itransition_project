@@ -19,7 +19,7 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
     };
 
     const handleChangeTopic = (e) => {
-        setForm({...form, topic: e.target.value});
+        setForm({...form, topicId: e.target.value});
     }
 
     const handleDeleteImage = ()=>{
@@ -50,7 +50,7 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
             <div className='mb-4'>
                 <p className='label'>Topic</p>
                 <select
-                    value={form.topic?.label}
+                    value={form.topicId}
                     className='input'
                     onChange={handleChangeTopic}>
                     {

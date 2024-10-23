@@ -1,32 +1,11 @@
 import React from 'react';
 import ImageUploading from 'react-images-uploading';
-import axios from "axios";
-
 
 const AddImage=({image, setImage}) =>{
 
     const onChange = (image) => {
         setImage(image);
     };
-
-    console.log(image)
-
-    const handleSend = async () => {
-        const formData = new FormData();
-        formData.append('file', image[0].file);
-
-        try {
-            const res = await axios.post('http://localhost:5000/api/imgUpload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            console.log(res)
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
 
     return (
         <div>

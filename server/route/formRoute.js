@@ -6,6 +6,7 @@ const router = express.Router()
 
 
 router.get('/', formController.getAllForm)
+router.get('/bySearchWord', formController.getFormsBySearchWord)
 router.get('/user/:userId', formController.getFormByUserId)
 router.get('/:id', formController.getFormById)
 

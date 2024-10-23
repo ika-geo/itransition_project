@@ -1,52 +1,50 @@
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import Loading from "../components/Loading.jsx";
+import FormCardItem from "../components/FormCardItem.jsx";
+import {getAllForms, getAllFormsBySearchWord} from "../store/features/FormSlice.js";
+
 const Home = () => {
+
+    const dispatch = useDispatch()
+
+    const forms = useSelector(state=>state.forms.forms)
+    const loading = useSelector(state=>state.forms.loading)
+
+    const [searchWord, setSearchWord] = useState('')
+
+    useEffect(() => {
+        dispatch(getAllForms())
+    }, []);
+
+    const handleChangeSearchWord = (e)=>{
+        setSearchWord(e.target.value)
+    }
+    const handleStartSearch = ()=>{
+        dispatch(getAllFormsBySearchWord(searchWord))
+    }
+
+    if (loading) return <Loading/>
+
     return (
-        <div className="min-h-screen">
-            <div className="container mx-auto py-12">
-                <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">Welcome to the Form Builder</h1>
+        <div className="container">
+            <h1 className='mainTitle mb-4'>Search forms</h1>
+            <div className='flex gap-4 w-[50%] mx-auto mb-8'>
+                <input value={searchWord} onInput={handleChangeSearchWord} className='input' placeholder='search word' type="text"/>
+                <button onClick={handleStartSearch} className='button'>Search</button>
+            </div>
 
-                <div className="flex flex-col md:flex-row md:space-x-8">
-
-
-                    <div className="bg-white shadow-lg rounded-lg p-6 mb-8 md:mb-0 w-full md:w-1/3 hover:shadow-2xl transition-shadow duration-300">
-                        <h2 className="text-2xl font-semibold mb-4 text-gray-800">Latest Templates</h2>
-                        <ul className="space-y-2">
-                            <li className="text-gray-600 hover:text-primary transition-colors">Template 1</li>
-                            <li className="text-gray-600 hover:text-primary transition-colors">Template 2</li>
-                            <li className="text-gray-600 hover:text-primary transition-colors">Template 3</li>
-                        </ul>
-                    </div>
-
-                    <div className="bg-white shadow-lg rounded-lg p-6 mb-8 md:mb-0 w-full md:w-1/3 hover:shadow-2xl transition-shadow duration-300">
-                        <h2 className="text-2xl font-semibold mb-4 text-gray-800">Popular Templates</h2>
-                        <ul className="space-y-2">
-                            <li className="text-gray-600 hover:text-primary transition-colors">Popular Template 1</li>
-                            <li className="text-gray-600 hover:text-primary transition-colors">Popular Template 2</li>
-                            <li className="text-gray-600 hover:text-primary transition-colors">Popular Template 3</li>
-                        </ul>
-                    </div>
-
-                    <div className="bg-white shadow-lg rounded-lg p-6 w-full md:w-1/3 hover:shadow-2xl transition-shadow duration-300">
-                        <h2 className="text-2xl font-semibold mb-4 text-gray-800">Tag Cloud</h2>
-                        <div className="flex flex-wrap gap-2">
-
-                            <div className="relative overflow-hidden px-3 py-1 rounded-full text-sm">
-                                <span className='text-primary'>#Tag1</span>
-                                <span className='opacity-30 bg-primary absolute h-full w-full top-0 left-0'></span>
-                            </div>
-
-                            <div className="relative overflow-hidden px-3 py-1 rounded-full text-sm">
-                                <span className='text-green-500'>#Tag1</span>
-                                <span className='opacity-30 bg-green-500 absolute h-full w-full top-0 left-0'></span>
-                            </div>
-
-                            <div className="relative overflow-hidden px-3 py-1 rounded-full text-sm">
-                                <span className='text-pink-500'>#Tag1</span>
-                                <span className='opacity-30 bg-pink-500 absolute h-full w-full top-0 left-0'></span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+            <div className='grid grid-cols-3 gap-4'>
+                {
+                    forms.map(form=>{
+                        return(
+                            <FormCardItem
+                                key={form.id}
+                                form={form}
+                            />
+                        )
+                    })
+                }
             </div>
         </div>
     );

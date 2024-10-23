@@ -30,7 +30,6 @@ const validateForUniqueValue = (list, isObject, editingIndex, trimmedValue) => {
 
 
 const checkForOptions = (fieldItem) => {
-    console.log(fieldItem)
     if (fieldItem.type === 'select' && fieldItem.options.length < 2) {
         alert("Please add at least two options");
         return false;
