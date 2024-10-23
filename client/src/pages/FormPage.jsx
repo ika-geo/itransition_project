@@ -5,6 +5,7 @@ import {Link, useParams} from "react-router-dom";
 import {getFormById} from "../store/features/FormSlice.js";
 import parse from 'html-react-parser';
 import {getTagLabelByValue, getTopicValueById} from "../utils/tagsAndTopics.js";
+import FormComment from "../components/FormComment.jsx";
 
 const FormPage = () => {
 
@@ -101,13 +102,7 @@ const FormPage = () => {
                     </div>:null
                 }
 
-
-                <div className="mb-8">
-                    <h2 className="text-2xl font-semibold mb-4 text-gray-700">Comments</h2>
-                    <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-                        <p className="text-gray-600">This is a sample comment on this template.</p>
-                    </div>
-                </div>
+                <FormComment user={user} formId={form.id}/>
 
             </div>
         </main>

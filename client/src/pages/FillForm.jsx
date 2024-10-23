@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
@@ -57,7 +57,8 @@ const FillForm = ({editMode=false}) => {
     }
 
     if (loading) return <Loading/>
-    if(!form) return null
+    console.log(form)
+    if(!form?.title) return null
 
     return (
         <div className='container p-6 bg-white shadow-lg rounded-lg'>

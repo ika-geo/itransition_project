@@ -4,7 +4,14 @@ const UserSchema = require("./UserSchema");
 const TopicSchema = require("./TopicSchema");
 const FilledFormSchema = require("./FilledFormSchema");
 const FilledFormItemSchema = require("./FilledFormItemsSchema");
+const CommentSchema = require("./CommentSchema");
 
+
+FormSchema.hasMany(CommentSchema, { foreignKey: 'formId', as: 'form_comment'});
+CommentSchema.belongsTo(FormSchema, { foreignKey: 'formId', as: 'comment_form'});
+
+UserSchema.hasMany(CommentSchema, { foreignKey: 'userId', as: 'user_comment'});
+CommentSchema.belongsTo(UserSchema, { foreignKey: 'userId', as: 'comment_user'});
 
 FilledFormSchema.hasMany(FilledFormItemSchema, { foreignKey: 'filledFormId', as: 'filledForm_filledFormItem'});
 FilledFormItemSchema.belongsTo(FilledFormSchema, { foreignKey: 'filledFormId', as: 'filledFormItem_filledForm'});
