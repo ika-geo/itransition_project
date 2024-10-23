@@ -11,13 +11,24 @@ const userOptions = {
 const formOptions = {
         model: FormSchema,
         as: 'comment_form',
-        attributes: ['title', 'id']
+        attributes: ['title', 'id', "userId"]
 }
 
 
-module.exports.getAllCommentsOptions = (formId)=>{
+module.exports.getCommentsByFormIdOptions = (formId)=>{
     return {
         where: {formId},
+        include: [
+            userOptions, formOptions
+        ],
+        attributes: {
+            exclude: ['userId', 'updatedAt']
+        }
+    }
+}
+
+module.exports.getAllCommentsOptions = ()=>{
+    return {
         include: [
             userOptions, formOptions
         ],

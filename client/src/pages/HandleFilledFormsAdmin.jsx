@@ -16,7 +16,7 @@ const HandleFilledFormsAdmin = () => {
     }, []);
 
     return (
-        <div className='container mt-20'>
+        <div className='container'>
             <EditFilledFormsBlock handleGetFilledForms={handleGetFilledForms}/>
         </div>
     );

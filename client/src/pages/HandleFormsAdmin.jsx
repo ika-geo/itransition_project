@@ -61,8 +61,8 @@ const HandleFormsAdmin = () => {
     if (!forms) return
 
     return (
-        <div className='container mt-20'>
-            <h1 className='text-3xl font-bold mb-8'>Manage Forms</h1>
+        <div className='container'>
+            <h1 className='mainTitle'>Manage Forms</h1>
             <AdminFormSearchBar
                 searchInputs={searchInputs}
                 setSearchInputs={setSearchInputs}

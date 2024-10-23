@@ -10,6 +10,10 @@
     @apply w-[1440px] mx-auto
 }
 
+.mainTitle{
+    @apply text-4xl font-bold text-center text-gray-800 mb-16
+}
+
 .button{
     @apply px-6 py-3 text-white rounded-md bg-primary hover:opacity-70
 }

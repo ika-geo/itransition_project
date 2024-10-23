@@ -22,7 +22,7 @@ const filledFormController = {
         try {
             const filledForm = await FilledFormSchema.findOne(getFilledFormByIdOptions(id));
             let renamedFilledForm = renameKeys(filledForm, ['filledForm_form', 'filledForm_filledFormItem', "filledForm_user"], ['form', 'items', "user"])
-            if (!filledForm) return res.status(404).json({error: "Filled Form not found"});
+            if (!filledForm) return res.status(404).json({message: "Filled Form not found"});
             res.status(200).json(renamedFilledForm);
         } catch (e) {
             res.status(500).json({error: e.message});

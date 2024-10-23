@@ -3,10 +3,7 @@ export const templates = [
         "title": "Person",
         "description": "Simple person questionnaire",
         "imageUrl": null,
-        "tags": [
-            6,
-            7,
-        ],
+        "tags": [],
         "topicId": 1,
         "formFields": [
             {
@@ -28,10 +25,7 @@ export const templates = [
         "title": "Simple quiz",
         "description": "Simple questionnaire",
         "imageUrl": null,
-        "tags": [
-            7,
-            15
-        ],
+        "tags": [],
         "topicId": 1,
         "formFields": [
             {

@@ -25,6 +25,7 @@ import {setLocallySavedUser} from "./utils/localAuth.js";
 import EditFillForm from "./pages/EditFillForm.jsx";
 import HandleFilledFormsAdmin from "./pages/HandleFilledFormsAdmin.jsx";
 import FilledFormPage from "./pages/FilledFormPage.jsx";
+import HandleCommentsAdmin from "./pages/HandleCommentsAdmin.jsx";
 
 
 const adminRoutes = (
@@ -33,6 +34,7 @@ const adminRoutes = (
         <Route path="admin/users" element={<HandleUsersAdmin />} />
         <Route path="/admin/manageForms" element={<HandleFormsAdmin/>} />
         <Route path="/admin/manageFilledForms" element={<HandleFilledFormsAdmin/>} />
+        <Route path="/admin/manageComments" element={<HandleCommentsAdmin/>} />
     </>
 )
 

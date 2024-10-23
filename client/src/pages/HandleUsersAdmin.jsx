@@ -22,7 +22,7 @@ const HandleUsersAdmin = () => {
     const error = useSelector(state => state.users.error)
     const user = useSelector(state => state.auth.user)
 
-    const handleGetAllUsers = async ()=>{
+    const handleGetAllUsers = async () => {
         await dispatch(getAllUsers())
         dispatch(selfDeleteFromUsers(user.id))
     }
@@ -38,7 +38,7 @@ const HandleUsersAdmin = () => {
         }
     }
 
-    const handleLogout = ()=>{
+    const handleLogout = () => {
         dispatch(logout())
         navigate('/')
     }
@@ -54,65 +54,62 @@ const HandleUsersAdmin = () => {
         handleGetAllUsers()
     }
 
-    const handleBlockUser = async (id)=>{
+    const handleBlockUser = async (id) => {
         await dispatch(blockUser(id))
-        if (id===user.id) return handleLogout()
+        if (id === user.id) return handleLogout()
         handleGetAllUsers()
     }
 
-    const handleUnblockUser = async (id)=>{
+    const handleUnblockUser = async (id) => {
         await dispatch(unblockUser(id))
         handleGetAllUsers()
     }
 
-    const handleDeleteUser = async (id)=>{
+    const handleDeleteUser = async (id) => {
         await dispatch(deleteUser(id))
-        if (id===user.id) return handleLogout()
+        if (id === user.id) return handleLogout()
         handleGetAllUsers()
     }
 
     return (
-        <div className="min-h-screen py-10">
-            <div className="container mx-auto">
-                <h1 className="text-3xl font-bold text-center text-gray-800 mb-10">{t('usersPage.title')}</h1>
+        <div className="container">
+            <h1 className="mainTitle">{t('usersPage.title')}</h1>
+            <div className="bg-white shadow-md rounded-lg p-8">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
 
-                <div className="bg-white shadow-md rounded-lg p-8">
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <UserItemHead/>
 
-                        <UserItemHead/>
+                    <ol className='grid'>
+                        <UserItem
+                            selfUser={true}
+                            userItem={user}
+                            handleRemoveAdmin={handleRemoveAdmin}
+                            handleAddAdmin={handleAddAdmin}
+                            handleBlockUser={handleBlockUser}
+                            handleUnblockUser={handleUnblockUser}
+                            handleDeleteUser={handleDeleteUser}
+                        />
 
-                        <ol className='grid'>
-                            <UserItem
-                                selfUser={true}
-                                userItem={user}
-                                handleRemoveAdmin={handleRemoveAdmin}
-                                handleAddAdmin={handleAddAdmin}
-                                handleBlockUser={handleBlockUser}
-                                handleUnblockUser={handleUnblockUser}
-                                handleDeleteUser={handleDeleteUser}
-                            />
-
-                            {
-                                error ? (
-                                    <p className="p-4 text-center">Can't fetch Users</p>
-                                ) : (
-                                    users.map((userItem, index) => (
-                                            <UserItem
-                                                key={userItem.id}
-                                                index={index}
-                                                userItem={userItem}
-                                                handleRemoveAdmin={handleRemoveAdmin}
-                                                handleAddAdmin={handleAddAdmin}
-                                                handleBlockUser={handleBlockUser}
-                                                handleUnblockUser={handleUnblockUser}
-                                                handleDeleteUser={handleDeleteUser}
-                                            />
-                                        )
+                        {
+                            error ? (
+                                <p className="p-4 text-center">Can't fetch Users</p>
+                            ) : (
+                                users.map((userItem, index) => (
+                                        <UserItem
+                                            key={userItem.id}
+                                            index={index}
+                                            userItem={userItem}
+                                            handleRemoveAdmin={handleRemoveAdmin}
+                                            handleAddAdmin={handleAddAdmin}
+                                            handleBlockUser={handleBlockUser}
+                                            handleUnblockUser={handleUnblockUser}
+                                            handleDeleteUser={handleDeleteUser}
+                                        />
                                     )
                                 )
-                            }
-                        </ol>
-                    </div>
+                            )
+                        }
+                    </ol>
                 </div>
             </div>
         </div>
