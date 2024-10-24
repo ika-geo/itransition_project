@@ -1,12 +1,15 @@
 import React from 'react';
-import Loading from "../components/Loading.jsx";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteForm, getFormById} from "../store/features/FormSlice.js";
-import FormCardItem from "../components/FormCardItem.jsx";
-import {useNavigate} from "react-router-dom";
 
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+
+import Loading from "../components/Loading.jsx";
+import FormCardItem from "../components/FormCardItem.jsx";
+import {deleteForm, getFormById} from "../store/features/FormSlice.js";
 
 const EditFormsBlock = ({handleGetFormsByUserId}) => {
+    const {t} = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const forms = useSelector(state => state.forms.forms)
@@ -30,12 +33,13 @@ const EditFormsBlock = ({handleGetFormsByUserId}) => {
 
     return (
         <div>
-            <h1 className='mainTitle'>My Forms</h1>
+            <h1 className='mainTitle'>{t('myForms')}</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+
 
                 {
                     !forms.length ?
-                        <h2>No form to show</h2>
+                        <h2 className='text-2xl'>{t('noForms')}</h2>
                         :
                     forms.map((form) => (
                     <FormCardItem

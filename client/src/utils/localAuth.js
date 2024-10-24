@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js'
-import {setUser} from "../store/features/AuthSlice.js";
 
+import {setUser} from "../store/features/AuthSlice.js";
 
 const encryptData = (data, secretKey) => {
     return CryptoJS.AES.encrypt(data, secretKey).toString();

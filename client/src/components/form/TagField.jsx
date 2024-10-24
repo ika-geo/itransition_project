@@ -1,20 +1,27 @@
 import React, {useEffect, useState} from 'react'
-import {ReactTags} from 'react-tag-autocomplete'
-import '../../styles/tagAUtocompleete.css'
+
 import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
+import {ReactTags} from 'react-tag-autocomplete'
+
 import {getTagLabelByValue, transformTags} from "../../utils/tagsAndTopics.js";
 
-
+import '../../styles/tagAUtocompleete.css'
 
 const TagAutocomplete = ({ form, setForm }) => {
+
+    const {t} = useTranslation()
+
     const tags = useSelector(state => state.forms.tags)
-    const suggestions = transformTags(tags)
+
     const [selected, setSelected] = useState([]);
+
+    const suggestions = transformTags(tags)
 
     useEffect(() => {
         const newSelected = form.tags.map(tag => ({
             value: parseInt(tag),
-            label: getTagLabelByValue(tags, tag)
+            label: getTagLabelByValue(tags, tag, t)
         }));
         setSelected(newSelected);
     }, []);

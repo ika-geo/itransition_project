@@ -1,9 +1,15 @@
 import React from 'react';
+
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { MdDelete, MdEdit } from 'react-icons/md';
+import {useTranslation} from "react-i18next";
+
 import { DragEndFields } from '../../utils/formFunctions.js';
 
+
 const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType, setEditingIndex, setSelectOptions, setFieldHidden, editingIndex, setForm }) => {
+
+    const {t} = useTranslation()
 
     const handleDragEnd = (result) => {
         if (editingIndex) return
@@ -29,8 +35,6 @@ const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType,
     };
 
     const handleRemoveField = (index) => {
-        console.log('start deleting')
-        console.log(editingIndex)
         if (editingIndex!==null) return
         if (formFields[index].id) handleDeleteFieldInDB(index)
         const updatedFields = [...formFields];
@@ -67,7 +71,7 @@ const FormFieldItems = ({ formFields, setFormFields, setFieldName, setFieldType,
                                             <MdDelete />
                                         </button>
                                         <span className="px-2 py-1 border border-gray-300 rounded">
-                      {field.name} ({field.type})
+                      {field.name} ({t(field.type)})
                     </span>
                                     </li>
                                 )}

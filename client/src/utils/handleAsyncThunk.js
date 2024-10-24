@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const handleAsyncThunk = async (url, method, data, thunkApi, functionIfSuccess=()=>{}, functionIfReject=()=>{})=>{
     try {
         const response = await axios[method](url, data)
@@ -28,6 +27,5 @@ export const handleCreateEditAsyncThunk = async (url, method, data, thunkApi, fu
         return thunkApi.rejectWithValue(e)
     }
 }
-
 
 export default handleAsyncThunk

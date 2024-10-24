@@ -1,3 +1,5 @@
+import {toast} from "react-toastify";
+
 export const DragEndFields = (result, items, setItems) => {
     if (!result.destination) return;
     const newItems = Array.from(items);
@@ -6,15 +8,15 @@ export const DragEndFields = (result, items, setItems) => {
     setItems(newItems);
 }
 
-const validateForEmptyValue = (value) => {
+const validateForEmptyValue = (value, t) => {
     if (!value) {
-        alert("Please enter a name");
+        toast.warning(t('enterName'));
         return false;
     }
     return true
 }
 
-const validateForUniqueValue = (list, isObject, editingIndex, trimmedValue) => {
+const validateForUniqueValue = (list, isObject, editingIndex, trimmedValue, t) => {
     const isEditing = editingIndex !== null;
     const isDuplicate = list.some((item, index) => {
         const itemName = isObject ? item.name.trim() : item.trim();
@@ -22,16 +24,15 @@ const validateForUniqueValue = (list, isObject, editingIndex, trimmedValue) => {
     });
 
     if (isDuplicate) {
-        alert(`${trimmedValue} is already in use`);
+        toast.warning(`${trimmedValue} ${t('isInUse')}`);
         return false;
     }
     return true;
 }
 
-
-const checkForOptions = (fieldItem) => {
+const checkForOptions = (fieldItem, t) => {
     if (fieldItem.type === 'select' && fieldItem.options.length < 2) {
-        alert("Please add at least two options");
+        toast.warning(t('minTwoOptions'));
         return false;
     }
     if (fieldItem.type !== 'select') {
@@ -44,10 +45,10 @@ export const addOptionValue = (setSelectOptions, selectOptions, optionValue) => 
     setSelectOptions([...selectOptions, optionValue]);
 }
 
-export const validateName = (value, list, editingIndex, isObject = false) => {
+export const validateName = (value, list, editingIndex, isObject = false, t) => {
     const trimmedValue = value.trim();
-    if (!validateForEmptyValue(trimmedValue)) return false
-    if (!validateForUniqueValue(list, isObject, editingIndex, trimmedValue)) return false;
+    if (!validateForEmptyValue(trimmedValue, t)) return false
+    if (!validateForUniqueValue(list, isObject, editingIndex, trimmedValue, t)) return false;
     return true;
 };
 
@@ -57,17 +58,17 @@ export const editOptionValue = (selectOptions, editingOptionIndex, optionValue, 
     setSelectOptions(updatedOptions);
 }
 
-export const editField = (formFields, editingIndex, fieldItem, setFormFields, resetFieldItem) => {
+export const editField = (formFields, editingIndex, fieldItem, setFormFields, resetFieldItem, t) => {
     const updatedFields = [...formFields];
-    const checkedFieldItem = checkForOptions(fieldItem)
+    const checkedFieldItem = checkForOptions(fieldItem, t)
     if (!checkedFieldItem) return
     updatedFields[editingIndex] = {...checkedFieldItem, id:formFields[editingIndex].id}
     setFormFields(updatedFields);
     resetFieldItem()
 }
 
-export const addField = (fieldItem, setFormFields, formFields, resetFieldItem) => {
-    const checkedFieldItem = checkForOptions(fieldItem)
+export const addField = (fieldItem, setFormFields, formFields, resetFieldItem, t) => {
+    const checkedFieldItem = checkForOptions(fieldItem, t)
     if (!checkedFieldItem) return
     setFormFields([...formFields, checkedFieldItem]);
     resetFieldItem()

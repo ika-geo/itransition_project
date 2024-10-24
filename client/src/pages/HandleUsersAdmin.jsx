@@ -1,5 +1,13 @@
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
+
+import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
+
+import UserItem from "../components/users/UserItem.jsx";
+import UserItemHead from "../components/users/UserItemHead.jsx";
+import Loading from "../components/Loading.jsx";
+import {getMe, logout} from "../store/features/AuthSlice.js";
 import {
     addAdmin,
     blockUser, deleteUser,
@@ -8,19 +16,17 @@ import {
     selfDeleteFromUsers,
     unblockUser
 } from "../store/features/UsersSlice.js";
-import {useTranslation} from "react-i18next";
-import {getMe, logout} from "../store/features/AuthSlice.js";
-import {useNavigate} from "react-router-dom";
-import UserItem from "../components/users/UserItem.jsx";
-import UserItemHead from "../components/users/UserItemHead.jsx";
+
 
 const HandleUsersAdmin = () => {
+
+    const {t} = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {t} = useTranslation()
+
     const users = useSelector(state => state.users.users)
-    const error = useSelector(state => state.users.error)
     const user = useSelector(state => state.auth.user)
+    const loading = useSelector(state => state.auth.loading)
 
     const handleGetAllUsers = async () => {
         await dispatch(getAllUsers())
@@ -71,6 +77,10 @@ const HandleUsersAdmin = () => {
         handleGetAllUsers()
     }
 
+
+
+    if (loading) return <Loading/>
+
     return (
         <div>
             <h1 className="mainTitle">{t('usersPage.title')}</h1>
@@ -91,21 +101,17 @@ const HandleUsersAdmin = () => {
                         />
 
                         {
-                            error ? (
-                                <p className="p-4 text-center">Can't fetch Users</p>
-                            ) : (
-                                users.map((userItem, index) => (
-                                        <UserItem
-                                            key={userItem.id}
-                                            index={index}
-                                            userItem={userItem}
-                                            handleRemoveAdmin={handleRemoveAdmin}
-                                            handleAddAdmin={handleAddAdmin}
-                                            handleBlockUser={handleBlockUser}
-                                            handleUnblockUser={handleUnblockUser}
-                                            handleDeleteUser={handleDeleteUser}
-                                        />
-                                    )
+                            users.map((userItem, index) => (
+                                    <UserItem
+                                        key={userItem.id}
+                                        index={index}
+                                        userItem={userItem}
+                                        handleRemoveAdmin={handleRemoveAdmin}
+                                        handleAddAdmin={handleAddAdmin}
+                                        handleBlockUser={handleBlockUser}
+                                        handleUnblockUser={handleUnblockUser}
+                                        handleDeleteUser={handleDeleteUser}
+                                    />
                                 )
                             )
                         }

@@ -1,9 +1,7 @@
-
 export const editFromObjectToArray = (object)=>{
     const arr = Object.entries(object).map(([key, value]) => ({ question: key, answer: value }));
     return arr;
 }
-
 
 export const editFromArrayToObject = (arr)=>{
     const formObject = arr.reduce((acc, item) => {
@@ -12,7 +10,6 @@ export const editFromArrayToObject = (arr)=>{
     }, {});
     return formObject;
 }
-
 
 export const arrayToObjectWithId = (formObject, answers)=>{
     const result = Object.keys(formObject).map(key => {

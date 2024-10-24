@@ -1,12 +1,17 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+
+import {toast} from "react-toastify";
+
 import handleAsyncThunk from "../../utils/handleAsyncThunk.js";
 import handleErrorMessage from "../../utils/HandleErrorMessage.js";
-import {toast} from "react-toastify";
 import {handleLogout, saveUserLocally} from "../../utils/localAuth.js";
 
-
 const serverUrl = import.meta.env.VITE_SERVER_URL + "/auth"
-
+const initialState = {
+    user: null,
+    error: null,
+    loading: false,
+}
 
 export const register = createAsyncThunk('user/register', async function (data, thunkApi){
     return await handleAsyncThunk(serverUrl+"/register", 'post', data, thunkApi)
@@ -19,12 +24,6 @@ export const login = createAsyncThunk('user/login', async function (data, thunkA
 export const getMe = createAsyncThunk('user/getMe', async function (id, thunkApi){
     return await handleAsyncThunk(serverUrl+"/getme", 'post', id, thunkApi)
 })
-
-const initialState = {
-    user: null,
-    error: null,
-    loading: false,
-}
 
 export const AuthSlice = createSlice({
     name: 'user',

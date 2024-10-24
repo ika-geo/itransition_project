@@ -1,13 +1,18 @@
 import React from 'react';
-import AddImage from "./AddImage.jsx";
-import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
-import TagAutocomplete from "./TagField.jsx";
+
 import {useSelector} from "react-redux";
+import ReactQuill from "react-quill";
+import {useTranslation} from "react-i18next";
+
+import AddImage from "./AddImage.jsx";
+import TagAutocomplete from "./TagField.jsx";
 import {getTopicValueById} from "../../utils/tagsAndTopics.js";
+
+import 'react-quill/dist/quill.snow.css';
 
 const FormMainFields = ({form, setForm, image, setImage}) => {
 
+    const {t} = useTranslation()
     const topics = useSelector(state=>state.forms.topics)
 
     const handleTitleChange = (e) => {
@@ -32,7 +37,7 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
         <div>
 
             <div className='mb-4'>
-                <p className='label'>Title</p>
+                <p className='label'>{t('title')}</p>
                 <input
                     className="input"
                     name="title"
@@ -43,12 +48,12 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
             </div>
 
             <div className='mb-4'>
-                <p className='label'>Description</p>
+                <p className='label'>{t('description')}</p>
                 <ReactQuill value={form.description} onChange={handleDescriptionChange} />
             </div>
 
             <div className='mb-4'>
-                <p className='label'>Topic</p>
+                <p className='label'>{t('topic')}</p>
                 <select
                     value={form.topicId}
                     className='input'
@@ -56,7 +61,7 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
                     {
                         topics.map(topic => (
                             <option key={topic.id} value={topic.id}>
-                                {getTopicValueById(topics, topic.id)}
+                                {getTopicValueById(topics, topic.id, t)}
                             </option>
                         ))
                     }
@@ -64,7 +69,7 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
             </div>
 
             <div className='mb-4'>
-                <p className='label'>Tags</p>
+                <p className='label'>{t('tags')}</p>
                 <TagAutocomplete
                     form={form}
                     setForm={setForm}
@@ -72,7 +77,7 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
             </div>
 
             <div className='mb-4 w-[250px]'>
-                <p className='label'>Image</p>
+                <p className='label'>{t('image')}</p>
                 {
                     form.imageUrl ?
                     <div>
@@ -81,7 +86,7 @@ const FormMainFields = ({form, setForm, image, setImage}) => {
                             src={form.imageUrl}
                             alt={form.title}
                         />
-                        <button onClick={handleDeleteImage} className='buttonSlim bg-red-500'>Delete image</button>
+                        <button onClick={handleDeleteImage} className='buttonSlim bg-red-500'>{t('deleteImage')}</button>
                     </div> :
                         <AddImage
                             image={image}

@@ -1,10 +1,14 @@
-import {createAsyncThunk, createSlice, isAction} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+
 import handleAsyncThunk from "../../utils/handleAsyncThunk.js";
 import handleErrorMessage from "../../utils/HandleErrorMessage.js";
 
-
 const serverUrl = import.meta.env.VITE_SERVER_URL + "/users"
-
+const initialState = {
+    users: [],
+    error: null,
+    loading: false,
+}
 
 export const getAllUsers = createAsyncThunk('users/getAllUsers', async function (id, thunkApi) {
     return await handleAsyncThunk(serverUrl, 'get', {}, thunkApi)
@@ -34,12 +38,6 @@ export const deleteUser = createAsyncThunk('users/deleteUser', async function (i
     thunkApi.dispatch(deleteUserLocally(id))
     return await handleAsyncThunk(serverUrl + `/deleteUser/${id}`, 'delete', {}, thunkApi)
 })
-
-const initialState = {
-    users: [],
-    error: null,
-    loading: false,
-}
 
 export const UsersSlice = createSlice({
     name: 'users',
@@ -102,7 +100,6 @@ export const UsersSlice = createSlice({
             })
     }
 })
-
 
 export const {
     removeAdminLocally,

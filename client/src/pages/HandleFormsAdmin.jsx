@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import Loading from "../components/Loading.jsx";
+
 import {useDispatch, useSelector} from "react-redux";
-import {deleteForm, getAllForms, getFormById} from "../store/features/FormSlice.js";
-import FormCardItem from "../components/FormCardItem.jsx";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+
+import Loading from "../components/Loading.jsx";
+import FormCardItem from "../components/FormCardItem.jsx";
 import AdminFormSearchBar from "../components/AdminFormSearchBar.jsx";
-import * as sea from "node:sea";
 import checkSearchValues from "../utils/checkSearchValues.js";
+import {deleteForm, getAllForms, getFormById} from "../store/features/FormSlice.js";
 
 const defaultSearchInputs = {
     title: '',
@@ -15,8 +17,11 @@ const defaultSearchInputs = {
 }
 
 const HandleFormsAdmin = () => {
+
+    const {t} = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const forms = useSelector(state => state.forms.forms)
     const loading = useSelector(state => state.forms.loading)
 
@@ -28,7 +33,7 @@ const HandleFormsAdmin = () => {
     }, []);
 
     useEffect(() => {
-        if (forms){
+        if (forms.length && forms[0].user){
             let authors = forms.map(form => form.user);
             if (!authors.length) return
             const uniqueAuthors = Array.from(
@@ -54,15 +59,12 @@ const HandleFormsAdmin = () => {
         dispatch(deleteForm({id, handleAfterSucess: handleGetForms}))
     }
 
-
-    console.log(searchInputs)
-
     if (loading) return <Loading/>
     if (!forms) return
 
     return (
         <div>
-            <h1 className='mainTitle'>Manage Forms</h1>
+            <h1 className='mainTitle'>{t('manageForms')}</h1>
             <AdminFormSearchBar
                 searchInputs={searchInputs}
                 setSearchInputs={setSearchInputs}
@@ -70,9 +72,14 @@ const HandleFormsAdmin = () => {
                 defaultSearchInputs={defaultSearchInputs}
             />
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+                {
+                    forms.length === 0 &&
+                    <h2 className='text-2xl'>{t('noForms')}</h2>
+                }
+
                 {forms.map((form) => {
                     if(!checkSearchValues(form, searchInputs)) return
-                        return <FormCardItem
+                    return <FormCardItem
                             key={form.id}
                             form={form}
                             editable={true}

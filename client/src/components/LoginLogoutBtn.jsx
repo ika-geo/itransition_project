@@ -1,11 +1,10 @@
 import React from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+
 import {logout} from "../store/features/AuthSlice.js";
-
-
-
 
 const LoginLogoutBtn = () => {
 

@@ -1,3 +1,5 @@
+import {useEffect} from "react";
+
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { ToastContainer } from 'react-toastify';
@@ -9,15 +11,12 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import HandleUsersAdmin from "./pages/HandleUsersAdmin.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-
-import 'react-toastify/dist/ReactToastify.css';
 import Forms from "./pages/Forms.jsx";
 import CreateForm from "./pages/CreateForm.jsx";
 import FormPage from "./pages/FormPage.jsx";
 import UserPage from "./pages/UserPage.jsx";
 import FormTemplates from "./pages/FormTemplates.jsx";
 import EditForm from "./pages/EditForm.jsx";
-import {useEffect} from "react";
 import {getTagsAndTopics} from "./utils/tagsAndTopics.js";
 import HandleFormsAdmin from "./pages/HandleFormsAdmin.jsx";
 import FillForm from "./pages/FillForm.jsx";
@@ -27,6 +26,7 @@ import HandleFilledFormsAdmin from "./pages/HandleFilledFormsAdmin.jsx";
 import FilledFormPage from "./pages/FilledFormPage.jsx";
 import HandleCommentsAdmin from "./pages/HandleCommentsAdmin.jsx";
 
+import 'react-toastify/dist/ReactToastify.css';
 
 const adminRoutes = (
     <>
@@ -43,8 +43,7 @@ const commonRoutes = ()=>{
         <Route index element={<Home />} />
         <Route path='/forms' element={<Forms/>}/>
         <Route path='/forms/:id' element={<FormPage/>}/>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<ErrorPage />} />
     </>
 }
 
@@ -59,24 +58,26 @@ const authorizedRoutes = (userRole)=>(
         <Route path="/filledFormPage" element={<FilledFormPage/>} />
         {userRole==='admin' && adminRoutes}
         {commonRoutes()}
-        <Route path="*" element={<ErrorPage />} />
     </Route>
 );
 
 const unauthorizedRoutes =()=> (
         <Route path="/" element={<Header />}>
             {commonRoutes()}
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
         </Route>
 );
 
 function App() {
+
+    const dispatch = useDispatch()
+
     const user = useSelector(state => state.auth.user);
+
     const router = createBrowserRouter(
         createRoutesFromElements(user ? authorizedRoutes(user?.role) : unauthorizedRoutes())
     );
-
-    const dispatch = useDispatch()
 
     useEffect(() => {
         getTagsAndTopics(dispatch)

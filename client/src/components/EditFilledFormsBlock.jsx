@@ -1,12 +1,18 @@
 import React from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+
 import Loading from "./Loading.jsx";
 import FilledFormCardItem from "./FilledFormCardItem.jsx";
 import {deleteFilledForm, getFilledFormById} from "../store/features/FilledFormSlice.js";
 import {getFormById} from "../store/features/FormSlice.js";
 
+
 const EditFilledFormsBlock = ({handleGetFilledForms}) => {
+
+    const {t} = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -27,15 +33,14 @@ const EditFilledFormsBlock = ({handleGetFilledForms}) => {
     }
 
     if (loading) return <Loading/>
-    if (filledForms===null) return
 
     return (
         <div>
-            <h1 className='mainTitle'>Users answers</h1>
+            <h1 className='mainTitle'>{t('usersAnswers')}</h1>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
                 {
                     !filledForms.length ?
-                        <h2 className='text-2xl'>No filled forms</h2>
+                        <h2 className='text-2xl'>{t('noFilledForms')}</h2>
                         :
                     filledForms.map((item) => {
                         return (

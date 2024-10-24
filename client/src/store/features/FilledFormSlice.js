@@ -1,8 +1,9 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import handleAsyncThunk from "../../utils/handleAsyncThunk.js";
-import handleErrorMessage from "../../utils/HandleErrorMessage.js";
+
 import {toast} from "react-toastify";
 
+import handleAsyncThunk from "../../utils/handleAsyncThunk.js";
+import handleErrorMessage from "../../utils/HandleErrorMessage.js";
 
 const serverUrl = import.meta.env.VITE_SERVER_URL + "/filledForm"
 const initialState = {
@@ -106,9 +107,9 @@ export const FilledFormSlice = createSlice({
             .addCase(editFilledForm.pending, (state) => {
                 state.loading = true
             })
-            .addCase(editFilledForm.fulfilled, (state, action) => {
+            .addCase(editFilledForm.fulfilled, (state) => {
                 state.loading = false
-                toast.success(action, "Filled form has been changed")
+                toast.success( "Filled form has been changed")
             })
             .addCase(editFilledForm.rejected, (state, action) => {
                 state.loading = false

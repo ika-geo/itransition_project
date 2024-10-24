@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const TextComponent = ({item, register})=>{
     return (
             <input className='input' {...register(item.name)}/>
@@ -28,9 +27,6 @@ const BooleanComponent = ({item, register})=>{
             <input type="checkbox" id={item.name} {...register(item.name)}/>
     );
 }
-
-
-
 
 const QuestionItem = ({item, register}) => {
     if (item.type==="text") return <TextComponent item={item} register={register}/>

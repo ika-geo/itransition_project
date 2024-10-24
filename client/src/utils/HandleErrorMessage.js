@@ -1,6 +1,5 @@
 import {toast} from "react-toastify";
 
-
 const messageFromServer = (message)=>{
     toast.error(message)
 }

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import {useNavigate} from "react-router-dom";
+
+import {useDispatch, useSelector} from "react-redux";
+import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
 
 import DynamicFormBuilder from './DynamicFormBuilder';
-import {useDispatch, useSelector} from "react-redux";
 import {createForm, updateForm} from "../../store/features/FormSlice.js";
 import Loading from "../Loading.jsx";
-import {useNavigate} from "react-router-dom";
 import FormMainFields from "./FormMainFields.jsx";
-import {toast} from "react-toastify";
-
 
 const CreateEditForm = () => {
+
+    const {t} = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -51,7 +54,7 @@ const CreateEditForm = () => {
     }
 
     const handleSubmit = () => {
-        if (!form.formFields.length) return toast.warning('at least on question is required')
+        if (!form.formFields.length) return toast.warning(t('minOneQuestion'))
         form?.id ? handleEdit() : handleCreateNewForm();
     };
 
@@ -68,7 +71,7 @@ const CreateEditForm = () => {
             />
             <DynamicFormBuilder formFields={form.formFields} setFormFields={handleFormFieldsChange} setForm={setForm}/>
             <button className="button" onClick={handleSubmit}>
-                {form?.id ? 'Edit' : 'Create'}
+                {form?.id ? t('edit') : t('create')}
             </button>
         </div>
     );

@@ -1,7 +1,14 @@
 import React from 'react';
 
+import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+
 const FormCommentItem = ({comment, admin = false, deleteComment = null}) => {
+
+    const {t} = useTranslation()
+
     const author = comment.user.id===comment.form.userId
+
     return (
         <div className="mb-8">
             <div
@@ -9,20 +16,22 @@ const FormCommentItem = ({comment, admin = false, deleteComment = null}) => {
                 <div className="flex justify-between items-start">
                     <div>
                         <p className="text-sm font-bold text-gray-500 mb-1">
-                            Author: <span className="text-gray-800 font-bold">{comment.user.name} {author&&!admin?" (form author)":""}</span>
+                            {t('author')}: <span className="text-gray-800 font-bold">{comment.user.name} {author&&!admin?` (${t('formAuthor')})`:""}</span>
                         </p>
+
                         {admin && (
                             <p className="text-sm font-semibold text-gray-500 mt-2">
-                                Form Title: <span className="text-gray-800 font-bold">{comment.form.title}</span>
+                                {t('formTitle')}: <Link to={`/forms/${comment.form.id}`} className="text-primary font-bold">{comment.form.title}</Link>
                             </p>
                         )}
+
                     </div>
                     {admin && (
                         <button
                             onClick={() => deleteComment(comment.id)}
                             className="ml-4 bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition-colors duration-200"
                         >
-                            Delete
+                            {t('delete')}
                         </button>
                     )}
                 </div>

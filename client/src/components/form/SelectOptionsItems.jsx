@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { MdDelete, MdEdit } from 'react-icons/md';
+
 import { DragEndFields } from '../../utils/formFunctions.js';
 
 const SelectOptionsItems = ({ selectOptions, setSelectOptions, setOptionValue, setEditingOptionIndex, editingOptionIndex }) => {

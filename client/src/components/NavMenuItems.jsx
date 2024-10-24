@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
+
 import {Link, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 const NavMenuItems = () => {
+
     const pathname = useLocation().pathname;
     const {t} = useTranslation()
 
     let user = useSelector(state => state.auth.user)
+
     const [navItems, setNavItems] = useState([])
 
     useEffect(() => {

@@ -1,11 +1,14 @@
-import {Link, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
+
+import {Link, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
+
 import {register} from "../store/features/AuthSlice.js";
-import {validation} from "../utils/validation.js";
+import {validateRegistration} from "../utils/validateRegistration.js";
 
 const Register = () => {
+
     const {t} = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -37,7 +40,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!validation({name, email, password})) return
+        if (!validateRegistration({name, email, password}, t)) return
         dispatch(register({name, email, password}))
     }
 

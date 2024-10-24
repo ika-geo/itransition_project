@@ -31,7 +31,7 @@ export const templates = [
             {
                 "name": "What is the capital of France?",
                 "type": "select",
-                "options": ["Paris", "London", "Berlin", "Madrid"]
+                "options": ["London", "Paris", "Berlin", "Madrid"]
             },
             {
                 "name": "Which planet is known as the Red Planet?",
@@ -45,7 +45,7 @@ export const templates = [
             {
                 "name": "Which is the largest ocean on Earth?",
                 "type": "select",
-                "options": ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"]
+                "options": [ "Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"]
             }
         ]
 

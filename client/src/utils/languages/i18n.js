@@ -2,16 +2,20 @@ import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import {en} from "./en.js";
 import {ge} from "./ge.js";
+import {ru} from "./ru.js";
+
+
 
 i18n
     .use(initReactI18next)
     .init({
         resources: {
             en: en,
-            ge: ge
-        }, lng: "en", // default language
+            ge: ge,
+            ru: ru
+        }, lng: "en",
         fallbackLng: "en", interpolation: {
-            escapeValue: false // react already escapes
+            escapeValue: false
         }
     });
 

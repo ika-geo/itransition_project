@@ -1,13 +1,15 @@
+import React, {useState} from "react";
+
 import {Link, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {toast} from "react-toastify";
+
 import {login} from "../store/features/AuthSlice.js";
 import Loading from "../components/Loading.jsx";
-import {validateLogIn} from "../utils/validation.js";
+import {validateLogIn} from "../utils/validateRegistration.js";
 
 const Login = () => {
+
     const {t} = useTranslation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -31,7 +33,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!validateLogIn({email, password})) return
+        if (!validateLogIn({email, password}, t)) return
         dispatch(login({email, password, handleNavigate}))
     }
 

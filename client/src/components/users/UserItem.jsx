@@ -1,9 +1,11 @@
 import React from 'react';
+
 import {useTranslation} from "react-i18next";
 
-
 const UserItem = ({userItem, index=1, selfUser=false, handleRemoveAdmin, handleAddAdmin, handleUnblockUser, handleBlockUser, handleDeleteUser}) => {
+
     const {t} = useTranslation()
+
     return (
         <li
             key={index}

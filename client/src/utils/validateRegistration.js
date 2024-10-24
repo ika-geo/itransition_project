@@ -1,22 +1,21 @@
 import validator from 'validator';
 import {toast} from "react-toastify";
 
-
-export function validation(form) {
+export function validateRegistration(form, t) {
     if (!form.name.trim() || !form.email.trim() || !form.password.trim()) {
-        toast.error('Enter all required fields')
+        toast.error(t('fillAllFields'))
         return false;
     }
     if (!validator.isEmail(form.email)) {
-        toast.error('Invalid email address')
+        toast.error(t('notValidEmail'))
         return false;
     }
     return true
 }
 
-export function validateLogIn(form) {
+export function validateLogIn(form, t) {
     if (!form.email.trim() ||!form.password.trim()) {
-        toast.error('Enter all required fields')
+        toast.error(t('fillAllFields'))
         return false;
     }
     return true

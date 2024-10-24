@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+
 import { useSelector } from "react-redux";
+import {useTranslation} from "react-i18next";
 
 const AdminFormSearchBar = ({ authors, searchInputs, setSearchInputs, defaultSearchInputs }) => {
 
+    const {t} = useTranslation()
     const tags = useSelector(state => state.forms.tags);
 
     const [author, setAuthor] = useState('All');
@@ -13,7 +16,6 @@ const AdminFormSearchBar = ({ authors, searchInputs, setSearchInputs, defaultSea
         setTag('All')
         setSearchInputs(defaultSearchInputs);
     };
-
 
     const handleChangeTitle = (e) => {
         setSearchInputs({ ...searchInputs, title: e.target.value });
@@ -37,7 +39,7 @@ const AdminFormSearchBar = ({ authors, searchInputs, setSearchInputs, defaultSea
             <input
                 className="input"
                 type="text"
-                placeholder="Search by title"
+                placeholder={t('searchByTitle')}
                 value={searchInputs.title}
                 onChange={handleChangeTitle}
             />
@@ -47,7 +49,7 @@ const AdminFormSearchBar = ({ authors, searchInputs, setSearchInputs, defaultSea
                 value={tag}
                 onChange={handleChangeTag}
             >
-                <option value='All'>All Tags</option>
+                <option value='All'>{t('allTags')}</option>
                 {tags.map(tag => (
                     <option key={tag.id} value={tag.id}>
                         {tag.label}
@@ -60,7 +62,7 @@ const AdminFormSearchBar = ({ authors, searchInputs, setSearchInputs, defaultSea
                 value={author}
                 onChange={handleChangeAuthor}
             >
-                <option value='All'>All Authors</option>
+                <option value='All'>{t('allAuthors')}</option>
                 {authors.map(author => (
                     <option key={author.id} value={author.id}>
                         {author.name}
@@ -72,7 +74,7 @@ const AdminFormSearchBar = ({ authors, searchInputs, setSearchInputs, defaultSea
                 className="buttonSlim bg-red-500"
                 onClick={resetSearchInputs}
             >
-                Reset
+                {t('reset')}
             </button>
         </div>
 

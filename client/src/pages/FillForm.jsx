@@ -1,18 +1,23 @@
 import React, {useEffect} from 'react';
+
 import {useNavigate, useParams} from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import {useDispatch, useSelector} from "react-redux";
-import {getFormById} from "../store/features/FormSlice.js";
+import {useTranslation} from "react-i18next";
+
+import Loading from "../components/Loading.jsx";
 import QuestionItem from "../components/QuestionItem.jsx";
 import {arrayToObjectWithId, editFromArrayToObject, editFromObjectToArray} from "../utils/editDataForFormFill.js";
 import {createFilledForm, editFilledForm, getFilledFormById} from "../store/features/FilledFormSlice.js";
-import Loading from "../components/Loading.jsx";
-
+import {getFormById} from "../store/features/FormSlice.js";
 
 const FillForm = ({editMode=false}) => {
+
+    const {t} = useTranslation()
     const {id} = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const form = useSelector(state=>state.forms.selectedForm)
     const loading = useSelector(state=>state.forms.loading)
     const answers = useSelector(state=>state.filledForms.answers)
@@ -34,7 +39,6 @@ const FillForm = ({editMode=false}) => {
         }
         else navigate(`/forms`)
     }
-
 
     const handleSetDefaultAnswers =()=>{
         if (editMode&&answers?.items){
@@ -66,6 +70,7 @@ const FillForm = ({editMode=false}) => {
                 <div className='mb-12'>
                     {
                         form?.formFields?.map(item=>{
+                            if(item.hidden) return null
                             return (
                                 <div key={item.name} className='mb-6'>
                                     <label>
@@ -80,7 +85,7 @@ const FillForm = ({editMode=false}) => {
                         })
                     }
                 </div>
-                <button className='button w-full' type='submit'>{editMode ? "Edit" : "Save"}</button>
+                <button className='button w-full' type='submit'>{editMode ? t('edit') : t('save')}</button>
             </form>
 
         </div>

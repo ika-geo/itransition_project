@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import FormCommentItem from './FormCommentItem.jsx';
-import { io } from 'socket.io-client';
 
-const SOCKET_URL = import.meta.env.VITE_SERVER_URL.replace('/api', '')
+import { io } from 'socket.io-client';
+import {useTranslation} from "react-i18next";
+
+import FormCommentItem from './FormCommentItem.jsx';
 
 const FormComment = ({ formId, user }) => {
+
+    const {t} = useTranslation()
+
     const [comment, setComment] = useState('');
     const [socket, setSocket] = useState(null);
     const [comments, setComments] = useState([]);
+
+    const SOCKET_URL = import.meta.env.VITE_SERVER_URL.replace('/api', '')
 
     const handleSetComment = (e) => setComment(e.target.value);
     useEffect(() => {
@@ -34,20 +40,20 @@ const FormComment = ({ formId, user }) => {
 
     return (
         <div>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-700">Comments</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-700">{t('comments')}</h2>
             {user && (
                 <div className="mb-4">
                     <textarea
                         value={comment}
                         onChange={handleSetComment}
                         className="input mb-2"
-                        placeholder="Write a comment..."
+                        placeholder={t('writeComment')}
                     />
                     <button
                         onClick={handleSaveComment}
                         className="buttonSlim w-full mb-2"
                     >
-                        Write comment
+                        {t('writeComment')}
                     </button>
                 </div>
             )}
@@ -58,7 +64,7 @@ const FormComment = ({ formId, user }) => {
                     )
                 })
             ) : (
-                <p>No comments</p>
+                <p>{t('noComments')}</p>
             )}
         </div>
     );
