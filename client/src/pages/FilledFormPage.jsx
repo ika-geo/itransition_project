@@ -12,9 +12,9 @@ const FilledFormPage = () => {
     if (!answers) return
 
     return (
-        <div className="container mx-auto bg-white shadow-md rounded-lg p-6 my-8">
+        <div>
             <div className="text-center mb-6">
-                <h1 className="text-3xl font-semibold text-gray-800 mb-2">{answers.form.title}</h1>
+                <h1 className="mainTitle">{answers.form.title}</h1>
                 <h2 className="text-xl text-gray-600">Filled by: <span
                     className="font-medium">{answers.user.name}</span></h2>
                 <p className="text-sm text-gray-500">Filled at: {getDate(answers.createdAt)}</p>
@@ -28,7 +28,6 @@ const FilledFormPage = () => {
                 ))}
             </div>
         </div>
-
     );
 };
 

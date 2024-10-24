@@ -61,7 +61,7 @@ const HandleFormsAdmin = () => {
     if (!forms) return
 
     return (
-        <div className='container'>
+        <div>
             <h1 className='mainTitle'>Manage Forms</h1>
             <AdminFormSearchBar
                 searchInputs={searchInputs}

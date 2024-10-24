@@ -20,9 +20,9 @@ const Forms = () => {
     if (loading) return <Loading/>
 
     return (
-        <div className='container pt-6'>
+        <div className='pt-6'>
             <div className='flex justify-between items-start mb-4'>
-                <h1 className="text-2xl font-bold text-gray-800 mb-8">Forms</h1>
+                <h1 className="mainTitle mb-7">Forms</h1>
                 {
                     user &&
                     <Link className='button' to='/formTemplates'>Create form</Link>

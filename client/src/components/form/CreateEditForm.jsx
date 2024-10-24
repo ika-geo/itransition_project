@@ -58,10 +58,8 @@ const CreateEditForm = () => {
     if (loading) return <Loading/>
     if (!form) return
 
-    console.log(form)
-
     return (
-        <div className="p-6">
+        <div className="bg-white rounded-lg p-6">
             <FormMainFields
                 form={form}
                 setForm={setForm}

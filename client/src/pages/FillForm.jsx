@@ -57,12 +57,11 @@ const FillForm = ({editMode=false}) => {
     }
 
     if (loading) return <Loading/>
-    console.log(form)
     if(!form?.title) return null
 
     return (
-        <div className='container p-6 bg-white shadow-lg rounded-lg'>
-            <h1 className='text-3xl font-extrabold text-center mb-6'>{form.title}</h1>
+        <div className='p-6 bg-white shadow-lg rounded-lg'>
+            <h1 className='mainTitle'>{form.title}</h1>
             <form onSubmit={handleSubmit((data) => editMode ? handleEdit(data) : handleSave(data))}>
                 <div className='mb-12'>
                     {

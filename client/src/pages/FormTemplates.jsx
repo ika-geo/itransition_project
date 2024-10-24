@@ -22,10 +22,10 @@ const FormTemplates = () => {
     }
 
     return (
-        <div className='container mt-10'>
+        <div className='mt-10'>
 
             <div className='flex justify-between items-center mb-8'>
-                <h1 className="text-4xl font-bold text-gray-800">Choose template to create</h1>
+                <h1 className="mainTitle mb-4">Choose template to create</h1>
                 <button
                     className="bg-primary text-white py-2 px-4 rounded shadow"
                     onClick={handleCreateNewForm}

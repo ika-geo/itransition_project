@@ -25,12 +25,12 @@ const FormPage = () => {
     if (loading) return <Loading/>
     if (!form) return
     return (
-        <main className="container">
-            <div className="bg-white p-6 rounded shadow-sm">
+        <main>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
 
                 <div className='flex mb-4 gap-4'>
                     <div className={form.imageUrl ? "w-1/2" : "w-full"}>
-                        <h1 className="text-3xl font-bold text-gray-800 mb-2">{form.title}</h1>
+                        <h1 className="mainTitle">{form.title}</h1>
                         <p className="font-semibold text-gray-800 mb-2">Author {form.user?.name}</p>
 
                         <div className='"mb-10"'>
@@ -54,7 +54,7 @@ const FormPage = () => {
 
                         <div className='"mb-10"'>
                             <h2 className="text-lg font-semibold text-gray-700 mb-2">Topic:</h2>
-                            <p className="text-gray-600 mb-4">Topic: {getTopicValueById(topics, form?.topicId)}</p>
+                            <p className="text-gray-600 mb-4">{getTopicValueById(topics, form?.topicId)}</p>
                         </div>
 
                     </div>

@@ -11,7 +11,7 @@
 }
 
 .mainTitle{
-    @apply text-4xl font-bold text-center text-gray-800 mb-16 mt-8
+    @apply text-4xl font-bold text-center text-gray-800 mb-16
 }
 
 .button{

@@ -5,14 +5,12 @@ import NavMenu from "./NavMenu.jsx";
 
 const Header = () => {
     return (
-        <div>
-
-            <header className='flex justify-between container py-5'>
+        <div className='container py-5'>
+            <header className='flex justify-between mb-16'>
                 <Link to='/'>Home page</Link>
                 <NavMenu/>
             </header>
             <Outlet/>
-
         </div>
 
     );

@@ -72,7 +72,7 @@ const HandleUsersAdmin = () => {
     }
 
     return (
-        <div className="container">
+        <div>
             <h1 className="mainTitle">{t('usersPage.title')}</h1>
             <div className="bg-white shadow-md rounded-lg p-8">
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">

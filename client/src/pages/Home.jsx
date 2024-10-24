@@ -27,8 +27,8 @@ const Home = () => {
     if (loading) return <Loading/>
 
     return (
-        <div className="container">
-            <h1 className='mainTitle mb-4'>Search forms</h1>
+        <div>
+            <h1 className='mainTitle'>Search forms</h1>
             <div className='flex gap-4 w-[50%] mx-auto mb-8'>
                 <input value={searchWord} onInput={handleChangeSearchWord} className='input' placeholder='search word' type="text"/>
                 <button onClick={handleStartSearch} className='button'>Search</button>

@@ -34,7 +34,7 @@ const UserPage = () => {
     }
 
     return (
-        <div className='container mt-20'>
+        <div>
             <div className='mb-8'>
                 <button
                     onClick={handleChooseForms}

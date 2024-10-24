@@ -27,7 +27,7 @@ const HandleCommentsAdmin = () => {
     if (!comments) return
 
     return (
-        <div className='container'>
+        <div>
             <h1 className='mainTitle'>All Comments</h1>
             <div className='grid grid-cols-3 gap-4'>
                 {comments.map(comment => {
