@@ -1,10 +1,9 @@
 import {Link, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import ChangeLanguage from "../components/ChangeLanguage.jsx";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {register} from "../store/features/AuthSlice.js";
-import {toast} from "react-toastify";
+import {validation} from "../utils/validation.js";
 
 const Register = () => {
     const {t} = useTranslation()
@@ -38,7 +37,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!name ||!email ||!password) return toast.warning('Fill all fields')
+        if (!validation({name, email, password})) return
         dispatch(register({name, email, password}))
     }
 

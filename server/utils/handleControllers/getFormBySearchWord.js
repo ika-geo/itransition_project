@@ -5,18 +5,57 @@ const TopicSchema = require("../../schema/TopicSchema");
 const FormSchema = require("../../schema/FormSchema");
 const {getAllFormOptions} = require("../options/formOptions");
 
+const titleDescriptionOptions = (searchWord)=>{
+    return {
+        where: {
+            [Op.or]: [
+                { title: { [Op.iLike]: `%${searchWord}%` } },
+                { description: { [Op.iLike]: `%${searchWord}%` } }
+            ]
+        },
+        attributes: ['id']
+    }
+}
+
+const commentOptions = (searchWord)=>{
+    return {
+        where: {
+            comment: { [Op.iLike]: `%${searchWord}%` }
+        },
+        attributes: ['formId']
+    }
+}
+
+const formFieldOptions = (searchWord)=>{
+    return {
+        where: {
+            name: { [Op.iLike]: `%${searchWord}%` }
+        },
+        attributes: ['formId']
+    }
+}
+
+const topicOptions = (searchWord)=>{
+    return {
+        where: {
+            label: { [Op.iLike]: `%${searchWord}%` }
+        },
+        attributes: ['id']
+    }
+}
+
+const formsWithTopicOptions = (topicIds)=>{
+    return {
+        where: {
+            topicId: { [Op.in]: topicIds }
+        },
+        attributes: ['id']
+    }
+}
 
 const findInFormTitleDescription = async(res, searchWord, formIds)=>{
     try{
-        const forms = await FormSchema.findAll({
-            where: {
-                [Op.or]: [
-                    { title: { [Op.iLike]: `%${searchWord}%` } },
-                    { description: { [Op.iLike]: `%${searchWord}%` } }
-                ]
-            },
-            attributes: ['id']
-        });
+        const forms = await FormSchema.findAll(titleDescriptionOptions(searchWord));
         forms.forEach(form => formIds.add(form.id));
         return true
     }
@@ -26,14 +65,18 @@ const findInFormTitleDescription = async(res, searchWord, formIds)=>{
     }
 }
 
+const searchFormOptions = (formIds)=>{
+    return {
+        ...getAllFormOptions(),
+        where: {
+            id: { [Op.in]: formIds }
+        }
+    }
+}
+
 const findInComments = async(res, searchWord, formIds)=>{
     try{
-        const comments = await CommentSchema.findAll({
-            where: {
-                comment: { [Op.iLike]: `%${searchWord}%` }
-            },
-            attributes: ['formId']
-        });
+        const comments = await CommentSchema.findAll(commentOptions(searchWord));
         comments.forEach(comment => formIds.add(comment.formId));
         return true
     }
@@ -45,12 +88,7 @@ const findInComments = async(res, searchWord, formIds)=>{
 
 const findInFormFields = async(res, searchWord, formIds)=>{
     try{
-        const formFields = await FormFieldSchema.findAll({
-            where: {
-                name: { [Op.iLike]: `%${searchWord}%` }
-            },
-            attributes: ['formId']
-        });
+        const formFields = await FormFieldSchema.findAll(formFieldOptions(searchWord));
         formFields.forEach(formField => formIds.add(formField.formId));
         return true
     }
@@ -62,19 +100,9 @@ const findInFormFields = async(res, searchWord, formIds)=>{
 
 const findInTopics = async(res, searchWord, formIds)=>{
     try{
-        const topics = await TopicSchema.findAll({
-            where: {
-                label: { [Op.iLike]: `%${searchWord}%` }
-            },
-            attributes: ['id']
-        });
+        const topics = await TopicSchema.findAll(topicOptions(searchWord));
         const topicIds = topics.map(topic => topic.id);
-        const formsWithTopics = await FormSchema.findAll({
-            where: {
-                topicId: { [Op.in]: topicIds }
-            },
-            attributes: ['id']
-        });
+        const formsWithTopics = await FormSchema.findAll(formsWithTopicOptions(topicIds));
         formsWithTopics.forEach(form => formIds.add(form.id));
         return true
     }
@@ -103,12 +131,7 @@ const getFormBySearchWord = async(req, res, searchWord)=>{
 
         formIds = Array.from(formIds);
 
-        const searchForms = await FormSchema.findAll({
-            ...getAllFormOptions(),
-            where: {
-                id: { [Op.in]: formIds }
-            }
-        });
+        const searchForms = await FormSchema.findAll(searchFormOptions(formIds));
         return searchForms;
     } catch (e) {
         res.status(500).json({ error: e.message });
