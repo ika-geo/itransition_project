@@ -22,7 +22,7 @@ const FilledFormCardItem = ({form, handleEdit, handleDelete}) => {
         <div
             className="flex flex-col p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
             <button onClick={handleNavigate} className="block mb-2 text-xl font-semibold text-gray-700">{form.form.title}</button>
-            <p className="text-sm text-gray-500 mb-4">{t('filledBy')}: {form.user.name}</p>
+            <p className="text-sm text-gray-500 mb-4">{t('filledBy')}: {form.user?.name}</p>
             <p className="text-sm text-gray-500 mb-4">
                 {t('filledOn')}: {getDate(form.createdAt)}
             </p>

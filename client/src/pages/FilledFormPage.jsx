@@ -15,13 +15,13 @@ const FilledFormPage = () => {
 
     if (loading) return <Loading/>
     if (!answers) return
-
+    
     return (
         <div>
             <div className="text-center mb-6">
                 <h1 className="mainTitle">{answers.form.title}</h1>
                 <h2 className="text-xl text-gray-600">{t('filledBy')}:
-                    <span className="font-medium"> {answers.user.name}</span>
+                    <span className="font-medium"> {answers.user?.name}</span>
                 </h2>
                 <p className="text-sm text-gray-500">{t('filledOn')}: {getDate(answers.createdAt)}</p>
             </div>
