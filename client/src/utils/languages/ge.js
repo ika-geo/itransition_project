@@ -138,6 +138,14 @@ export const ge = {
         isInUse: 'უკვე გამოიყენება',
         minTwoOptions: 'გთხოვთ შეიყვანოთ სულ მცირე 2 პასუხი',
         yes: 'კი',
-        no: 'არა'
+        no: 'არა',
+        nameRequired: 'სახელი აუცილებელია',
+        emailRequired: 'ელფოსტა აუცილებელია',
+        notValidPhone: 'არავალიდური ტელეფონის ნომერი',
+        salesforceIntegration: 'Salesforce-თან ინტეგრაცია',
+        name: 'სახელი',
+        email: 'ელ. ფოსტა',
+        phone: 'ტელეფონის ნომერი',
+        jobTitle: 'თანამდებობა'
     }
 }

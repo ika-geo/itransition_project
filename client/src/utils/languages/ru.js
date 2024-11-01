@@ -138,6 +138,14 @@ export const ru = {
         isInUse: 'уже используется',
         minTwoOptions: 'Пожалуйста, введите хотя бы 2 ответа',
         yes: 'да',
-        no: 'нет'
+        no: 'нет',
+        nameRequired: 'Имя обязательно',
+        emailRequired: 'Электронная почта обязательна',
+        notValidPhone: 'Некорректный телефон',
+        salesforceIntegration: 'Интеграция с Salesforce',
+        name: 'Имя',
+        email: 'Электронная почта',
+        phone: 'Телефон',
+        jobTitle: 'Должность'
     }
 }

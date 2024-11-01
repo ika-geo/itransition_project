@@ -15,7 +15,7 @@ const FilledFormPage = () => {
 
     if (loading) return <Loading/>
     if (!answers) return
-    
+
     return (
         <div>
             <div className="text-center mb-6">

@@ -138,6 +138,14 @@ export const en = {
         isInUse: 'is already in use',
         minTwoOptions: 'Please add at least two options',
         yes: 'yes',
-        no: 'no'
+        no: 'no',
+        nameRequired: 'Name is required',
+        emailRequired: 'Email is required',
+        notValidPhone: 'Not valid phone',
+        salesforceIntegration: 'Salesforce Integration',
+        name: 'Name',
+        email: 'Email',
+        phone: 'Phone',
+        jobTitle: 'Job title'
     }
 }

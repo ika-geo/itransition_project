@@ -22,7 +22,11 @@ export const login = createAsyncThunk('user/login', async function (data, thunkA
 })
 
 export const getMe = createAsyncThunk('user/getMe', async function (id, thunkApi){
-    return await handleAsyncThunk(serverUrl+"/getme", 'post', id, thunkApi)
+    return await handleAsyncThunk(serverUrl+"/getme", 'post', {id:id}, thunkApi)
+})
+
+export const salesForce = createAsyncThunk('user/salesForce', async function (data, thunkApi){
+    return await handleAsyncThunk(serverUrl+"/salesForce", 'post', {data:data.data}, thunkApi, data?.handleNavigate)
 })
 
 export const AuthSlice = createSlice({
@@ -65,17 +69,27 @@ export const AuthSlice = createSlice({
                 state.loading = false
             })
 
-            .addCase(getMe.pending, (state) => {
-                state.loading = true
-            })
             .addCase(getMe.fulfilled, (state, action) => {
-                state.loading = false
                 state.user=action.payload
             })
             .addCase(getMe.rejected, (state, action) => {
                 handleErrorMessage(action, "Cannot refresh me")
-                state.loading = false
+                console.log(action)
             })
+
+            .addCase(salesForce.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(salesForce.fulfilled, (state) => {
+                state.loading = false
+                toast.success('User has synchronized')
+            })
+            .addCase(salesForce.rejected, (state, action) => {
+                state.loading = false
+                handleErrorMessage(action, "Cannot synchronize")
+            })
+
+
     }
 })
 
