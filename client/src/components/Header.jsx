@@ -4,10 +4,12 @@ import {Link, Outlet} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 import NavMenu from "./NavMenu.jsx";
+import {useSelector} from "react-redux";
 
 const Header = () => {
 
     const {t} = useTranslation()
+    const user = useSelector(state=>state.auth.user)
 
     return (
         <div className='container py-5'>
@@ -16,6 +18,11 @@ const Header = () => {
                 <NavMenu/>
             </header>
             <Outlet/>
+            <footer className='mt-8'>
+                {
+                    user ? <Link className='block ml-auto w-fit button' to='jira'>Jira</Link> : null
+                }
+            </footer>
         </div>
 
     );

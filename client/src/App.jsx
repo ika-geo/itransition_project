@@ -27,6 +27,7 @@ import FilledFormPage from "./pages/FilledFormPage.jsx";
 import HandleCommentsAdmin from "./pages/HandleCommentsAdmin.jsx";
 
 import 'react-toastify/dist/ReactToastify.css';
+import JiraPage from "./pages/JiraPage.jsx";
 
 const adminRoutes = (
     <>
@@ -56,6 +57,7 @@ const authorizedRoutes = (userRole)=>(
         <Route path="/fillForm/:id" element={<FillForm />} />
         <Route path="/editFilledForm" element={<EditFillForm />} />
         <Route path="/filledFormPage" element={<FilledFormPage/>} />
+        <Route path="/jira" element={<JiraPage/>} />
         {userRole==='admin' && adminRoutes}
         {commonRoutes()}
     </Route>

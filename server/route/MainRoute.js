@@ -8,6 +8,7 @@ const tagRouter = require('./tagRoute')
 const topicRouter = require('./topicRoute')
 const filledFormRouter = require('./filledFormRoute')
 const commentRouter = require('./commentRoute')
+const jiraRouter = require('./jiraRoute')
 
 const router = express.Router()
 
@@ -18,6 +19,7 @@ router.use('/tags', tagRouter)
 router.use('/topics', topicRouter)
 router.use('/filledForm', filledFormRouter)
 router.use('/comments', commentRouter)
+router.use('/jira', jiraRouter)
 
 
 module.exports = router

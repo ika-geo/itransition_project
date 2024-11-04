@@ -146,6 +146,18 @@ export const ge = {
         name: 'სახელი',
         email: 'ელ. ფოსტა',
         phone: 'ტელეფონის ნომერი',
-        jobTitle: 'თანამდებობა'
+        jobTitle: 'თანამდებობა',
+        priority: "პრიორიტეტი",
+        High: "მაღალი",
+        Medium: "საშუალო",
+        Low: "დაბალი",
+        Open: "გაგზავნილი",
+        "Work in progress": "დამუშავების პროცესში",
+        Done: "დასრულებული",
+        createInJira: "დავალების შექმნა Jira-ში",
+        jiraTasks: "Jira დავალებები",
+        createTask: "შექმენი დავალება",
+        newTaskJira: "შექმენი ახალი დავალება Jira-ში",
+        noJiraTasks: "თქვენ ჯერ არ შეუქმნიათ არცერთი დავალება Jira-ში."
     }
 }

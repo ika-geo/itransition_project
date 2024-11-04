@@ -146,6 +146,19 @@ export const en = {
         name: 'Name',
         email: 'Email',
         phone: 'Phone',
-        jobTitle: 'Job title'
+        jobTitle: 'Job title',
+        priority: "priority",
+        High: "High",
+        Medium: "Medium",
+        Low: "Low",
+        Open: "Sent",
+        "Work in progress": "Work in progress",
+        Done:"Done",
+        createInJira: "Create task in jira",
+        jiraTasks: 'Jira Tasks',
+        createTask: 'Create Task',
+        newTaskJira: 'Create a new task in Jira',
+        noJiraTasks: "You have not created any Jira tasks yet."
+
     }
 }
