@@ -53,12 +53,14 @@ exports.checkUserExists = async (res, email) => {
 
 exports.addUserToJira = async (res, email) => {
     try {
+        console.log(email)
         const response = await axios.post(`${URL}/rest/api/3/user`, {
             emailAddress: email,
+            products: []
         }, {auth});
         return response.data;
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error:error.message });
         throw new Error(error.message)
     }
 };
