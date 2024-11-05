@@ -146,7 +146,6 @@ export const en = {
         name: 'Name',
         email: 'Email',
         phone: 'Phone',
-        jobTitle: 'Job title',
         priority: "priority",
         High: "High",
         Medium: "Medium",
@@ -158,7 +157,7 @@ export const en = {
         jiraTasks: 'Jira Tasks',
         createTask: 'Create Task',
         newTaskJira: 'Create a new task in Jira',
-        noJiraTasks: "You have not created any Jira tasks yet."
-
+        noJiraTasks: "You have not created any Jira tasks yet",
+        note: "Note"
     }
 }

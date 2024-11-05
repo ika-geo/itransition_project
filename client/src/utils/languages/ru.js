@@ -146,18 +146,18 @@ export const ru = {
         name: 'Имя',
         email: 'Электронная почта',
         phone: 'Телефон',
-        jobTitle: 'Должность',
         priority: "Приоритет",
         High: "Высокий",
         Medium: "Средний",
         Low: "Низкий",
         Open: "Отправленный",
         "Work in progress": "В разработке",
-        Done: "Завешенный",
+        Done: "Завершенный",
         createInJira: "Создать задачу в Jira",
         jiraTasks: "Задачи Jira",
         createTask: "Создать задачу",
         newTaskJira: "Создать новую задачу в Jira",
-        noJiraTasks: "Вы еще не создали ни одной задачи в Jira."
+        noJiraTasks: "Вы еще не создали ни одной задачи в Jira",
+        note: 'Заметка'
     }
 }

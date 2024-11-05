@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
-import {getMe, salesForce} from "../store/features/AuthSlice.js";
+import {salesForce} from "../store/features/AuthSlice.js";
 import Loading from "./Loading.jsx";
 import {validateSalesForceData} from "../utils/validation.js";
 
@@ -30,8 +30,6 @@ const Salesforce = ({setOpenSalesforce}) => {
     }, [user]);
 
     const handleClose = async () => {
-        console.log(user.id)
-        await dispatch(getMe(user.id))
         setOpenSalesforce(false)
     }
 
@@ -51,14 +49,14 @@ const Salesforce = ({setOpenSalesforce}) => {
                         <div className='mb-4'>
                             <label>
                                 <p className='mb-2'>{t('name')}<span className='text-red-500'> *</span></p>
-                                <input className='input' {...register('name')} />
+                                <input disabled={true} className='input' {...register('name')} />
                             </label>
                         </div>
 
                         <div className='mb-4'>
                             <label>
                                 <p className='mb-2'>{t('email')}<span className='text-red-500'> *</span></p>
-                                <input className='input' {...register('email')} />
+                                <input disabled={true} className='input' {...register('email')} />
                             </label>
                         </div>
 
@@ -71,7 +69,7 @@ const Salesforce = ({setOpenSalesforce}) => {
 
                         <div className='mb-4'>
                         <label>
-                                <p className='mb-2'>{t('jobTitle')}</p>
+                                <p className='mb-2'>{t('note')}</p>
                                 <input className='input' {...register('title')} />
                             </label>
                         </div>

@@ -23,10 +23,7 @@ exports.getTasks = async(res, user)=>{
             params: {
                 jql: `reporter = "${user.accountId}"`
             },
-            auth: {
-                username: USER,
-                password: TOKEN
-            }
+            auth
         });
     }
     catch (error) {
@@ -58,7 +55,6 @@ exports.addUserToJira = async (res, email) => {
     try {
         const response = await axios.post(`${URL}/rest/api/3/user`, {
             emailAddress: email,
-            // products: [],
         }, {auth});
         return response.data;
     } catch (error) {
@@ -76,7 +72,6 @@ exports.createIssue = async (res, issueDetails, reporterId) => {
         throw new Error(error.message)
     }
 };
-
 
 exports.JiraItemToDTO = (jiraItem) => {
     return {

@@ -17,9 +17,9 @@ const priorityColor = (priority)=>{
 const statusColor = (status)=>{
     switch (status) {
         case 'Open':
-            return 'blue-500';
+            return 'gray-500';
         case 'Work in progress':
-            return 'orange-500';
+            return 'red-500';
         case 'Done':
             return 'green-500';
         default:

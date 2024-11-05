@@ -146,7 +146,6 @@ export const ge = {
         name: 'სახელი',
         email: 'ელ. ფოსტა',
         phone: 'ტელეფონის ნომერი',
-        jobTitle: 'თანამდებობა',
         priority: "პრიორიტეტი",
         High: "მაღალი",
         Medium: "საშუალო",
@@ -158,6 +157,7 @@ export const ge = {
         jiraTasks: "Jira დავალებები",
         createTask: "შექმენი დავალება",
         newTaskJira: "შექმენი ახალი დავალება Jira-ში",
-        noJiraTasks: "თქვენ ჯერ არ შეუქმნიათ არცერთი დავალება Jira-ში."
+        noJiraTasks: "თქვენ ჯერ არ შეუქმნიათ არცერთი დავალება Jira-ში",
+        note: "შენიშვნა"
     }
 }
