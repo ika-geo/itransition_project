@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
-import {salesForce} from "../store/features/AuthSlice.js";
+import {getMe, salesForce} from "../store/features/AuthSlice.js";
 import Loading from "./Loading.jsx";
 import {validateSalesForceData} from "../utils/validation.js";
 
@@ -33,9 +33,14 @@ const Salesforce = ({setOpenSalesforce}) => {
         setOpenSalesforce(false)
     }
 
+    const handleNavigate = async () => {
+        dispatch(getMe(user.id))
+        setOpenSalesforce(false)
+    }
+
     const handleCreate = (data) => {
         if (!validateSalesForceData(data, t)) return
-        dispatch(salesForce({data:{...data, userId: user.id}, handleNavigate: handleClose}))
+        dispatch(salesForce({data:{...data, userId: user.id}, handleNavigate}))
     }
 
     if (loading) return <Loading/>
